@@ -1,0 +1,273 @@
+---
+// Top navigation bar com auto-hide ao scrollar
+interface Props {
+  transparent?: boolean;
+}
+
+const { transparent = false } = Astro.props;
+---
+
+<header id="main-header" class:list={['header', { transparent }]} data-transparent={transparent}>
+  <div class="header-container">
+    <a href="/" class="logo">
+      <span class="logo-text">Dr. Gustavo Mendes</span>
+    </a>
+
+    <nav class="nav">
+      <a href="/#sobre" class="nav-link">Sobre</a>
+      <a href="/#metodo" class="nav-link">Método</a>
+      <a href="/blog" class="nav-link">Blog</a>
+      <a href="/curriculo" class="nav-link">Currículo</a>
+    </nav>
+
+    <a href="/#contato" class="cta-button">Agendar Consulta</a>
+
+    <!-- Mobile menu button -->
+    <button class="mobile-menu-btn" aria-label="Menu">
+      <span class="hamburger"></span>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu">
+    <a href="/#sobre" class="mobile-nav-link">Sobre</a>
+    <a href="/#metodo" class="mobile-nav-link">Método</a>
+    <a href="/blog" class="mobile-nav-link">Blog</a>
+    <a href="/curriculo" class="mobile-nav-link">Currículo</a>
+    <a href="/#contato" class="mobile-cta">Agendar Consulta</a>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: var(--color-bg-primary);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s var(--ease-smooth), background 0.3s;
+  }
+
+  .header.transparent {
+    background: transparent;
+    border-bottom-color: transparent;
+  }
+
+  .header.hidden {
+    transform: translateY(-100%);
+  }
+
+  .header.scrolled:not(.transparent) {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .header-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: var(--space-sm) var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo-text {
+    font-size: var(--text-lg);
+    font-weight: 500;
+    color: var(--color-text-primary);
+    letter-spacing: -0.02em;
+  }
+
+  .nav {
+    display: flex;
+    gap: var(--space-lg);
+    align-items: center;
+  }
+
+  .nav-link {
+    font-size: var(--text-sm);
+    font-weight: 400;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--color-text-primary);
+    transition: width 0.3s var(--ease-smooth);
+  }
+
+  .nav-link:hover {
+    color: var(--color-text-primary);
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  .cta-button {
+    padding: var(--space-xs) var(--space-md);
+    background: var(--color-text-primary);
+    color: white;
+    border-radius: 6px;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-decoration: none;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+
+  .cta-button:hover {
+    transform: translateY(-1px);
+    opacity: 0.9;
+  }
+
+  /* Mobile menu */
+  .mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    padding: var(--space-xs);
+    cursor: pointer;
+  }
+
+  .hamburger {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--color-text-primary);
+    position: relative;
+    transition: background 0.3s;
+  }
+
+  .hamburger::before,
+  .hamburger::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 2px;
+    background: var(--color-text-primary);
+    transition: transform 0.3s var(--ease-smooth);
+  }
+
+  .hamburger::before {
+    top: -7px;
+  }
+
+  .hamburger::after {
+    bottom: -7px;
+  }
+
+  .mobile-menu-btn.open .hamburger {
+    background: transparent;
+  }
+
+  .mobile-menu-btn.open .hamburger::before {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .mobile-menu-btn.open .hamburger::after {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
+    background: var(--color-bg-primary);
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .mobile-menu.open {
+    display: flex;
+  }
+
+  .mobile-nav-link {
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    padding: var(--space-xs) 0;
+    transition: color 0.2s;
+  }
+
+  .mobile-nav-link:hover {
+    color: var(--color-text-primary);
+  }
+
+  .mobile-cta {
+    margin-top: var(--space-sm);
+    padding: var(--space-sm);
+    background: var(--color-text-primary);
+    color: white;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .nav,
+    .cta-button {
+      display: none;
+    }
+
+    .mobile-menu-btn {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  let lastScroll = 0;
+  const header = document.getElementById('main-header');
+  const mobileBtn = document.querySelector('.mobile-menu-btn');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  const isTransparent = header?.dataset.transparent === 'true';
+
+  // Auto-hide header ao scrollar para baixo
+  window.addEventListener('scroll', () => {
+    if (!header) return;
+
+    const currentScroll = window.scrollY;
+
+    // Adicionar classe scrolled se passou do topo
+    if (currentScroll > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+
+    // Auto-hide: esconder ao scrollar para baixo, mostrar ao scrollar para cima
+    if (currentScroll > lastScroll && currentScroll > 100) {
+      header.classList.add('hidden');
+    } else {
+      header.classList.remove('hidden');
+    }
+
+    lastScroll = currentScroll;
+  });
+
+  // Mobile menu toggle
+  mobileBtn?.addEventListener('click', () => {
+    mobileBtn.classList.toggle('open');
+    mobileMenu?.classList.toggle('open');
+  });
+
+  // Fechar mobile menu ao clicar em link
+  document.querySelectorAll('.mobile-nav-link, .mobile-cta').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileBtn?.classList.remove('open');
+      mobileMenu?.classList.remove('open');
+    });
+  });
+</script>

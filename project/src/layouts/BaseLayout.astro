@@ -1,0 +1,60 @@
+---
+import SEO from '@components/SEO.astro';
+import StructuredData from '@components/StructuredData.astro';
+import '@styles/global.css';
+import '@styles/animations.css';
+
+export interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+}
+
+const { title, description, ogImage } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <SEO
+      title={title}
+      description={description}
+      ogImage={ogImage}
+    />
+
+    <StructuredData />
+
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://app.cal.com" />
+
+    <!-- Critical CSS inline -->
+    <style is:inline>
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      }
+      section { min-height: 100vh; }
+    </style>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-to-content">
+      Pular para o conteúdo principal
+    </a>
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <!-- Cloudflare Web Analytics -->
+    <script
+      defer
+      src='https://static.cloudflareinsights.com/beacon.min.js'
+      data-cf-beacon='{"token": "YOUR_TOKEN_HERE"}'
+    ></script>
+  </body>
+</html>

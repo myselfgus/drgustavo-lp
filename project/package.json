@@ -1,0 +1,25 @@
+{
+  "name": "drgustavomendes-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "deploy": "wrangler pages deploy dist"
+  },
+  "dependencies": {
+    "astro": "^4.16.18",
+    "@astrojs/cloudflare": "^11.1.1",
+    "@astrojs/mdx": "^3.1.9",
+    "@astrojs/sitemap": "^3.2.1"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241220.0",
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2",
+    "wrangler": "^3.95.0"
+  }
+}

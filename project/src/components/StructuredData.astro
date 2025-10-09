@@ -1,0 +1,70 @@
+---
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "MedicalBusiness",
+      "@id": "https://drgustavomendes.com/#medicalbusiness",
+      "name": "Dr. Gustavo Mendes e Silva - Psiquiatria",
+      "url": "https://drgustavomendes.com",
+      "logo": "https://drgustavomendes.com/images/logo.png",
+      "image": "https://drgustavomendes.com/images/gustavo-profile.jpg",
+      "description": "Psiquiatria humanizada com consultas de 2 horas e análise comportamental assistida por IA. Especialista em TDAH, autismo e neurodiversidade.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "São José do Rio Preto",
+        "addressRegion": "SP",
+        "addressCountry": "BR"
+      },
+      "medicalSpecialty": "Psychiatry",
+      "telephone": "+55-XX-XXXX-XXXX",
+      "priceRange": "$$"
+    },
+    {
+      "@type": "Physician",
+      "@id": "https://drgustavomendes.com/#physician",
+      "name": "Dr. Gustavo Mendes e Silva",
+      "jobTitle": "Médico Psiquiatra",
+      "medicalSpecialty": "Psychiatry",
+      "hasCredential": {
+        "@type": "EducationalOccupationalCredential",
+        "credentialCategory": "Medical License",
+        "identifier": "CRM-SP 218133"
+      },
+      "memberOf": [
+        {
+          "@type": "Organization",
+          "name": "Society of Cannabis Clinicians"
+        },
+        {
+          "@type": "Organization",
+          "name": "International Association for Cannabinoid Medicines"
+        }
+      ],
+      "knowsAbout": [
+        "Psychiatry",
+        "ADHD",
+        "Autism Spectrum Disorder",
+        "Neurodiversity",
+        "Medical Cannabis",
+        "Palliative Care"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://drgustavomendes.com/#website",
+      "url": "https://drgustavomendes.com",
+      "name": "Dr. Gustavo Mendes",
+      "description": "Psiquiatria humanizada e neurodiversidade",
+      "inLanguage": "pt-BR",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://drgustavomendes.com/blog?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ]
+};
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />

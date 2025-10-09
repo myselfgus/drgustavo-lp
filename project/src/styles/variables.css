@@ -1,0 +1,115 @@
+:root {
+  /* Colors */
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #666666;
+  --color-text-tertiary: #999999;
+  --color-text-hero-light: #2C2C2C;
+
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #FAFAF8;
+  --color-bg-tertiary: #F5F5F5;
+
+  --color-border: #E5E5E5;
+  --color-border-light: #CCCCCC;
+
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+
+  /* Font Sizes - Desktop */
+  --text-hero-xl: 56px;
+  --text-hero-identity: 20px;
+  --text-hero-context: 16px;
+  --text-manifesto: 28px;
+  --text-base: 16px;
+  --text-sm: 15px;
+  --text-xs: 14px;
+
+  /* Font Weights */
+  --font-light: 300;
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+
+  /* Line Heights */
+  --leading-tight: 1.2;
+  --leading-normal: 1.4;
+  --leading-relaxed: 1.5;
+  --leading-loose: 1.6;
+  --leading-extra-loose: 1.8;
+
+  /* Letter Spacing */
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.01em;
+
+  /* Spacing */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 40px;
+  --space-xl: 64px;
+  --space-2xl: 80px;
+
+  /* Specific gaps from specs */
+  --gap-hero-lines: 80px;
+  --gap-hero-identity: 8px;
+  --gap-manifesto-pairs: 60px;
+  --gap-manifesto-pair-lines: 16px;
+
+  /* Breakpoints */
+  --screen-sm: 768px;
+  --screen-md: 1024px;
+  --screen-lg: 1280px;
+
+  /* Layout */
+  --padding-mobile: 24px;
+  --padding-desktop: 40px;
+  --padding-desktop-lg: 80px;
+
+  /* Animation */
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 200ms;
+  --duration-normal: 400ms;
+  --duration-slow: 600ms;
+  --duration-slower: 800ms;
+
+  /* Z-index */
+  --z-header: 1000;
+  --z-dots: 900;
+  --z-whatsapp: 950;
+  --z-modal: 1100;
+}
+
+/* Mobile Overrides */
+@media (max-width: 767px) {
+  :root {
+    --text-hero-xl: 32px;
+    --text-hero-identity: 18px;
+    --text-hero-context: 15px;
+    --text-manifesto: 22px;
+
+    --gap-hero-lines: 48px;
+    --gap-manifesto-pairs: 40px;
+
+    --padding-mobile: 24px;
+  }
+}
+
+/* Tablet Overrides */
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --text-hero-xl: 50px;
+    --text-manifesto: 26px;
+    --gap-manifesto-pairs: 50px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+    --duration-slow: 0ms;
+    --duration-slower: 0ms;
+  }
+}

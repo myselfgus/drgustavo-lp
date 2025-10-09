@@ -1,0 +1,269 @@
+/* Keyframe Animations */
+
+/* Fade In */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Fade In Up */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade In Down */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Pulse Scroll Indicator */
+@keyframes pulseScroll {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(8px);
+    opacity: 0.6;
+  }
+}
+
+/* Scale In */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Slide In Right */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Slide In Left */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Draw Line (for dividers) */
+@keyframes drawLine {
+  from {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  to {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+}
+
+/* Animation Classes */
+
+/* Hero sequence */
+.hero-bg {
+  animation: fadeIn 800ms ease-out forwards;
+  animation-delay: 0ms;
+}
+
+.hero-line-1 {
+  animation: fadeInUp 1000ms var(--ease-smooth) forwards;
+  animation-delay: 400ms;
+  opacity: 0;
+}
+
+.hero-line-2 {
+  animation: fadeInUp 1000ms var(--ease-smooth) forwards;
+  animation-delay: 1600ms;
+  opacity: 0;
+}
+
+.hero-identity {
+  animation: fadeIn 1000ms ease-out forwards;
+  animation-delay: 2200ms;
+  opacity: 0;
+}
+
+.hero-scroll-indicator {
+  animation: fadeIn 400ms ease-out forwards,
+             pulseScroll 2s ease-in-out 2.8s infinite;
+  animation-delay: 2800ms;
+  opacity: 0;
+}
+
+.hero-nav-element {
+  animation: fadeIn 200ms ease-out forwards;
+  animation-delay: 200ms;
+  opacity: 0;
+}
+
+/* Manifesto pairs */
+.manifesto-pair {
+  opacity: 0;
+}
+
+.manifesto-pair.animate-in .line-1 {
+  animation: fadeInUp 600ms var(--ease-smooth) forwards;
+  animation-delay: 0ms;
+}
+
+.manifesto-pair.animate-in .line-2 {
+  animation: fadeInUp 600ms var(--ease-smooth) forwards;
+  animation-delay: 200ms;
+}
+
+/* Generic scroll-triggered animations */
+.scroll-fade-in {
+  opacity: 0;
+  transition: opacity var(--duration-slow) var(--ease-smooth);
+}
+
+.scroll-fade-in.visible {
+  opacity: 1;
+}
+
+.scroll-fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity var(--duration-slow) var(--ease-smooth),
+              transform var(--duration-slow) var(--ease-smooth);
+}
+
+.scroll-fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger animations for lists */
+.stagger-item {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.stagger-item.visible {
+  animation: fadeInUp var(--duration-slow) var(--ease-smooth) forwards;
+}
+
+.stagger-item:nth-child(1) { animation-delay: 0ms; }
+.stagger-item:nth-child(2) { animation-delay: 100ms; }
+.stagger-item:nth-child(3) { animation-delay: 200ms; }
+.stagger-item:nth-child(4) { animation-delay: 300ms; }
+.stagger-item:nth-child(5) { animation-delay: 400ms; }
+.stagger-item:nth-child(6) { animation-delay: 500ms; }
+
+/* Parallax effect */
+.parallax-slow {
+  will-change: transform;
+  transition: transform 0.5s ease-out;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .parallax-slow {
+    transform: none !important;
+  }
+}
+
+/* Loading states */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-tertiary) 25%,
+    var(--color-bg-secondary) 50%,
+    var(--color-bg-tertiary) 75%
+  );
+  background-size: 200% 100%;
+  animation: loading 1.5s ease-in-out infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Modal/Overlay animations */
+.modal-overlay {
+  animation: fadeIn var(--duration-normal) ease-out;
+}
+
+.modal-content {
+  animation: scaleIn var(--duration-normal) var(--ease-smooth);
+}
+
+/* Button hover effects */
+.btn-hover-lift {
+  transition: transform var(--duration-fast) ease,
+              background-color var(--duration-fast) ease;
+}
+
+.btn-hover-lift:hover {
+  transform: translateY(-1px);
+}
+
+/* Link underline animation */
+.link-underline {
+  position: relative;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: currentColor;
+  transition: width var(--duration-fast) ease;
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
