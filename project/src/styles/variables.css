@@ -18,11 +18,11 @@
   /* Typography */
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
 
-  /* Font Sizes - Desktop */
-  --text-hero-xl: 56px;
-  --text-hero-identity: 20px;
-  --text-hero-context: 16px;
-  --text-manifesto: 28px;
+  /* Font Sizes - Responsive with clamp */
+  --text-hero-xl: clamp(32px, 5vw, 56px);
+  --text-hero-identity: clamp(18px, 2vw, 20px);
+  --text-hero-context: clamp(15px, 1.5vw, 16px);
+  --text-manifesto: clamp(20px, 2.5vw, 28px);
   --text-base: 16px;
   --text-sm: 15px;
   --text-xs: 14px;

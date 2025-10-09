@@ -2,6 +2,262 @@
 // Hero section - Seção 1
 ---
 
-<section id="hero">
-  <!-- Conteúdo será implementado -->
+<section id="hero" class="hero-section">
+  <div class="hero-container">
+    <!-- Linha 1 (Provocação) -->
+    <h1 class="hero-line hero-line-1">
+      Você não precisa de mais diagnósticos.
+    </h1>
+
+    <!-- Linha 2 (Proposta) -->
+    <p class="hero-line hero-line-2">
+      Você precisa se entender.
+    </p>
+
+    <!-- Linha 3 e 4 (Identidade + Contexto) -->
+    <div class="hero-identity-group">
+      <p class="hero-identity-name">Dr. Gustavo Mendes</p>
+      <p class="hero-identity-context">Psiquiatria · São José do Rio Preto</p>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <button
+      class="hero-scroll-indicator"
+      aria-label="Rolar para próxima seção"
+      data-scroll-to="manifesto"
+    >
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </button>
+  </div>
 </section>
+
+<style>
+  /* Section Layout */
+  .hero-section {
+    position: relative;
+    min-height: 100vh;
+    height: 100vh;
+    background-color: var(--color-bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 var(--padding-desktop);
+    text-align: center;
+    position: relative;
+  }
+
+  /* Typography */
+  .hero-line {
+    margin: 0;
+    font-family: var(--font-sans);
+  }
+
+  /* Linha 1 */
+  .hero-line-1 {
+    font-size: var(--text-hero-xl);
+    font-weight: var(--font-light);
+    color: var(--color-hero-line-1);
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--gap-hero-lines);
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  /* Linha 2 */
+  .hero-line-2 {
+    font-size: var(--text-hero-xl);
+    font-weight: var(--font-medium);
+    color: var(--color-hero-line-2);
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-tight);
+    margin-bottom: var(--gap-hero-lines);
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  /* Identity Group */
+  .hero-identity-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-hero-identity);
+    margin-bottom: var(--space-xl);
+    opacity: 0;
+  }
+
+  .hero-identity-name {
+    margin: 0;
+    font-size: var(--text-hero-identity);
+    font-weight: var(--font-medium);
+    color: var(--color-text-primary);
+    letter-spacing: var(--tracking-normal);
+    line-height: var(--leading-normal);
+  }
+
+  .hero-identity-context {
+    margin: 0;
+    font-size: var(--text-hero-context);
+    font-weight: var(--font-regular);
+    color: var(--color-text-secondary);
+    letter-spacing: var(--tracking-wide);
+    line-height: var(--leading-normal);
+  }
+
+  /* Scroll Indicator */
+  .hero-scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: var(--color-text-tertiary);
+    transition: all var(--duration-fast) ease;
+    z-index: 10;
+    opacity: 0;
+  }
+
+  .hero-scroll-indicator:hover {
+    color: var(--color-text-secondary);
+    transform: translateX(-50%) scale(1.1);
+  }
+
+  .hero-scroll-indicator:focus-visible {
+    outline: 2px solid var(--color-text-primary);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  /* Visible state (added by JS) */
+  .hero-line-1.visible {
+    animation: fadeInUp 1000ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 400ms;
+  }
+
+  .hero-line-2.visible {
+    animation: fadeInUp 1000ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 1600ms;
+  }
+
+  .hero-identity-group.visible {
+    animation: fadeIn 1000ms ease-out forwards;
+    animation-delay: 2200ms;
+  }
+
+  .hero-scroll-indicator.visible {
+    animation: fadeIn 400ms ease-out forwards, pulseScroll 2s ease-in-out 2.8s infinite;
+    animation-delay: 2800ms;
+  }
+
+  /* Responsive - Tablet */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .hero-container {
+      padding: 0 var(--padding-desktop);
+    }
+  }
+
+  /* Responsive - Mobile */
+  @media (max-width: 767px) {
+    .hero-section {
+      min-height: 100svh;
+      height: 100svh;
+    }
+
+    .hero-container {
+      padding: 0 var(--padding-mobile);
+    }
+
+    .hero-scroll-indicator {
+      bottom: 32px;
+    }
+  }
+
+  /* Accessibility - Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-scroll-indicator {
+      animation: none !important;
+    }
+
+    .hero-line-1,
+    .hero-line-2,
+    .hero-identity-group {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>
+
+<script>
+  // Scroll-triggered animations
+  function setupHeroAnimations() {
+    const heroSection = document.getElementById('hero');
+    if (!heroSection) return;
+
+    const animatedElements = [
+      heroSection.querySelector('.hero-line-1'),
+      heroSection.querySelector('.hero-line-2'),
+      heroSection.querySelector('.hero-identity-group'),
+      heroSection.querySelector('.hero-scroll-indicator'),
+    ];
+
+    // Intersection Observer para detectar quando a seção entra na viewport
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Adiciona classe 'visible' aos elementos para triggerar animações
+            animatedElements.forEach((el) => {
+              if (el) el.classList.add('visible');
+            });
+          }
+        });
+      },
+      {
+        threshold: 0.3, // Trigger quando 30% da seção está visível
+      }
+    );
+
+    observer.observe(heroSection);
+
+    // Smooth scroll to next section
+    const scrollIndicator = heroSection.querySelector('.hero-scroll-indicator');
+    if (scrollIndicator) {
+      scrollIndicator.addEventListener('click', () => {
+        const manifestoSection = document.getElementById('manifesto');
+        if (manifestoSection) {
+          manifestoSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+        }
+      });
+    }
+  }
+
+  // Initialize
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupHeroAnimations);
+  } else {
+    setupHeroAnimations();
+  }
+</script>

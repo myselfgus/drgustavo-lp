@@ -10,9 +10,9 @@
 }
 
 html {
-  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -28,7 +28,15 @@ body {
   line-height: var(--leading-relaxed);
   color: var(--color-text-primary);
   background-color: var(--color-bg-primary);
-  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Main container with scroll-snap */
+main {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
 }
 
 /* Typography */
@@ -51,9 +59,12 @@ a:hover {
   color: var(--color-text-primary);
 }
 
-/* Sections */
+/* Sections - Scroll Snap */
 section {
   min-height: 100vh;
+  height: 100vh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
   position: relative;
   display: flex;
   align-items: center;
@@ -150,7 +161,12 @@ section {
 
 /* Mobile adjustments */
 @media (max-width: 767px) {
+  main {
+    height: 100dvh;
+  }
+
   section {
-    min-height: 100dvh; /* Dynamic viewport height for mobile */
+    min-height: 100dvh;
+    height: 100dvh;
   }
 }

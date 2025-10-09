@@ -2,6 +2,299 @@
 // Para Quem section - Seção 3
 ---
 
-<section id="para-quem">
-  <!-- Conteúdo será implementado -->
+<section id="para-quem" class="para-quem-section">
+  <div class="para-quem-container">
+    <!-- Frase 1 -->
+    <p class="frase frase-1">
+      Para quem questiona <strong>rótulos fáceis</strong>.
+    </p>
+
+    <!-- Frase 2 -->
+    <p class="frase frase-2">
+      Para quem quer entender <strong>o porquê</strong>, <span class="contrast">não só o quê</span>.
+    </p>
+
+    <!-- Frase 3 -->
+    <p class="frase frase-3">
+      Para <strong>neurodivergentes</strong> cansados de serem <em>"corrigidos"</em>.
+    </p>
+
+    <!-- Frase 4 -->
+    <p class="frase frase-4">
+      Para quem busca canabidiol com <strong>rigor científico</strong>, <span class="contrast">não modismo</span>.
+    </p>
+
+    <!-- Frase 5 -->
+    <p class="frase frase-5">
+      Para quem percebe que sintomas são <strong>linguagem</strong>, <span class="contrast">não falhas</span>.
+    </p>
+
+    <!-- Links Contextuais -->
+    <nav class="links-contextuais" aria-label="Artigos relacionados">
+      <p class="links-label">Entenda mais sobre:</p>
+      <div class="links-wrapper">
+        <a href="/blog/tdah" class="link-contextual">TDAH em adultos</a>
+        <span class="separator" aria-hidden="true">·</span>
+        <a href="/blog/neurodiversidade" class="link-contextual">Neurodiversidade</a>
+        <span class="separator" aria-hidden="true">·</span>
+        <a href="/blog/canabidiol" class="link-contextual">Canabidiol terapêutico</a>
+      </div>
+    </nav>
+  </div>
 </section>
+
+<style>
+  /* Section Layout */
+  .para-quem-section {
+    position: relative;
+    min-height: 100vh;
+    height: 100vh;
+    background-color: #1A1A1A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* Noise texture sutil */
+  .para-quem-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+  }
+
+  .para-quem-container {
+    width: 100%;
+    max-width: 900px;
+    padding: 10vh 60px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8vh;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  /* Frases */
+  .frase {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: clamp(18px, 2.2vw, 26px);
+    font-weight: var(--font-regular);
+    color: #FFFFFF;
+    line-height: 1.5;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.5s ease;
+  }
+
+  /* Ênfases */
+  .frase strong {
+    font-weight: var(--font-semibold);
+  }
+
+  .frase .contrast {
+    font-weight: var(--font-light);
+    opacity: 0.7;
+  }
+
+  .frase em {
+    font-style: italic;
+  }
+
+  /* Estados de animação */
+  .frase.upcoming {
+    opacity: 0;
+  }
+
+  .frase.active {
+    opacity: 1;
+  }
+
+  .frase.passed {
+    opacity: 0.4;
+  }
+
+  .frase.visible {
+    animation: fadeInUp 700ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* Links Contextuais */
+  .links-contextuais {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .links-contextuais.visible {
+    animation: fadeInUp 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 600ms;
+  }
+
+  .links-label {
+    margin: 0;
+    font-size: 14px;
+    font-weight: var(--font-medium);
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.05em;
+    text-transform: none;
+  }
+
+  .links-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .link-contextual {
+    font-size: 16px;
+    font-weight: var(--font-regular);
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .link-contextual:hover {
+    color: #FFFFFF;
+    text-decoration: underline;
+    transform: translateY(-2px);
+  }
+
+  .separator {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 16px;
+  }
+
+  /* Responsive - Tablet */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .para-quem-container {
+      padding: 0 60px;
+      gap: 80px;
+      max-width: 700px;
+    }
+
+    .frase {
+      font-size: 30px;
+    }
+  }
+
+  /* Responsive - Mobile */
+  @media (max-width: 767px) {
+    .para-quem-section {
+      min-height: 100svh;
+      height: 100svh;
+    }
+
+    .para-quem-container {
+      padding: 0 24px;
+      gap: 60px;
+      padding-top: 15vh;
+      padding-bottom: 15vh;
+    }
+
+    .frase {
+      font-size: 26px;
+    }
+
+    .links-wrapper {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .separator {
+      display: none;
+    }
+  }
+
+  /* Accessibility - Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    .frase,
+    .links-contextuais {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>
+
+<script>
+  function setupParaQuemAnimations() {
+    const paraQuemSection = document.getElementById('para-quem');
+    if (!paraQuemSection) return;
+
+    const frases = paraQuemSection.querySelectorAll('.frase');
+    const linksContextuais = paraQuemSection.querySelector('.links-contextuais');
+
+    // Observer para cada frase individual (stack effect)
+    const fraseObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            entry.target.classList.add('active');
+            entry.target.classList.remove('upcoming');
+
+            // Reduzir opacity das frases anteriores
+            const index = Array.from(frases).indexOf(entry.target as HTMLElement);
+            frases.forEach((frase, i) => {
+              if (i < index) {
+                frase.classList.remove('active');
+                frase.classList.add('passed');
+              }
+            });
+          }
+        });
+      },
+      {
+        threshold: 0.5,
+        rootMargin: '0px 0px -20% 0px',
+      }
+    );
+
+    // Inicializar frases como upcoming
+    frases.forEach((frase) => {
+      frase.classList.add('upcoming');
+      fraseObserver.observe(frase);
+    });
+
+    // Observer para links contextuais (aparece quando última frase está visível)
+    const lastFrase = frases[frases.length - 1];
+    const linksObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && linksContextuais) {
+            setTimeout(() => {
+              linksContextuais.classList.add('visible');
+            }, 600);
+          }
+        });
+      },
+      {
+        threshold: 0.5,
+      }
+    );
+
+    if (lastFrase) {
+      linksObserver.observe(lastFrase);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupParaQuemAnimations);
+  } else {
+    setupParaQuemAnimations();
+  }
+</script>

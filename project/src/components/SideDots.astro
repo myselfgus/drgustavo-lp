@@ -1,0 +1,147 @@
+---
+// Side Dots Navigation - 6 seções
+const sections = [
+  { id: 'hero', label: 'Hero' },
+  { id: 'manifesto', label: 'Manifesto' },
+  { id: 'para-quem', label: 'Para Quem' },
+  { id: 'metodo', label: 'Método' },
+  { id: 'credenciais', label: 'Credenciais' },
+  { id: 'contato', label: 'Contato' },
+];
+---
+
+<nav class="side-dots" aria-label="Navegação entre seções">
+  {sections.map((section, index) => (
+    <a
+      href={`#${section.id}`}
+      class="dot hero-nav-element"
+      data-section={section.id}
+      aria-label={`Ir para ${section.label}`}
+    >
+      <span class="dot-label">{section.label}</span>
+    </a>
+  ))}
+</nav>
+
+<style>
+  .side-dots {
+    position: fixed;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: var(--z-dots);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    opacity: 1;
+  }
+
+  .dot {
+    position: relative;
+    width: 4px;
+    height: 4px;
+    background: var(--color-border-light);
+    border-radius: 50%;
+    transition: all var(--duration-fast) var(--ease-smooth);
+    cursor: pointer;
+  }
+
+  .dot.active {
+    width: 6px;
+    height: 6px;
+    background: var(--color-text-primary);
+  }
+
+  .dot:hover {
+    width: 6px;
+    height: 6px;
+    background: var(--color-text-secondary);
+  }
+
+  /* Label aparece no hover */
+  .dot-label {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: var(--space-xs) var(--space-sm);
+    background: rgba(250, 250, 248, 0.95);
+    backdrop-filter: blur(10px);
+    color: var(--color-text-primary);
+    font-size: 13px;
+    font-weight: var(--font-medium);
+    white-space: nowrap;
+    border-radius: 4px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--duration-fast) ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .dot:hover .dot-label {
+    opacity: 1;
+  }
+
+  /* Mobile: ocultar */
+  @media (max-width: 768px) {
+    .side-dots {
+      display: none;
+    }
+  }
+
+  /* Tablet: mover mais para dentro */
+  @media (min-width: 769px) and (max-width: 1023px) {
+    .side-dots {
+      right: 24px;
+    }
+  }
+</style>
+
+<script>
+  // Smooth scroll para seções
+  document.querySelectorAll('.side-dots .dot').forEach(dot => {
+    dot.addEventListener('click', (e) => {
+      e.preventDefault();
+      const sectionId = (dot as HTMLElement).dataset.section;
+      const section = document.getElementById(sectionId || '');
+
+      if (section) {
+        section.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+
+  // Atualizar dot ativo baseado na seção visível
+  const updateActiveDot = () => {
+    const sections = document.querySelectorAll('section[id]');
+    const scrollPosition = window.scrollY + window.innerHeight / 2;
+
+    sections.forEach((section) => {
+      const sectionTop = (section as HTMLElement).offsetTop;
+      const sectionHeight = (section as HTMLElement).offsetHeight;
+      const sectionId = section.id;
+
+      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+        // Remove active de todos
+        document.querySelectorAll('.side-dots .dot').forEach(d => {
+          d.classList.remove('active');
+        });
+
+        // Adiciona active ao dot correto
+        const activeDot = document.querySelector(`.side-dots .dot[data-section="${sectionId}"]`);
+        if (activeDot) {
+          activeDot.classList.add('active');
+        }
+      }
+    });
+  };
+
+  // Atualizar ao scrollar
+  window.addEventListener('scroll', updateActiveDot);
+
+  // Atualizar na carga
+  updateActiveDot();
+</script>

@@ -1,40 +1,21 @@
 ---
-// Top navigation bar com auto-hide ao scrollar
-interface Props {
-  transparent?: boolean;
-}
-
-const { transparent = false } = Astro.props;
+// Top navigation bar - Minimalista conforme spec
+// Estado inicial: transparente
+// Após scroll: backdrop-blur com background semi-transparente
+// Auto-hide ao rolar, reaparece ao parar ou rolar para cima
 ---
 
-<header id="main-header" class:list={['header', { transparent }]} data-transparent={transparent}>
+<header id="main-header" class="header hero-nav-element">
   <div class="header-container">
-    <a href="/" class="logo">
+    <!-- Logo à esquerda (clicável, volta ao topo) -->
+    <a href="/#hero" class="logo" aria-label="Voltar ao topo">
       <span class="logo-text">Dr. Gustavo Mendes</span>
     </a>
 
-    <nav class="nav">
-      <a href="/#sobre" class="nav-link">Sobre</a>
-      <a href="/#metodo" class="nav-link">Método</a>
-      <a href="/blog" class="nav-link">Blog</a>
-      <a href="/curriculo" class="nav-link">Currículo</a>
-    </nav>
-
-    <a href="/#contato" class="cta-button">Agendar Consulta</a>
-
-    <!-- Mobile menu button -->
-    <button class="mobile-menu-btn" aria-label="Menu">
-      <span class="hamburger"></span>
+    <!-- Botão à direita (sempre visível) -->
+    <button class="cta-button" data-open-cal aria-label="Agendar consulta">
+      Agendar
     </button>
-  </div>
-
-  <!-- Mobile menu -->
-  <div class="mobile-menu">
-    <a href="/#sobre" class="mobile-nav-link">Sobre</a>
-    <a href="/#metodo" class="mobile-nav-link">Método</a>
-    <a href="/blog" class="mobile-nav-link">Blog</a>
-    <a href="/curriculo" class="mobile-nav-link">Currículo</a>
-    <a href="/#contato" class="mobile-cta">Agendar Consulta</a>
   </div>
 </header>
 
@@ -52,15 +33,39 @@ const { transparent = false } = Astro.props;
                 border-color 0.3s var(--ease-smooth);
   }
 
+  /* Auto-hide */
   .header.hidden {
     transform: translateY(-100%);
   }
 
+  /* Estado após scroll */
   .header.scrolled {
     background: rgba(250, 250, 248, 0.95);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-bottom-color: rgba(0, 0, 0, 0.06);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Estado sobre seção escura */
+  .header.dark-section {
+    background: rgba(26, 26, 26, 0.95);
+    border-bottom-color: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  }
+
+  .header.dark-section .logo-text {
+    color: #FFFFFF;
+  }
+
+  .header.dark-section .cta-button {
+    color: #FFFFFF;
+    border-color: #FFFFFF;
+  }
+
+  .header.dark-section .cta-button:hover {
+    background: #FFFFFF;
+    color: #1A1A1A;
   }
 
   .header-container {
@@ -72,209 +77,146 @@ const { transparent = false } = Astro.props;
     justify-content: space-between;
   }
 
-  .logo-text {
-    font-size: var(--text-lg);
-    font-weight: 500;
-    color: #2C2C2C;
-    letter-spacing: -0.02em;
-  }
-
-  /* Animação inicial (fade in aos 200ms) */
-  .header {
-    animation: fadeIn 200ms ease-out forwards;
-    animation-delay: 200ms;
-    opacity: 0;
-  }
-
-  .nav {
-    display: flex;
-    gap: var(--space-lg);
-    align-items: center;
-  }
-
-  .nav-link {
-    font-size: var(--text-sm);
-    font-weight: 400;
-    color: var(--color-text-secondary);
+  /* Logo */
+  .logo {
     text-decoration: none;
-    transition: color 0.2s;
-    position: relative;
+    transition: opacity var(--duration-fast) ease;
   }
 
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: var(--color-text-primary);
-    transition: width 0.3s var(--ease-smooth);
+  .logo:hover {
+    opacity: 0.7;
   }
 
-  .nav-link:hover {
-    color: var(--color-text-primary);
+  .logo-text {
+    font-size: var(--text-base);
+    font-weight: var(--font-medium);
+    color: var(--color-hero-line-1);
+    letter-spacing: var(--tracking-tight);
   }
 
-  .nav-link:hover::after {
-    width: 100%;
-  }
-
+  /* CTA Button - "Agendar" */
   .cta-button {
-    padding: var(--space-xs) var(--space-md);
+    padding: 10px 24px;
     background: transparent;
-    color: #2C2C2C;
-    border: 1px solid #2C2C2C;
+    color: var(--color-hero-line-1);
+    border: 1px solid var(--color-hero-line-1);
     border-radius: 6px;
     font-size: var(--text-sm);
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 200ms ease;
+    font-weight: var(--font-medium);
+    font-family: var(--font-sans);
+    cursor: pointer;
+    transition: all var(--duration-fast) ease;
   }
 
   .cta-button:hover {
-    background: #2C2C2C;
-    color: #FFFFFF;
+    background: var(--color-hero-line-1);
+    color: var(--color-bg-primary);
     transform: translateY(-1px);
   }
 
-  /* Mobile menu */
-  .mobile-menu-btn {
-    display: none;
-    background: none;
-    border: none;
-    padding: var(--space-xs);
-    cursor: pointer;
+  .cta-button:focus-visible {
+    outline: 2px solid var(--color-hero-line-1);
+    outline-offset: 2px;
   }
 
-  .hamburger {
-    display: block;
-    width: 24px;
-    height: 2px;
-    background: var(--color-text-primary);
-    position: relative;
-    transition: background 0.3s;
+  .cta-button:active {
+    transform: translateY(0);
   }
 
-  .hamburger::before,
-  .hamburger::after {
-    content: '';
-    position: absolute;
-    width: 24px;
-    height: 2px;
-    background: var(--color-text-primary);
-    transition: transform 0.3s var(--ease-smooth);
-  }
-
-  .hamburger::before {
-    top: -7px;
-  }
-
-  .hamburger::after {
-    bottom: -7px;
-  }
-
-  .mobile-menu-btn.open .hamburger {
-    background: transparent;
-  }
-
-  .mobile-menu-btn.open .hamburger::before {
-    transform: rotate(45deg) translate(5px, 5px);
-  }
-
-  .mobile-menu-btn.open .hamburger::after {
-    transform: rotate(-45deg) translate(5px, -5px);
-  }
-
-  .mobile-menu {
-    display: none;
-    flex-direction: column;
-    gap: var(--space-sm);
-    padding: var(--space-md) var(--space-lg);
-    background: var(--color-bg-primary);
-    border-top: 1px solid rgba(0, 0, 0, 0.06);
-  }
-
-  .mobile-menu.open {
-    display: flex;
-  }
-
-  .mobile-nav-link {
-    font-size: var(--text-base);
-    color: var(--color-text-secondary);
-    text-decoration: none;
-    padding: var(--space-xs) 0;
-    transition: color 0.2s;
-  }
-
-  .mobile-nav-link:hover {
-    color: var(--color-text-primary);
-  }
-
-  .mobile-cta {
-    margin-top: var(--space-sm);
-    padding: var(--space-sm);
-    background: var(--color-text-primary);
-    color: white;
-    border-radius: 6px;
-    text-align: center;
-    text-decoration: none;
-    font-weight: 500;
-  }
-
-  @media (max-width: 768px) {
-    .nav,
-    .cta-button {
-      display: none;
+  /* Mobile adjustments */
+  @media (max-width: 767px) {
+    .header-container {
+      padding: var(--space-sm) var(--padding-mobile);
     }
 
-    .mobile-menu-btn {
-      display: block;
+    .logo-text {
+      font-size: var(--text-sm);
+    }
+
+    .cta-button {
+      padding: 8px 20px;
+      font-size: var(--text-xs);
+    }
+  }
+
+  /* Accessibility - Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    .header {
+      transition: none;
+    }
+
+    .cta-button {
+      transition: none;
+    }
+
+    .cta-button:hover {
+      transform: none;
     }
   }
 </style>
 
 <script>
+  // Auto-hide header behavior
   let lastScroll = 0;
   const header = document.getElementById('main-header');
-  const mobileBtn = document.querySelector('.mobile-menu-btn');
-  const mobileMenu = document.querySelector('.mobile-menu');
-  const isTransparent = header?.dataset.transparent === 'true';
 
-  // Auto-hide header ao scrollar para baixo
-  window.addEventListener('scroll', () => {
-    if (!header) return;
+  if (header) {
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.scrollY;
 
-    const currentScroll = window.scrollY;
+      // Add scrolled class when past top
+      if (currentScroll > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
 
-    // Adicionar classe scrolled se passou do topo
-    if (currentScroll > 50) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
+      // Auto-hide: hide when scrolling down, show when scrolling up or stopped
+      if (currentScroll > lastScroll && currentScroll > 100) {
+        header.classList.add('hidden');
+      } else {
+        header.classList.remove('hidden');
+      }
 
-    // Auto-hide: esconder ao scrollar para baixo, mostrar ao scrollar para cima
-    if (currentScroll > lastScroll && currentScroll > 100) {
-      header.classList.add('hidden');
-    } else {
-      header.classList.remove('hidden');
-    }
+      // Detect if over dark section (Para Quem section)
+      const paraQuemSection = document.getElementById('para-quem');
+      if (paraQuemSection) {
+        const rect = paraQuemSection.getBoundingClientRect();
+        const headerHeight = header.offsetHeight;
 
-    lastScroll = currentScroll;
-  });
+        // If header overlaps with Para Quem section
+        if (rect.top < headerHeight && rect.bottom > headerHeight) {
+          header.classList.add('dark-section');
+        } else {
+          header.classList.remove('dark-section');
+        }
+      }
 
-  // Mobile menu toggle
-  mobileBtn?.addEventListener('click', () => {
-    mobileBtn.classList.toggle('open');
-    mobileMenu?.classList.toggle('open');
-  });
-
-  // Fechar mobile menu ao clicar em link
-  document.querySelectorAll('.mobile-nav-link, .mobile-cta').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileBtn?.classList.remove('open');
-      mobileMenu?.classList.remove('open');
+      lastScroll = currentScroll;
     });
-  });
+
+    // CTA Button - Open Cal.com modal
+    const ctaButton = header.querySelector('.cta-button');
+    if (ctaButton) {
+      ctaButton.addEventListener('click', () => {
+        // Dispatch custom event that will be handled by Cal.com component
+        window.dispatchEvent(new CustomEvent('open-cal-modal'));
+      });
+    }
+
+    // Smooth scroll to top when clicking logo
+    const logo = header.querySelector('.logo');
+    if (logo) {
+      logo.addEventListener('click', (e) => {
+        const href = logo.getAttribute('href');
+        if (href?.startsWith('/#')) {
+          e.preventDefault();
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+          });
+        }
+      });
+    }
+  }
 </script>

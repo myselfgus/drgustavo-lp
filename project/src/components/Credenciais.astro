@@ -2,6 +2,371 @@
 // Credenciais section - Seção 5
 ---
 
-<section id="credenciais">
-  <!-- Conteúdo será implementado -->
+<section id="credenciais" class="credenciais-section">
+  <div class="credenciais-container">
+    <!-- Split Screen Superior -->
+    <div class="split-content">
+      <!-- Lado Esquerdo - Credenciais -->
+      <div class="credenciais-esquerda">
+        <!-- Bloco 1: Registro -->
+        <div class="bloco bloco-registro">
+          <h3 class="titulo-principal">Médico Psiquiatra</h3>
+          <a
+            href="https://portal.cremesp.org.br/?siteAcao=Pesquisa&acao=detalhes_profissional&cd_profissional=218133"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="crm-link"
+          >
+            CRM-SP 218133
+          </a>
+        </div>
+
+        <!-- Bloco 2: Certificações -->
+        <div class="bloco bloco-certificacoes">
+          <h4 class="subtitulo">Certificado em Canabidiol</h4>
+          <p class="texto-secundario">
+            Society of Cannabis Clinicians (SCC)<br>
+            International Association for Cannabinoid Medicines (IACM)
+          </p>
+        </div>
+
+        <!-- Bloco 3: Experiência -->
+        <div class="bloco bloco-experiencia">
+          <h4 class="subtitulo">Experiência</h4>
+          <p class="texto-secundario">
+            CAPS, emergências psiquiátricas, casos complexos
+          </p>
+        </div>
+
+        <!-- Links -->
+        <div class="links-credenciais">
+          <a href="/curriculo" class="link-cv">Ver currículo completo →</a>
+          <a href="/publicacoes" class="link-publicacoes">Publicações científicas →</a>
+        </div>
+      </div>
+
+      <!-- Lado Direito - Áreas de Atuação -->
+      <div class="credenciais-direita">
+        <h4 class="subtitulo">Áreas de atuação</h4>
+        <p class="areas-lista">
+          TDAH <span class="separator">·</span> Autismo (TEA) <span class="separator">·</span> Ansiedade<br>
+          Depressão <span class="separator">·</span> Canabidiol medicinal<br>
+          Cuidados paliativos <span class="separator">·</span> Traumas<br>
+          Luto <span class="separator">·</span> Insônia
+        </p>
+      </div>
+    </div>
+
+    <!-- Depoimento Inferior -->
+    <div class="depoimento-container">
+      <blockquote class="depoimento">
+        <p class="depoimento-texto">
+          "Pela primeira vez um médico entendeu que meu TDAH não é defeito – é arquitetura cognitiva diferente."
+        </p>
+        <cite class="depoimento-autor">R.L.</cite>
+      </blockquote>
+    </div>
+  </div>
 </section>
+
+<style>
+  /* Section Layout */
+  .credenciais-section {
+    position: relative;
+    min-height: 100vh;
+    height: 100vh;
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .credenciais-container {
+    width: 100%;
+    max-width: 1400px;
+    padding: 10vh clamp(40px, 10%, 140px);
+    display: flex;
+    flex-direction: column;
+    gap: 10vh;
+  }
+
+  /* Split Screen Superior */
+  .split-content {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    gap: clamp(40px, 6vw, 80px);
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .split-content.visible {
+    animation: fadeInUp 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 400ms;
+  }
+
+  /* Lado Esquerdo - Credenciais */
+  .credenciais-esquerda {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(24px, 4vh, 40px);
+  }
+
+  .bloco {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .bloco.visible {
+    animation: fadeInUp 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .bloco-registro.visible { animation-delay: 600ms; }
+  .bloco-certificacoes.visible { animation-delay: 700ms; }
+  .bloco-experiencia.visible { animation-delay: 800ms; }
+
+  .titulo-principal {
+    margin: 0 0 8px 0;
+    font-family: var(--font-sans);
+    font-size: 20px;
+    font-weight: var(--font-semibold);
+    color: #1A1A1A;
+    line-height: 1.4;
+  }
+
+  .crm-link {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: var(--font-regular);
+    color: #666666;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-block;
+  }
+
+  .crm-link:hover {
+    color: #1A1A1A;
+    text-decoration: underline;
+  }
+
+  .subtitulo {
+    margin: 0 0 12px 0;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: var(--font-semibold);
+    color: #1A1A1A;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .texto-secundario {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: var(--font-regular);
+    color: #666666;
+    line-height: 1.6;
+  }
+
+  /* Links Credenciais */
+  .links-credenciais {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  .links-credenciais.visible {
+    animation: fadeInUp 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 900ms;
+  }
+
+  .link-cv,
+  .link-publicacoes {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: var(--font-regular);
+    color: #999999;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-block;
+  }
+
+  .link-cv:hover,
+  .link-publicacoes:hover {
+    color: #1A1A1A;
+    text-decoration: underline;
+    transform: translateX(4px);
+  }
+
+  /* Lado Direito - Áreas */
+  .credenciais-direita {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .credenciais-direita.visible {
+    animation: fadeInUp 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 700ms;
+  }
+
+  .areas-lista {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 18px;
+    font-weight: var(--font-regular);
+    color: #2C2C2C;
+    line-height: 1.8;
+  }
+
+  .separator {
+    opacity: 0.4;
+  }
+
+  /* Depoimento Inferior */
+  .depoimento-container {
+    width: 100%;
+    padding: clamp(40px, 6vh, 60px) clamp(40px, 8vw, 80px);
+    background-color: #FAFAF8;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .depoimento-container.visible {
+    animation: fadeInUp 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 1000ms;
+  }
+
+  .depoimento {
+    margin: 0;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .depoimento-texto {
+    margin: 0 0 16px 0;
+    font-family: var(--font-sans);
+    font-size: clamp(18px, 2.5vw, 24px);
+    font-weight: var(--font-light);
+    font-style: italic;
+    color: #1A1A1A;
+    line-height: 1.6;
+  }
+
+  .depoimento-autor {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: var(--font-regular);
+    color: #999999;
+    letter-spacing: 0.1em;
+    font-style: normal;
+  }
+
+  /* Responsive - Tablet */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .credenciais-container {
+      padding: 8vh 8%;
+    }
+
+    .split-content {
+      gap: 60px;
+    }
+
+    .depoimento-texto {
+      font-size: 22px;
+    }
+  }
+
+  /* Responsive - Mobile */
+  @media (max-width: 767px) {
+    .credenciais-section {
+      min-height: 100svh;
+      height: auto;
+    }
+
+    .credenciais-container {
+      padding: 120px 24px 80px 24px;
+      gap: 60px;
+    }
+
+    .split-content {
+      grid-template-columns: 1fr;
+      gap: 60px;
+    }
+
+    .credenciais-esquerda {
+      gap: 32px;
+    }
+
+    .titulo-principal {
+      font-size: 18px;
+    }
+
+    .areas-lista {
+      font-size: 16px;
+    }
+
+    .depoimento-container {
+      padding: 40px 24px;
+    }
+
+    .depoimento-texto {
+      font-size: 20px;
+    }
+  }
+
+  /* Accessibility - Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    .split-content,
+    .bloco,
+    .links-credenciais,
+    .credenciais-direita,
+    .depoimento-container {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>
+
+<script>
+  function setupCredenciaisAnimations() {
+    const credenciaisSection = document.getElementById('credenciais');
+    if (!credenciaisSection) return;
+
+    const splitContent = credenciaisSection.querySelector('.split-content');
+    const blocos = credenciaisSection.querySelectorAll('.bloco');
+    const links = credenciaisSection.querySelector('.links-credenciais');
+    const direita = credenciaisSection.querySelector('.credenciais-direita');
+    const depoimento = credenciaisSection.querySelector('.depoimento-container');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (splitContent) splitContent.classList.add('visible');
+            blocos.forEach((bloco) => bloco.classList.add('visible'));
+            if (links) links.classList.add('visible');
+            if (direita) direita.classList.add('visible');
+            if (depoimento) depoimento.classList.add('visible');
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+      }
+    );
+
+    observer.observe(credenciaisSection);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupCredenciaisAnimations);
+  } else {
+    setupCredenciaisAnimations();
+  }
+</script>

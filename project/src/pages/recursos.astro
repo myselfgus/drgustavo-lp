@@ -1,9 +1,312 @@
 ---
-// Página de Recursos (opcional)
-import PageLayout from '../layouts/PageLayout.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<PageLayout>
-  <h1>Recursos</h1>
-  <!-- Conteúdo será implementado -->
-</PageLayout>
+<BaseLayout
+  title="Recursos - Dr. Gustavo Mendes | Guias sobre Saúde Mental"
+  description="Materiais educativos gratuitos sobre TDAH, autismo, canabidiol medicinal e saúde mental. Guias práticos para pacientes."
+>
+  <main class="recursos-page">
+    <div class="recursos-container">
+      <!-- Cabeçalho -->
+      <header class="recursos-header">
+        <h1 class="page-title">Recursos</h1>
+        <p class="page-subtitle">
+          Materiais educativos sobre saúde mental e neurodiversidade
+        </p>
+      </header>
+
+      <!-- Seção: Para Pacientes -->
+      <section class="recursos-section">
+        <h2 class="section-title">Para Pacientes</h2>
+        <div class="recursos-grid">
+          <!-- Recurso 1 -->
+          <article class="recurso-card">
+            <h3 class="card-title">Como se preparar para primeira consulta</h3>
+            <p class="card-description">
+              O que levar, informações úteis para compartilhar e como aproveitar
+              melhor a consulta de 2 horas. Um guia prático para maximizar o
+              valor do nosso primeiro encontro.
+            </p>
+            <a href="/recursos/preparacao-consulta" class="card-link">
+              Ler guia →
+            </a>
+          </article>
+
+          <!-- Recurso 2 -->
+          <article class="recurso-card">
+            <h3 class="card-title">TDAH em adultos: mitos e verdades</h3>
+            <p class="card-description">
+              Diferenças entre TDAH infantil e adulto, sintomas que se manifestam
+              diferentemente ao longo da vida, e como identificar padrões sem cair
+              em estereótipos.
+            </p>
+            <a href="/recursos/tdah-adultos" class="card-link">
+              Ler guia →
+            </a>
+          </article>
+
+          <!-- Recurso 3 -->
+          <article class="recurso-card">
+            <h3 class="card-title">Entendendo o canabidiol medicinal</h3>
+            <p class="card-description">
+              O que é canabidiol, para que serve, como funciona no organismo,
+              legislação brasileira e o que esperar de um tratamento com CBD
+              baseado em evidências.
+            </p>
+            <a href="/recursos/canabidiol" class="card-link">
+              Ler guia →
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <!-- Nota sobre recursos -->
+      <div class="recursos-nota">
+        <p class="nota-text">
+          <strong>Importante:</strong> Estes materiais são informativos e não substituem
+          consulta médica. Não inicie ou altere tratamentos sem orientação profissional.
+        </p>
+      </div>
+
+      <!-- Footer Links -->
+      <footer class="recursos-footer">
+        <nav class="footer-nav" aria-label="Navegação do rodapé">
+          <a href="/blog" class="footer-link">Blog</a>
+          <span class="separator" aria-hidden="true">·</span>
+          <a href="/curriculo" class="footer-link">Currículo</a>
+          <span class="separator" aria-hidden="true">·</span>
+          <a href="/publicacoes" class="footer-link">Publicações</a>
+          <span class="separator" aria-hidden="true">·</span>
+          <a href="/#contato" class="footer-link">Contato</a>
+        </nav>
+      </footer>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .recursos-page {
+    min-height: 100vh;
+    background-color: #FFFFFF;
+    padding-top: 120px;
+    padding-bottom: 80px;
+  }
+
+  .recursos-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* Header */
+  .recursos-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .page-title {
+    margin: 0 0 16px 0;
+    font-family: var(--font-sans);
+    font-size: clamp(28px, 3vw, 36px);
+    font-weight: var(--font-light);
+    color: #1A1A1A;
+    line-height: 1.2;
+  }
+
+  .page-subtitle {
+    margin: 0 auto;
+    font-family: var(--font-sans);
+    font-size: clamp(16px, 1.8vw, 18px);
+    font-weight: var(--font-regular);
+    color: #666666;
+    line-height: 1.6;
+    max-width: 600px;
+  }
+
+  /* Section */
+  .recursos-section {
+    margin-bottom: 64px;
+  }
+
+  .section-title {
+    margin: 0 0 32px 0;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: var(--font-semibold);
+    color: #1A1A1A;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* Grid */
+  .recursos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 32px;
+  }
+
+  /* Card */
+  .recurso-card {
+    background: #FAFAF8;
+    border: 1px solid #E5E5E5;
+    border-radius: 8px;
+    padding: 32px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .recurso-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  .card-title {
+    margin: 0 0 12px 0;
+    font-family: var(--font-sans);
+    font-size: 22px;
+    font-weight: var(--font-semibold);
+    color: #1A1A1A;
+    line-height: 1.3;
+  }
+
+  .card-description {
+    margin: 0 0 20px 0;
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: var(--font-regular);
+    color: #666666;
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+
+  .card-link {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: var(--font-medium);
+    color: #1A1A1A;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-block;
+  }
+
+  .card-link:hover {
+    text-decoration: underline;
+    transform: translateX(4px);
+  }
+
+  /* Nota */
+  .recursos-nota {
+    margin-top: 48px;
+    padding: 24px;
+    background: #FAFAF8;
+    border-left: 3px solid #1A1A1A;
+    border-radius: 4px;
+  }
+
+  .nota-text {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: var(--font-regular);
+    color: #666666;
+    line-height: 1.6;
+  }
+
+  .nota-text strong {
+    font-weight: var(--font-semibold);
+    color: #1A1A1A;
+  }
+
+  /* Footer */
+  .recursos-footer {
+    margin-top: 80px;
+    padding-top: 40px;
+    border-top: 1px solid #E5E5E5;
+  }
+
+  .footer-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .footer-link {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: var(--font-regular);
+    color: #999999;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .footer-link:hover {
+    color: #1A1A1A;
+    text-decoration: underline;
+  }
+
+  .separator {
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 14px;
+  }
+
+  /* Responsive - Tablet */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .recursos-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Responsive - Mobile */
+  @media (max-width: 767px) {
+    .recursos-page {
+      padding-top: 100px;
+      padding-bottom: 60px;
+    }
+
+    .recursos-container {
+      padding: 0 24px;
+    }
+
+    .recursos-header {
+      margin-bottom: 48px;
+    }
+
+    .recursos-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .recurso-card {
+      padding: 24px;
+    }
+
+    .footer-nav {
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .separator {
+      display: none;
+    }
+  }
+
+  /* Accessibility - Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    .recurso-card {
+      transition: none;
+    }
+
+    .recurso-card:hover {
+      transform: none;
+    }
+
+    .card-link:hover {
+      transform: none;
+    }
+  }
+</style>
