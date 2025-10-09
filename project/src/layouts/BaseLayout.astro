@@ -1,24 +1,30 @@
 ---
-import SEO from '@components/SEO.astro';
-import StructuredData from '@components/StructuredData.astro';
-import Header from '@components/Header.astro';
-import SideDots from '@components/SideDots.astro';
-import WhatsAppButton from '@components/WhatsAppButton.astro';
-import '@styles/global.css';
-import '@styles/variables.css';
-import '@styles/animations.css';
+import SEO from '../components/SEO.astro';
+import StructuredData from '../components/StructuredData.astro';
+import Header from '../components/Header.astro';
+import SideDots from '../components/SideDots.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import CalEmbed from '../components/CalEmbed.astro';
+import '../styles/global.css';
+import '../styles/variables.css';
+import '../styles/animations.css';
 
 export interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  showDots?: boolean;
 }
 
 const {
-  title = 'Dr. Gustavo Mendes - Psiquiatria',
-  description = 'Psiquiatria humanizada com consultas de 2 horas. Especialista em TDAH, autismo e neurodiversidade. São José do Rio Preto.',
-  ogImage,
+  title = 'Dr. Gustavo Mendes | Psiquiatria Humanizada em São José do Rio Preto',
+  description = 'Psiquiatria com consultas de 2 horas. Especialista em TDAH, autismo e neurodiversidade. Abordagem humanizada e uso criterioso de canabidiol medicinal.',
+  ogImage = '/images/og-default.jpg',
+  showDots = true
 } = Astro.props;
+
+const isHomePage = Astro.url.pathname === '/';
+const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
 ---
 
 <!DOCTYPE html>
@@ -28,90 +34,89 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-
-    <SEO
-      title={title}
-      description={description}
-      ogImage={ogImage}
-    />
-
+    
+    <!-- SEO Meta Tags -->
+    <SEO title={title} description={description} ogImage={ogImage} />
+    
+    <!-- Structured Data -->
     <StructuredData />
-
-    <!-- Preconnect to external resources -->
-    <link rel="preconnect" href="https://app.cal.com" />
-
-    <!-- Critical CSS inline -->
-    <style is:inline>
-      /* Critical CSS for above-the-fold */
-      body {
-        margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-        overflow-x: hidden;
-      }
-
-      /* Skip to content (accessibility) */
-      .skip-to-content {
-        position: absolute;
-        top: -40px;
-        left: 0;
-        background: #1A1A1A;
-        color: white;
-        padding: 8px 16px;
-        text-decoration: none;
-        z-index: 10000;
-      }
-
-      .skip-to-content:focus {
-        top: 0;
-      }
-
-      /* Prevent FOUC */
-      section {
-        min-height: 100vh;
-      }
-    </style>
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <!-- Skip to content link (accessibility) -->
-    <a href="#main-content" class="skip-to-content">
-      Pular para o conteúdo principal
-    </a>
-
-    <!-- Top navigation bar -->
+    <a class="skip-to-content" href="#main-content">Ir para o conteúdo principal</a>
     <Header />
-
-    <!-- Side dots navigation (6 sections) -->
-    <SideDots />
-
-    <!-- Main content -->
+    
+    {isHomePage && showDots && <SideDots />}
+    
     <main id="main-content">
       <slot />
     </main>
 
-    <!-- WhatsApp button (fixed bottom-right) -->
     <WhatsAppButton />
+    <CalEmbed />
+    
+    <script>
+      // Smooth scroll behavior
+      document.documentElement.style.scrollBehavior = 'smooth';
+      
+      // Respect reduced motion preference
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (prefersReducedMotion.matches) {
+        document.documentElement.classList.add('reduced-motion');
+      }
+    </script>
 
-    <!-- Cloudflare Web Analytics (placeholder - substituir token) -->
-    <script
-      defer
-      src='https://static.cloudflareinsights.com/beacon.min.js'
-      data-cf-beacon='{"token": "YOUR_TOKEN_HERE"}'
-    ></script>
+    {cfBeaconToken && (
+      <script
+        is:inline
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={JSON.stringify({ token: cfBeaconToken })}
+      ></script>
+    )}
   </body>
 </html>
 
-<style>
-  /* Global skip-to-content styling */
+<style is:global>
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    margin: 0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  .reduced-motion * {
+    animation: none !important;
+    transition: none !important;
+  }
+
   .skip-to-content {
     position: absolute;
-    top: -40px;
+    top: -60px;
     left: 0;
-    background: var(--color-text-primary);
-    color: var(--color-bg-primary);
-    padding: var(--space-xs) var(--space-md);
+    background: var(--text-primary, #1A1A1A);
+    color: var(--bg-primary, #FFFFFF);
+    padding: 8px 16px;
     text-decoration: none;
     z-index: 10000;
-    transition: top var(--duration-fast) ease;
+    transition: top 0.2s ease;
   }
 
   .skip-to-content:focus {

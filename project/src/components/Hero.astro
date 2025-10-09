@@ -1,8 +1,9 @@
 ---
 // Hero section - Seção 1
+// Especificação: secao-01-hero.md
 ---
 
-<section id="hero" class="hero-section">
+<section id="hero" class="hero-section" aria-label="Introdução">
   <div class="hero-container">
     <!-- Linha 1 (Provocação) -->
     <h1 class="hero-line hero-line-1">
@@ -33,94 +34,119 @@
         fill="none"
         stroke="currentColor"
         stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
       >
-        <polyline points="6 9 12 15 18 9"></polyline>
+        <path d="M12 5v14M19 12l-7 7-7-7" />
       </svg>
     </button>
   </div>
 </section>
 
+<script>
+  const scrollIndicator = document.querySelector('.hero-scroll-indicator') as HTMLElement;
+  if (scrollIndicator) {
+    scrollIndicator.addEventListener('click', () => {
+      const target = scrollIndicator.getAttribute('data-scroll-to');
+      if (!target) return;
+
+      const section = document.getElementById(target);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+
+    // Fade out scroll indicator when user starts scrolling
+    let scrolled = false;
+    window.addEventListener('scroll', () => {
+      if (!scrolled && window.scrollY > 50) {
+        scrolled = true;
+        scrollIndicator.style.opacity = '0';
+        scrollIndicator.style.pointerEvents = 'none';
+      }
+    });
+  }
+</script>
+
 <style>
-  /* Section Layout */
+  /* ===== SEÇÃO HERO - 100vh EXATO ===== */
   .hero-section {
-    position: relative;
-    min-height: 100vh;
+    width: 100%;
     height: 100vh;
-    background-color: var(--color-bg-secondary);
+    min-height: 100vh;
+    max-height: 100vh;
+    background: var(--bg-secondary);
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
   }
 
+  /* ===== CONTAINER - 70% VAZIO (PRINCÍPIO DA SPEC) ===== */
   .hero-container {
+    text-align: center;
+    padding: 0 var(--padding-desktop);
     width: 100%;
     max-width: 1200px;
-    padding: 0 var(--padding-desktop);
-    text-align: center;
-    position: relative;
-  }
-
-  /* Typography */
-  .hero-line {
-    margin: 0;
-    font-family: var(--font-sans);
-  }
-
-  /* Linha 1 */
-  .hero-line-1 {
-    font-size: var(--text-hero-xl);
-    font-weight: var(--font-light);
-    color: var(--color-hero-line-1);
-    letter-spacing: var(--tracking-tight);
-    line-height: var(--leading-tight);
-    margin-bottom: var(--gap-hero-lines);
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  /* Linha 2 */
-  .hero-line-2 {
-    font-size: var(--text-hero-xl);
-    font-weight: var(--font-medium);
-    color: var(--color-hero-line-2);
-    letter-spacing: var(--tracking-tight);
-    line-height: var(--leading-tight);
-    margin-bottom: var(--gap-hero-lines);
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  /* Identity Group */
-  .hero-identity-group {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-hero-identity);
-    margin-bottom: var(--space-xl);
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ===== TIPOGRAFIA CONFORME SPEC ===== */
+
+  /* Linha 1: "Você não precisa de mais diagnósticos." */
+  .hero-line-1 {
+    margin: 0;
+    font-size: var(--text-hero-xl);
+    font-weight: var(--font-light);
+    color: var(--text-primary-alt);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.02em;
     opacity: 0;
+    animation: fadeInUp 1s var(--ease-smooth) forwards;
+    animation-delay: 0.4s;
+  }
+
+  /* Linha 2: "Você precisa se entender." */
+  .hero-line-2 {
+    margin: 0;
+    margin-top: var(--gap-hero-lines);
+    font-size: var(--text-hero-xl);
+    font-weight: var(--font-medium);
+    color: var(--text-primary);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.02em;
+    opacity: 0;
+    animation: fadeInUp 1s var(--ease-smooth) forwards;
+    animation-delay: 1.6s;
+  }
+
+  /* Identity Group (Linha 3 e 4) */
+  .hero-identity-group {
+    margin-top: 120px;
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+    animation-delay: 2.2s;
   }
 
   .hero-identity-name {
     margin: 0;
     font-size: var(--text-hero-identity);
     font-weight: var(--font-medium);
-    color: var(--color-text-primary);
-    letter-spacing: var(--tracking-normal);
+    color: var(--text-primary);
     line-height: var(--leading-normal);
   }
 
   .hero-identity-context {
-    margin: 0;
+    margin: 8px 0 0;
     font-size: var(--text-hero-context);
     font-weight: var(--font-regular);
-    color: var(--color-text-secondary);
-    letter-spacing: var(--tracking-wide);
+    color: var(--text-secondary);
+    letter-spacing: 0.01em;
     line-height: var(--leading-normal);
   }
 
-  /* Scroll Indicator */
+  /* ===== SCROLL INDICATOR ===== */
   .hero-scroll-indicator {
     position: absolute;
     bottom: 40px;
@@ -128,62 +154,98 @@
     transform: translateX(-50%);
     background: none;
     border: none;
+    color: var(--text-tertiary);
     cursor: pointer;
     padding: 8px;
-    color: var(--color-text-tertiary);
-    transition: all var(--duration-fast) ease;
-    z-index: 10;
     opacity: 0;
+    animation: fadeInPulse 2s ease-in-out forwards;
+    animation-delay: 2.8s;
+    transition: all 0.3s ease;
   }
 
   .hero-scroll-indicator:hover {
-    color: var(--color-text-secondary);
     transform: translateX(-50%) scale(1.1);
+    color: var(--text-primary-alt);
   }
 
-  .hero-scroll-indicator:focus-visible {
-    outline: 2px solid var(--color-text-primary);
-    outline-offset: 4px;
-    border-radius: 4px;
-  }
-
-  /* Visible state (added by JS) */
-  .hero-line-1.visible {
-    animation: fadeInUp 1000ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: 400ms;
-  }
-
-  .hero-line-2.visible {
-    animation: fadeInUp 1000ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: 1600ms;
-  }
-
-  .hero-identity-group.visible {
-    animation: fadeIn 1000ms ease-out forwards;
-    animation-delay: 2200ms;
-  }
-
-  .hero-scroll-indicator.visible {
-    animation: fadeIn 400ms ease-out forwards, pulseScroll 2s ease-in-out 2.8s infinite;
-    animation-delay: 2800ms;
-  }
-
-  /* Responsive - Tablet */
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .hero-container {
-      padding: 0 var(--padding-desktop);
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 
-  /* Responsive - Mobile */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeInPulse {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+    50% {
+      transform: translateX(-50%) translateY(8px);
+      opacity: 0.6;
+    }
+  }
+
+  /* Aplicar pulse infinito após fade in */
+  .hero-scroll-indicator {
+    animation: fadeInPulse 2s ease-in-out forwards 2.8s,
+               pulse 2s ease-in-out infinite 4.8s;
+  }
+
+  /* ===== RESPONSIVE - TABLET ===== */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .hero-line-1,
+    .hero-line-2 {
+      font-size: 50px;
+    }
+  }
+
+  /* ===== RESPONSIVE - MOBILE ===== */
   @media (max-width: 767px) {
     .hero-section {
-      min-height: 100svh;
-      height: 100svh;
+      height: 100dvh;
+      min-height: 100dvh;
+      max-height: 100dvh;
     }
 
     .hero-container {
       padding: 0 var(--padding-mobile);
+    }
+
+    .hero-line-1,
+    .hero-line-2 {
+      font-size: 32px;
+    }
+
+    .hero-line-2 {
+      margin-top: 48px;
+    }
+
+    .hero-identity-group {
+      margin-top: 80px;
+    }
+
+    .hero-identity-name {
+      font-size: 18px;
+    }
+
+    .hero-identity-context {
+      font-size: 15px;
     }
 
     .hero-scroll-indicator {
@@ -191,73 +253,15 @@
     }
   }
 
-  /* Accessibility - Reduced Motion */
+  /* ===== ACCESSIBILITY - REDUCED MOTION ===== */
   @media (prefers-reduced-motion: reduce) {
-    .hero-scroll-indicator {
-      animation: none !important;
-    }
-
     .hero-line-1,
     .hero-line-2,
-    .hero-identity-group {
+    .hero-identity-group,
+    .hero-scroll-indicator {
       animation: none !important;
       opacity: 1 !important;
       transform: none !important;
     }
   }
 </style>
-
-<script>
-  // Scroll-triggered animations
-  function setupHeroAnimations() {
-    const heroSection = document.getElementById('hero');
-    if (!heroSection) return;
-
-    const animatedElements = [
-      heroSection.querySelector('.hero-line-1'),
-      heroSection.querySelector('.hero-line-2'),
-      heroSection.querySelector('.hero-identity-group'),
-      heroSection.querySelector('.hero-scroll-indicator'),
-    ];
-
-    // Intersection Observer para detectar quando a seção entra na viewport
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Adiciona classe 'visible' aos elementos para triggerar animações
-            animatedElements.forEach((el) => {
-              if (el) el.classList.add('visible');
-            });
-          }
-        });
-      },
-      {
-        threshold: 0.3, // Trigger quando 30% da seção está visível
-      }
-    );
-
-    observer.observe(heroSection);
-
-    // Smooth scroll to next section
-    const scrollIndicator = heroSection.querySelector('.hero-scroll-indicator');
-    if (scrollIndicator) {
-      scrollIndicator.addEventListener('click', () => {
-        const manifestoSection = document.getElementById('manifesto');
-        if (manifestoSection) {
-          manifestoSection.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-          });
-        }
-      });
-    }
-  }
-
-  // Initialize
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupHeroAnimations);
-  } else {
-    setupHeroAnimations();
-  }
-</script>

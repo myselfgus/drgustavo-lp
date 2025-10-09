@@ -5,6 +5,8 @@
  * wrangler vectorize create drgustavomendes-blog-search --dimensions=768 --metric=cosine
  */
 
+import type { PagesFunction } from '@cloudflare/workers-types';
+
 interface Env {
   AI: Ai;
   DB: D1Database;
@@ -17,19 +19,29 @@ interface SearchRequest {
   limit?: number;
 }
 
-export const onRequest: PagesFunction<Env> = async (context) => {
+type SearchContext = Parameters<PagesFunction<Env>>[0];
+type WorkerResponse = import('@cloudflare/workers-types').Response;
+
+const asWorkerResponse = (response: Response): WorkerResponse =>
+  response as unknown as WorkerResponse;
+
+const handleSearchRequest = async (
+  context: SearchContext,
+): Promise<WorkerResponse> => {
   if (context.request.method !== 'POST') {
-    return new Response('Method not allowed', { status: 405 });
+    return asWorkerResponse(new Response('Method not allowed', {
+      status: 405,
+    }));
   }
 
   try {
     const { query, limit = 5 }: SearchRequest = await context.request.json();
 
     if (!query || query.trim().length < 2) {
-      return new Response(
+      return asWorkerResponse(new Response(
         JSON.stringify({ error: 'Query muito curta' }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
-      );
+      ));
     }
 
     // Verificar cache primeiro
@@ -37,12 +49,12 @@ export const onRequest: PagesFunction<Env> = async (context) => {
     const cached = await context.env.SITE_CACHE.get(cacheKey, 'json');
 
     if (cached) {
-      return new Response(JSON.stringify(cached), {
+      return asWorkerResponse(new Response(JSON.stringify(cached), {
         headers: {
           'Content-Type': 'application/json',
           'X-Cache': 'HIT'
         }
-      });
+      }));
     }
 
     // ===== OPÇÃO 1: Busca SQL tradicional (fallback) =====
@@ -137,18 +149,21 @@ export const onRequest: PagesFunction<Env> = async (context) => {
       ).run()
     );
 
-    return new Response(JSON.stringify(response), {
+    return asWorkerResponse(new Response(JSON.stringify(response), {
       headers: {
         'Content-Type': 'application/json',
         'X-Cache': 'MISS'
       }
-    });
+    }));
 
   } catch (error) {
     console.error('[Search Error]', error);
-    return new Response(
+    return asWorkerResponse(new Response(
       JSON.stringify({ error: 'Erro ao buscar' }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    ));
   }
 };
+
+export const onRequest: PagesFunction<Env> = (context) =>
+  handleSearchRequest(context);

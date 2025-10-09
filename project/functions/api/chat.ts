@@ -3,6 +3,8 @@
  * Streaming response via Server-Sent Events
  */
 
+import type { PagesFunction } from '@cloudflare/workers-types';
+
 interface Env {
   AI: Ai;
   DB: D1Database;
@@ -41,17 +43,29 @@ const SYSTEM_PROMPT = `Você é um assistente virtual do Dr. Gustavo Mendes, psi
 
 **Tom de voz:** Profissional, empático e acolhedor.`;
 
-export const onRequest: PagesFunction<Env> = async (context) => {
+type ChatContext = Parameters<PagesFunction<Env>>[0];
+type WorkerResponse = import('@cloudflare/workers-types').Response;
+
+const asWorkerResponse = (response: Response): WorkerResponse =>
+  response as unknown as WorkerResponse;
+
+const handleChatRequest = async (
+  context: ChatContext,
+): Promise<WorkerResponse> => {
   // Apenas POST
   if (context.request.method !== 'POST') {
-    return new Response('Method not allowed', { status: 405 });
+    return asWorkerResponse(new Response('Method not allowed', {
+      status: 405,
+    }));
   }
 
   try {
     const { messages, sessionId }: ChatRequest = await context.request.json();
 
     if (!messages || !Array.isArray(messages)) {
-      return new Response('Invalid messages format', { status: 400 });
+      return asWorkerResponse(new Response('Invalid messages format', {
+        status: 400,
+      }));
     }
 
     // Adicionar system prompt
@@ -81,17 +95,17 @@ export const onRequest: PagesFunction<Env> = async (context) => {
     }
 
     // Retornar stream
-    return new Response(stream as ReadableStream, {
+    return asWorkerResponse(new Response(stream as ReadableStream, {
       headers: {
         'Content-Type': 'text/event-stream',
         'Cache-Control': 'no-cache',
         'Connection': 'keep-alive',
         'Access-Control-Allow-Origin': '*',
       },
-    });
+    }));
   } catch (error) {
     console.error('Chat error:', error);
-    return new Response(
+    return asWorkerResponse(new Response(
       JSON.stringify({
         error: 'Erro ao processar mensagem. Tente novamente.'
       }),
@@ -99,9 +113,12 @@ export const onRequest: PagesFunction<Env> = async (context) => {
         status: 500,
         headers: { 'Content-Type': 'application/json' }
       }
-    );
+    ));
   }
 };
+
+export const onRequest: PagesFunction<Env> = (context) =>
+  handleChatRequest(context);
 
 // Salvar conversa no D1 (background task)
 async function saveConversation(

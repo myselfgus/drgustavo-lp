@@ -3,21 +3,24 @@
 export const initCal = () => {
   if (typeof window === 'undefined') return;
 
-  (function (C: any, A: any, L: any) {
-    let p = function (a: any, ar: any) { a.q.push(ar); };
-    let d = C.document;
-    C.Cal = C.Cal || function () {
-      let cal = C.Cal;
-      let ar = arguments;
-      if (!cal.q) { cal.q = []; }
-      cal.q.push(ar);
-    };
-    let cal = C.Cal;
-    cal.ns = {};
+  ((host: any, doc: Document) => {
+    const existing = host.Cal;
+    const cal =
+      existing ||
+      function (...args: unknown[]) {
+        (cal.q = cal.q || []).push(args);
+      };
+
+    host.Cal = cal;
     cal.q = cal.q || [];
-    d.head.appendChild(d.createElement("script")).src =
-      "https://app.cal.com/embed/embed.js";
-  })(window, document);
+    cal.ns = cal.ns || {};
+
+    const script = doc.createElement('script');
+    script.src = 'https://app.cal.com/embed/embed.js';
+    script.async = true;
+    script.defer = true;
+    doc.head.appendChild(script);
+  })(window as any, document);
 };
 
 export const openCalModal = (calLink: string) => {

@@ -1,31 +1,24 @@
 :root {
-  /* Colors */
-  --color-text-primary: #1A1A1A;
-  --color-text-secondary: #666666;
-  --color-text-tertiary: #999999;
+  /* ===== COLORS ===== */
+  /* Text Colors */
+  --text-primary: #1A1A1A;
+  --text-primary-alt: #2C2C2C;
+  --text-secondary: #666666;
+  --text-tertiary: #999999;
 
-  /* Hero specific colors (from spec) */
-  --color-hero-line-1: #2C2C2C;
-  --color-hero-line-2: #1A1A1A;
+  /* Background Colors */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #FAFAF8;
+  --bg-dark: #1A1A1A;
 
-  --color-bg-primary: #FFFFFF;
-  --color-bg-secondary: #FAFAF8;
-  --color-bg-tertiary: #F5F5F5;
+  /* Border Colors */
+  --border: #E5E5E5;
+  --border-light: rgba(0,0,0,0.05);
+  --border-medium: rgba(0,0,0,0.08);
 
-  --color-border: #E5E5E5;
-  --color-border-light: #CCCCCC;
-
-  /* Typography */
+  /* ===== TYPOGRAPHY ===== */
+  /* Font Family */
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-
-  /* Font Sizes - Responsive with clamp */
-  --text-hero-xl: clamp(32px, 5vw, 56px);
-  --text-hero-identity: clamp(18px, 2vw, 20px);
-  --text-hero-context: clamp(15px, 1.5vw, 16px);
-  --text-manifesto: clamp(20px, 2.5vw, 28px);
-  --text-base: 16px;
-  --text-sm: 15px;
-  --text-xs: 14px;
 
   /* Font Weights */
   --font-light: 300;
@@ -33,50 +26,77 @@
   --font-medium: 500;
   --font-semibold: 600;
 
+  /* Font Sizes - Desktop */
+  --text-hero-xl: 56px;           /* Hero lines 1 & 2 */
+  --text-hero-identity: 20px;     /* Hero name */
+  --text-hero-context: 16px;      /* Hero location */
+
+  --text-manifesto: 28px;         /* Manifesto pairs */
+  --text-para-quem: 36px;         /* Para Quem frases */
+  --text-metodo: 22px;            /* Método items */
+
+  --text-xl: 48px;
+  --text-lg: 32px;
+  --text-md: 24px;
+  --text-base: 18px;
+  --text-sm: 16px;
+  --text-xs: 14px;
+
   /* Line Heights */
   --leading-tight: 1.2;
   --leading-normal: 1.4;
-  --leading-relaxed: 1.5;
-  --leading-loose: 1.6;
-  --leading-extra-loose: 1.8;
+  --leading-relaxed: 1.6;
+  --leading-loose: 1.8;
 
-  /* Letter Spacing */
-  --tracking-tight: -0.02em;
-  --tracking-normal: 0;
-  --tracking-wide: 0.01em;
-
-  /* Spacing */
+  /* ===== SPACING ===== */
   --space-xs: 8px;
   --space-sm: 16px;
   --space-md: 24px;
   --space-lg: 40px;
-  --space-xl: 64px;
+  --space-xl: 60px;
   --space-2xl: 80px;
+  --space-3xl: 100px;
+  --space-4xl: 120px;
 
-  /* Specific gaps from specs */
-  --gap-hero-lines: 80px;
-  --gap-hero-identity: 8px;
-  --gap-manifesto-pairs: 60px;
-  --gap-manifesto-pair-lines: 16px;
+  /* Section-specific Spacing */
+  --gap-hero-lines: 80px;           /* Gap between Hero lines */
+  --gap-manifesto-pairs: 60px;      /* Gap between Manifesto pairs */
+  --gap-manifesto-lines: 16px;      /* Gap within Manifesto pair */
+  --gap-para-quem: 100px;           /* Gap between Para Quem frases */
+  --gap-metodo: 32px;               /* Gap between Método items */
 
-  /* Breakpoints */
-  --screen-sm: 768px;
-  --screen-md: 1024px;
-  --screen-lg: 1280px;
-
-  /* Layout */
+  /* Padding */
   --padding-mobile: 24px;
   --padding-desktop: 40px;
   --padding-desktop-lg: 80px;
 
-  /* Animation */
+  /* ===== TRANSITIONS & ANIMATIONS ===== */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.6s ease;
+  --transition-slower: 0.8s ease;
+
+  --easing-smooth: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Animation Durations */
   --duration-fast: 200ms;
   --duration-normal: 400ms;
   --duration-slow: 600ms;
   --duration-slower: 800ms;
 
-  /* Z-index */
+  /* ===== SHADOWS ===== */
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+
+  /* ===== BORDER RADIUS ===== */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* ===== Z-INDEX LAYERS ===== */
   --z-header: 1000;
   --z-dots: 900;
   --z-whatsapp: 950;

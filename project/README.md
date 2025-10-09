@@ -49,6 +49,8 @@ project/
 | `npm run preview` | Preview do build localmente |
 | `npm run deploy` | Executa `npm run build` e publica via `wrangler deploy` |
 
+> **Importante:** execute os comandos acima a partir da pasta `project/` ou use `npx wrangler deploy --config project/wrangler.jsonc`.
+
 ## 🎨 Design System
 
 ### Cores
@@ -110,14 +112,19 @@ Crie uma conta em [cal.com](https://cal.com) e configure:
 
 O deploy é feito com Wrangler usando o `wrangler.jsonc` deste projeto. Ajuste `account_id` e demais bindings conforme seu ambiente.
 
+> **Versão recomendada:** use Wrangler `^4.42.1` (`npm install --save-dev wrangler@^4`). Versões 3.x tratam o build como Pages e bloqueiam o `_worker.js`.
+
 ```bash
-wrangler login
+npm install --save-dev wrangler@^4
+npx wrangler login
+cd project
 npm run deploy  # executa build e wrangler deploy
 ```
 
 Se preferir rodar localmente como Worker:
 
 ```bash
+cd project
 npm run build
 wrangler dev dist/_worker.js/index.js
 ```
@@ -153,6 +160,7 @@ O comando acima garante o build e usa `wrangler deploy` para publicar o Worker e
 - [ ] Adicionar número de WhatsApp
 - [ ] Criar imagens Open Graph
 - [ ] Testar em múltiplos dispositivos
+- [ ] Se usar Wrangler 3.x, remova a dependência legada (o projeto está configurado para Wrangler 4.x)
 
 ## 🤝 Suporte
 

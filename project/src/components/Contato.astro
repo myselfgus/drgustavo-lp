@@ -1,37 +1,38 @@
 ---
 // Contato section - Seção 6
+// Especificação: secao-06-contato.md
 ---
 
-<section id="contato" class="contato-section">
+<section id="contato" class="contato-section" aria-label="Agendamento de consulta">
   <div class="contato-container">
     <!-- Título Principal -->
     <h2 class="contato-titulo">Agende sua consulta</h2>
 
     <!-- Informações Práticas -->
-    <div class="info-grupo">
-      <p class="info-localizacao">São José do Rio Preto</p>
-      <p class="info-atendimento">Atendimento presencial e online</p>
+    <div class="info-pratica">
+      <p class="localizacao">São José do Rio Preto</p>
+      <p class="atendimento">Atendimento presencial e online</p>
     </div>
 
-    <!-- Duração -->
-    <div class="info-duracao">
-      <p class="duracao-linha">Primeira consulta: <strong>2 horas</strong></p>
-      <p class="duracao-linha">Retornos: <strong>1 hora</strong></p>
+    <!-- Duração das Consultas -->
+    <div class="duracao-consultas">
+      <p class="duracao-item">Primeira consulta: <strong>2 horas</strong></p>
+      <p class="duracao-item">Retornos: <strong>1 hora</strong></p>
     </div>
 
-    <!-- Cal.com Embed Container -->
-    <div class="cal-embed-container">
-      <div id="cal-booking" data-cal-link="drgustavomendes">
-        <!-- Cal.com será injetado aqui -->
-        <div class="cal-loading">
-          <div class="loading-skeleton"></div>
-          <p class="loading-text">Carregando calendário...</p>
-        </div>
-      </div>
+    <!-- Botão Agendar (trigger do modal) -->
+    <div class="agendar-wrapper">
+      <button
+        id="agendar-contato-btn"
+        class="agendar-contato-btn"
+        aria-label="Abrir agendamento de consulta"
+      >
+        Agendar Consulta
+      </button>
     </div>
 
     <!-- Alternativa WhatsApp -->
-    <div class="whatsapp-alternativa">
+    <div class="whatsapp-section">
       <a
         href="https://wa.me/5517211011228?text=Olá,%20vim%20do%20site"
         target="_blank"
@@ -51,8 +52,6 @@
         <a href="/curriculo" class="footer-link">Currículo</a>
         <span class="separator" aria-hidden="true">·</span>
         <a href="/publicacoes" class="footer-link">Publicações</a>
-        <span class="separator" aria-hidden="true">·</span>
-        <a href="/recursos" class="footer-link">Recursos</a>
       </nav>
 
       <!-- Copyright -->
@@ -64,189 +63,234 @@
   </div>
 </section>
 
+<script>
+  function setupContatoAnimations() {
+    const contatoSection = document.getElementById('contato');
+    if (!contatoSection) return;
+
+    const titulo = contatoSection.querySelector('.contato-titulo');
+    const infoPratica = contatoSection.querySelector('.info-pratica');
+    const duracao = contatoSection.querySelector('.duracao-consultas');
+    const agendarWrapper = contatoSection.querySelector('.agendar-wrapper');
+    const whatsapp = contatoSection.querySelector('.whatsapp-section');
+    const footer = contatoSection.querySelector('.footer-contato');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (titulo) titulo.classList.add('visible');
+            if (infoPratica) infoPratica.classList.add('visible');
+            if (duracao) duracao.classList.add('visible');
+            if (agendarWrapper) agendarWrapper.classList.add('visible');
+            if (whatsapp) whatsapp.classList.add('visible');
+          }
+        });
+      },
+      {
+        threshold: 0.3,
+      }
+    );
+
+    const footerObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && footer) {
+            footer.classList.add('visible');
+          }
+        });
+      },
+      {
+        threshold: 0.8,
+      }
+    );
+
+    observer.observe(contatoSection);
+    if (footer) {
+      footerObserver.observe(contatoSection);
+    }
+
+    // Botão Agendar - Trigger para o Cal.com modal
+    const agendarBtn = document.getElementById('agendar-contato-btn');
+    if (agendarBtn) {
+      agendarBtn.addEventListener('click', () => {
+        // Dispara evento customizado que o CalModal escutará
+        window.dispatchEvent(new CustomEvent('open-cal-modal'));
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupContatoAnimations);
+  } else {
+    setupContatoAnimations();
+  }
+</script>
+
 <style>
-  /* Section Layout */
+  /* ===== SEÇÃO CONTATO - 100vh EXATO + CENTRALIZADO ===== */
   .contato-section {
-    position: relative;
+    width: 100%;
+    height: 100vh;
     min-height: 100vh;
-    height: auto;
-    background-color: #FAFAF8;
+    max-height: 100vh;
+    background: var(--bg-secondary);
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    padding: 15vh 0 5vh 0;
+    overflow-y: auto;
   }
 
+  /* ===== CONTAINER ===== */
   .contato-container {
     width: 100%;
     max-width: 1200px;
-    padding: 0 clamp(40px, 10%, 120px);
+    padding: 0 10%;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: clamp(32px, 5vh, 48px);
+    gap: 48px;
   }
 
-  /* Título */
+  /* ===== TÍTULO ===== */
   .contato-titulo {
     margin: 0;
-    font-family: var(--font-sans);
-    font-size: clamp(32px, 4vw, 48px);
+    font-size: 48px;
     font-weight: var(--font-light);
-    color: #1A1A1A;
+    color: var(--text-primary);
     line-height: 1.2;
     opacity: 0;
     transform: translateY(30px);
   }
 
   .contato-titulo.visible {
-    animation: fadeInUp 700ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: fadeInUp 700ms var(--ease-smooth) forwards;
     animation-delay: 400ms;
   }
 
-  /* Informações Práticas */
-  .info-grupo {
+  /* ===== INFORMAÇÕES PRÁTICAS ===== */
+  .info-pratica {
     display: flex;
     flex-direction: column;
     gap: 8px;
     opacity: 0;
-    transform: translateY(20px);
   }
 
-  .info-grupo.visible {
-    animation: fadeInUp 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: 600ms;
+  .info-pratica.visible {
+    animation: fadeIn 500ms ease-out forwards;
+    animation-delay: 700ms;
   }
 
-  .info-localizacao {
+  .localizacao {
     margin: 0;
-    font-family: var(--font-sans);
-    font-size: clamp(18px, 2vw, 20px);
+    font-size: 20px;
     font-weight: var(--font-medium);
-    color: #2C2C2C;
+    color: var(--text-primary-alt);
     line-height: 1.5;
   }
 
-  .info-atendimento {
+  .atendimento {
     margin: 0;
-    font-family: var(--font-sans);
-    font-size: clamp(16px, 1.8vw, 18px);
+    font-size: 18px;
     font-weight: var(--font-regular);
-    color: #666666;
+    color: var(--text-secondary);
     line-height: 1.5;
   }
 
-  /* Duração */
-  .info-duracao {
+  /* ===== DURAÇÃO ===== */
+  .duracao-consultas {
     display: flex;
     flex-direction: column;
     gap: 4px;
     opacity: 0;
-    transform: translateY(20px);
   }
 
-  .info-duracao.visible {
-    animation: fadeInUp 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: 700ms;
-  }
-
-  .duracao-linha {
-    margin: 0;
-    font-family: var(--font-sans);
-    font-size: 16px;
-    font-weight: var(--font-regular);
-    color: #666666;
-    line-height: 1.6;
-  }
-
-  .duracao-linha strong {
-    font-weight: var(--font-semibold);
-    color: #1A1A1A;
-  }
-
-  /* Cal.com Embed */
-  .cal-embed-container {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    background: #FFFFFF;
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  .cal-embed-container.visible {
-    animation: fadeInUp 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: 800ms;
-  }
-
-  /* Cal.com Loading State */
-  .cal-loading {
-    padding: 60px 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .loading-skeleton {
-    width: 100%;
-    height: 400px;
-    background: linear-gradient(90deg, #F5F5F5 25%, #E5E5E5 50%, #F5F5F5 75%);
-    background-size: 200% 100%;
-    animation: loading-pulse 1.5s ease-in-out infinite;
-    border-radius: 4px;
-  }
-
-  @keyframes loading-pulse {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-  }
-
-  .loading-text {
-    margin: 0;
-    font-family: var(--font-sans);
-    font-size: 14px;
-    font-weight: var(--font-regular);
-    color: #999999;
-  }
-
-  /* WhatsApp Alternativa */
-  .whatsapp-alternativa {
-    margin-top: clamp(12px, 2vh, 16px);
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  .whatsapp-alternativa.visible {
-    animation: fadeInUp 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  .duracao-consultas.visible {
+    animation: fadeIn 500ms ease-out forwards;
     animation-delay: 1000ms;
   }
 
-  .whatsapp-link {
-    font-family: var(--font-sans);
-    font-size: 16px;
+  .duracao-item {
+    margin: 0;
+    font-size: var(--text-sm);
     font-weight: var(--font-regular);
-    color: #666666;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .duracao-item strong {
+    font-weight: var(--font-semibold);
+    color: var(--text-primary);
+  }
+
+  /* ===== BOTÃO AGENDAR ===== */
+  .agendar-wrapper {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+
+  .agendar-wrapper.visible {
+    animation: scaleIn 800ms var(--ease-smooth) forwards;
+    animation-delay: 1300ms;
+  }
+
+  .agendar-contato-btn {
+    padding: 18px 48px;
+    background: var(--text-primary);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: var(--font-medium);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    letter-spacing: -0.01em;
+  }
+
+  .agendar-contato-btn:hover {
+    background: var(--text-primary-alt);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  .agendar-contato-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  /* ===== WHATSAPP ===== */
+  .whatsapp-section {
+    margin-top: 16px;
+    opacity: 0;
+  }
+
+  .whatsapp-section.visible {
+    animation: fadeIn 400ms ease-out forwards;
+    animation-delay: 1800ms;
+  }
+
+  .whatsapp-link {
+    font-size: var(--text-sm);
+    font-weight: var(--font-regular);
+    color: var(--text-secondary);
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: all var(--transition-fast);
     display: inline-block;
   }
 
   .whatsapp-link:hover {
-    color: #1A1A1A;
+    color: var(--text-primary);
     text-decoration: underline;
+    transform: translateY(-2px);
   }
 
-  /* Footer */
+  /* ===== FOOTER ===== */
   .footer-contato {
     width: 100%;
-    margin-top: clamp(60px, 8vh, 80px);
-    padding-top: clamp(32px, 4vh, 40px);
+    margin-top: 80px;
+    padding-top: 40px;
     border-top: 1px solid rgba(0, 0, 0, 0.08);
     display: flex;
     flex-direction: column;
@@ -257,7 +301,6 @@
 
   .footer-contato.visible {
     animation: fadeIn 600ms ease-out forwards;
-    animation-delay: 1200ms;
   }
 
   /* Footer Nav */
@@ -270,16 +313,15 @@
   }
 
   .footer-link {
-    font-family: var(--font-sans);
     font-size: 14px;
     font-weight: var(--font-regular);
-    color: #999999;
+    color: var(--text-tertiary);
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: all var(--transition-fast);
   }
 
   .footer-link:hover {
-    color: #1A1A1A;
+    color: var(--text-primary);
     text-decoration: underline;
   }
 
@@ -299,14 +341,33 @@
   .copyright-text,
   .copyright-crm {
     margin: 0;
-    font-family: var(--font-sans);
     font-size: 13px;
-    font-weight: var(--font-regular);
     color: #CCCCCC;
     line-height: 1.6;
   }
 
-  /* Responsive - Tablet */
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* ===== RESPONSIVE - TABLET ===== */
   @media (min-width: 768px) and (max-width: 1023px) {
     .contato-container {
       padding: 0 8%;
@@ -316,20 +377,22 @@
       font-size: 42px;
     }
 
-    .cal-embed-container {
-      max-width: 90%;
+    .agendar-contato-btn {
+      font-size: 17px;
+      padding: 16px 40px;
     }
   }
 
-  /* Responsive - Mobile */
+  /* ===== RESPONSIVE - MOBILE ===== */
   @media (max-width: 767px) {
     .contato-section {
-      min-height: 100svh;
-      padding: 120px 0 60px 0;
+      height: 100dvh;
+      min-height: 100dvh;
+      max-height: 100dvh;
     }
 
     .contato-container {
-      padding: 0 24px;
+      padding: 0 var(--padding-mobile);
       gap: 32px;
     }
 
@@ -337,16 +400,19 @@
       font-size: 32px;
     }
 
-    .info-localizacao {
+    .localizacao {
       font-size: 18px;
     }
 
-    .info-atendimento {
+    .atendimento {
       font-size: 16px;
     }
 
-    .cal-embed-container {
-      max-width: 100%;
+    .agendar-contato-btn {
+      font-size: 16px;
+      padding: 14px 32px;
+      width: 100%;
+      max-width: 300px;
     }
 
     .footer-nav {
@@ -363,90 +429,28 @@
     }
   }
 
-  /* Accessibility - Reduced Motion */
+  /* ===== ACCESSIBILITY - REDUCED MOTION ===== */
   @media (prefers-reduced-motion: reduce) {
     .contato-titulo,
-    .info-grupo,
-    .info-duracao,
-    .cal-embed-container,
-    .whatsapp-alternativa,
+    .info-pratica,
+    .duracao-consultas,
+    .agendar-wrapper,
+    .whatsapp-section,
     .footer-contato {
       animation: none !important;
       opacity: 1 !important;
       transform: none !important;
     }
 
-    .loading-skeleton {
-      animation: none !important;
+    .agendar-contato-btn,
+    .whatsapp-link,
+    .footer-link {
+      transition: none !important;
+    }
+
+    .agendar-contato-btn:hover,
+    .whatsapp-link:hover {
+      transform: none !important;
     }
   }
 </style>
-
-<script>
-  function setupContatoAnimations() {
-    const contatoSection = document.getElementById('contato');
-    if (!contatoSection) return;
-
-    const titulo = contatoSection.querySelector('.contato-titulo');
-    const infoGrupo = contatoSection.querySelector('.info-grupo');
-    const infoDuracao = contatoSection.querySelector('.info-duracao');
-    const calEmbed = contatoSection.querySelector('.cal-embed-container');
-    const whatsapp = contatoSection.querySelector('.whatsapp-alternativa');
-    const footer = contatoSection.querySelector('.footer-contato');
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            if (titulo) titulo.classList.add('visible');
-            if (infoGrupo) infoGrupo.classList.add('visible');
-            if (infoDuracao) infoDuracao.classList.add('visible');
-            if (calEmbed) calEmbed.classList.add('visible');
-            if (whatsapp) whatsapp.classList.add('visible');
-            if (footer) footer.classList.add('visible');
-          }
-        });
-      },
-      {
-        threshold: 0.2,
-      }
-    );
-
-    observer.observe(contatoSection);
-
-    // Cal.com Integration - Inline Embed
-    // Ref: https://cal.com/drgustavomendes
-    (function () {
-      const calScript = document.createElement('script');
-      calScript.type = 'text/javascript';
-      calScript.src = 'https://app.cal.com/embed/embed.js';
-      calScript.async = true;
-
-      calScript.onload = function() {
-        // @ts-ignore
-        if (typeof Cal !== 'undefined') {
-          // @ts-ignore
-          Cal("inline", {
-            elementOrSelector: "#cal-booking",
-            calLink: "drgustavomendes",
-            layout: "month_view",
-            config: {
-              theme: "light",
-              branding: {
-                brandColor: "#1A1A1A"
-              }
-            }
-          });
-        }
-      };
-
-      document.head.appendChild(calScript);
-    })();
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupContatoAnimations);
-  } else {
-    setupContatoAnimations();
-  }
-</script>

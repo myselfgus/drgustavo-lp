@@ -3,6 +3,8 @@
  * Salva no D1 e pode enfileirar email de confirmação
  */
 
+import type { PagesFunction } from '@cloudflare/workers-types';
+
 interface Env {
   DB: D1Database;
   SITE_CACHE: KVNamespace;
@@ -27,10 +29,20 @@ interface CalWebhookPayload {
   };
 }
 
-export const onRequest: PagesFunction<Env> = async (context) => {
+type CalContext = Parameters<PagesFunction<Env>>[0];
+type WorkerResponse = import('@cloudflare/workers-types').Response;
+
+const asWorkerResponse = (response: Response): WorkerResponse =>
+  response as unknown as WorkerResponse;
+
+const handleCalWebhook = async (
+  context: CalContext,
+): Promise<WorkerResponse> => {
   // Apenas POST
   if (context.request.method !== 'POST') {
-    return new Response('Method not allowed', { status: 405 });
+    return asWorkerResponse(new Response('Method not allowed', {
+      status: 405,
+    }));
   }
 
   try {
@@ -91,31 +103,34 @@ export const onRequest: PagesFunction<Env> = async (context) => {
       }
       */
 
-      return new Response(JSON.stringify({
+      return asWorkerResponse(new Response(JSON.stringify({
         success: true,
         message: 'Agendamento processado com sucesso'
       }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' }
-      });
+      }));
     }
 
     // Outros eventos (rescheduled, cancelled)
-    return new Response(JSON.stringify({
+    return asWorkerResponse(new Response(JSON.stringify({
       success: true,
       message: `Evento ${webhookData.triggerEvent} recebido`
     }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
-    });
+    }));
 
   } catch (error) {
     console.error('[Cal Webhook Error]', error);
-    return new Response(JSON.stringify({
+    return asWorkerResponse(new Response(JSON.stringify({
       error: 'Erro ao processar webhook'
     }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }
-    });
+    }));
   }
 };
+
+export const onRequest: PagesFunction<Env> = (context) =>
+  handleCalWebhook(context);

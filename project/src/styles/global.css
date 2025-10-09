@@ -59,16 +59,18 @@ a:hover {
   color: var(--color-text-primary);
 }
 
-/* Sections - Scroll Snap */
+/* Sections - Scroll Snap - PRINCÍPIO BÁSICO: SEMPRE 100vh */
 section {
   min-height: 100vh;
   height: 100vh;
+  max-height: 100vh;
   scroll-snap-align: start;
   scroll-snap-stop: always;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow-y: auto;
 }
 
 /* Accessibility */
@@ -168,5 +170,6 @@ section {
   section {
     min-height: 100dvh;
     height: 100dvh;
+    max-height: 100dvh;
   }
 }

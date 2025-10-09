@@ -1,14 +1,15 @@
 ---
 // Método section - Seção 4
+// Especificação: secao-04-metodo.md
 ---
 
-<section id="metodo" class="metodo-section">
+<section id="metodo" class="metodo-section" aria-label="Como trabalhamos">
   <div class="metodo-container">
     <h2 class="metodo-titulo">Como trabalhamos</h2>
 
     <ol class="processo-lista">
       <!-- Item 1 -->
-      <li class="processo-item">
+      <li class="processo-item" data-index="0">
         <span class="seta" aria-hidden="true">→</span>
         <span class="texto">
           Primeira consulta: <strong>2 horas</strong> de análise sem pressa
@@ -16,7 +17,7 @@
       </li>
 
       <!-- Item 2 -->
-      <li class="processo-item">
+      <li class="processo-item" data-index="1">
         <span class="seta" aria-hidden="true">→</span>
         <span class="texto">
           Você fala, eu ouço e <strong>estruturo padrões com IA</strong>
@@ -24,7 +25,7 @@
       </li>
 
       <!-- Item 3 -->
-      <li class="processo-item">
+      <li class="processo-item" data-index="2">
         <span class="seta" aria-hidden="true">→</span>
         <span class="texto">
           Construímos hipóteses juntos – <strong>seu insight importa</strong>
@@ -32,7 +33,7 @@
       </li>
 
       <!-- Item 4 -->
-      <li class="processo-item">
+      <li class="processo-item" data-index="3">
         <span class="seta" aria-hidden="true">→</span>
         <span class="texto">
           Tratamento <strong>co-criado</strong>: medicação, canabidiol, estratégias comportamentais
@@ -40,7 +41,7 @@
       </li>
 
       <!-- Item 5 -->
-      <li class="processo-item">
+      <li class="processo-item" data-index="4">
         <span class="seta" aria-hidden="true">→</span>
         <span class="texto">
           Relatórios detalhados – <strong>você entende</strong> o que está acontecendo
@@ -48,7 +49,7 @@
       </li>
 
       <!-- Item 6 -->
-      <li class="processo-item">
+      <li class="processo-item" data-index="5">
         <span class="seta" aria-hidden="true">→</span>
         <span class="texto">
           Reavaliações: <strong>acompanhamento real</strong>, não receita automática
@@ -62,209 +63,6 @@
     </a>
   </div>
 </section>
-
-<style>
-  /* Section Layout */
-  .metodo-section {
-    position: relative;
-    min-height: 100vh;
-    height: 100vh;
-    background-color: #FFFFFF;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    overflow: hidden;
-  }
-
-  .metodo-container {
-    width: 100%;
-    padding-left: clamp(24px, 20%, 280px);
-    padding-right: clamp(24px, 30%, 420px);
-    max-width: 1400px;
-    padding-top: 15vh;
-    padding-bottom: 15vh;
-  }
-
-  /* Título */
-  .metodo-titulo {
-    margin: 0 0 clamp(24px, 4vh, 40px) 0;
-    font-family: var(--font-sans);
-    font-size: 16px;
-    font-weight: var(--font-semibold);
-    color: #1A1A1A;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  .metodo-titulo.visible {
-    animation: fadeInUp 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: 400ms;
-  }
-
-  /* Lista do Processo */
-  .processo-lista {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: clamp(20px, 3vh, 32px);
-    max-width: 600px;
-  }
-
-  /* Item do Processo */
-  .processo-item {
-    display: flex;
-    align-items: flex-start;
-    opacity: 0;
-    transform: translateX(-20px);
-    transition: transform 0.3s ease;
-  }
-
-  .processo-item:hover {
-    transform: translateX(4px);
-  }
-
-  .processo-item.visible {
-    animation: slideIn 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-
-  .processo-item:nth-child(1).visible { animation-delay: 800ms; }
-  .processo-item:nth-child(2).visible { animation-delay: 900ms; }
-  .processo-item:nth-child(3).visible { animation-delay: 1000ms; }
-  .processo-item:nth-child(4).visible { animation-delay: 1100ms; }
-  .processo-item:nth-child(5).visible { animation-delay: 1200ms; }
-  .processo-item:nth-child(6).visible { animation-delay: 1300ms; }
-
-  /* Seta */
-  .seta {
-    font-size: 20px;
-    color: #999999;
-    margin-right: 12px;
-    margin-top: 2px;
-    flex-shrink: 0;
-    transition: all 0.3s ease;
-  }
-
-  .processo-item:hover .seta {
-    transform: translateX(8px);
-    color: #1A1A1A;
-  }
-
-  /* Texto */
-  .texto {
-    font-family: var(--font-sans);
-    font-size: clamp(18px, 2vw, 22px);
-    font-weight: var(--font-regular);
-    color: #2C2C2C;
-    line-height: 1.6;
-  }
-
-  .texto strong {
-    font-weight: var(--font-semibold);
-  }
-
-  /* Link Contextual */
-  .link-preparacao {
-    display: inline-block;
-    margin-top: clamp(40px, 6vh, 60px);
-    font-family: var(--font-sans);
-    font-size: 16px;
-    font-weight: var(--font-regular);
-    color: #666666;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  .link-preparacao.visible {
-    animation: fadeInUp 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: 1800ms;
-  }
-
-  .link-preparacao:hover {
-    color: #1A1A1A;
-    text-decoration: underline;
-    transform: translateX(4px) translateY(0);
-  }
-
-  /* Keyframes */
-  @keyframes slideIn {
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  /* Responsive - Tablet */
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .metodo-container {
-      padding-left: 15%;
-      padding-right: 25%;
-    }
-
-    .texto {
-      font-size: 20px;
-    }
-  }
-
-  /* Responsive - Mobile */
-  @media (max-width: 767px) {
-    .metodo-section {
-      min-height: 100svh;
-      height: 100svh;
-    }
-
-    .metodo-container {
-      padding-left: 24px;
-      padding-right: 24px;
-      padding-top: 120px;
-      padding-bottom: 80px;
-    }
-
-    .metodo-titulo {
-      font-size: 14px;
-      margin-bottom: 32px;
-    }
-
-    .processo-lista {
-      gap: 24px;
-    }
-
-    .texto {
-      font-size: 18px;
-    }
-
-    .seta {
-      font-size: 18px;
-      margin-right: 10px;
-    }
-
-    .link-preparacao {
-      margin-top: 48px;
-      font-size: 15px;
-    }
-  }
-
-  /* Accessibility - Reduced Motion */
-  @media (prefers-reduced-motion: reduce) {
-    .metodo-titulo,
-    .processo-item,
-    .link-preparacao {
-      animation: none !important;
-      opacity: 1 !important;
-      transform: none !important;
-    }
-
-    .processo-item:hover,
-    .processo-item:hover .seta {
-      transform: none !important;
-    }
-  }
-</style>
 
 <script>
   function setupMetodoAnimations() {
@@ -299,3 +97,215 @@
     setupMetodoAnimations();
   }
 </script>
+
+<style>
+  /* ===== SEÇÃO MÉTODO - 100vh EXATO + LAYOUT ASSIMÉTRICO ===== */
+  .metodo-section {
+    width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
+    background: var(--bg-primary);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+  }
+
+  /* ===== CONTAINER - ASSIMETRIA ELEGANTE ===== */
+  .metodo-container {
+    width: 100%;
+    padding-left: 20%;
+    padding-right: 30%;
+    padding-top: 15%;
+    padding-bottom: 15%;
+    max-width: 1400px;
+  }
+
+  /* ===== TÍTULO ===== */
+  .metodo-titulo {
+    margin: 0 0 40px 0;
+    font-size: 16px;
+    font-weight: var(--font-semibold);
+    color: var(--text-primary);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .metodo-titulo.visible {
+    animation: fadeInUp 600ms var(--ease-smooth) forwards;
+    animation-delay: 400ms;
+  }
+
+  /* ===== LISTA DO PROCESSO ===== */
+  .processo-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-metodo);
+    max-width: 600px;
+  }
+
+  /* ===== ITEM DO PROCESSO ===== */
+  .processo-item {
+    display: flex;
+    align-items: flex-start;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: transform 0.3s ease;
+  }
+
+  .processo-item:hover {
+    transform: translateX(4px);
+  }
+
+  .processo-item.visible {
+    animation: slideIn 500ms var(--ease-smooth) forwards;
+  }
+
+  /* Stagger animation - 100ms delay entre cada */
+  .processo-item[data-index="0"].visible { animation-delay: 800ms; }
+  .processo-item[data-index="1"].visible { animation-delay: 900ms; }
+  .processo-item[data-index="2"].visible { animation-delay: 1000ms; }
+  .processo-item[data-index="3"].visible { animation-delay: 1100ms; }
+  .processo-item[data-index="4"].visible { animation-delay: 1200ms; }
+  .processo-item[data-index="5"].visible { animation-delay: 1300ms; }
+
+  /* ===== SETA ===== */
+  .seta {
+    font-size: 20px;
+    color: var(--text-tertiary);
+    margin-right: 12px;
+    margin-top: 2px;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+
+  .processo-item:hover .seta {
+    transform: translateX(8px);
+    color: var(--text-primary);
+  }
+
+  /* ===== TEXTO ===== */
+  .texto {
+    font-size: var(--text-metodo);
+    font-weight: var(--font-regular);
+    color: var(--text-primary-alt);
+    line-height: 1.6;
+  }
+
+  .texto strong {
+    font-weight: var(--font-semibold);
+  }
+
+  /* ===== LINK CONTEXTUAL ===== */
+  .link-preparacao {
+    display: inline-block;
+    margin-top: 60px;
+    font-size: var(--text-sm);
+    font-weight: var(--font-regular);
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  .link-preparacao.visible {
+    animation: fadeInUp 400ms var(--ease-smooth) forwards;
+    animation-delay: 1800ms;
+  }
+
+  .link-preparacao:hover {
+    color: var(--text-primary);
+    text-decoration: underline;
+    transform: translateX(4px) translateY(0);
+  }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideIn {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* ===== RESPONSIVE - TABLET ===== */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .metodo-container {
+      padding-left: 15%;
+      padding-right: 25%;
+    }
+
+    .texto {
+      font-size: 20px;
+    }
+  }
+
+  /* ===== RESPONSIVE - MOBILE ===== */
+  @media (max-width: 767px) {
+    .metodo-section {
+      height: 100dvh;
+      min-height: 100dvh;
+      max-height: 100dvh;
+    }
+
+    .metodo-container {
+      padding-left: var(--padding-mobile);
+      padding-right: var(--padding-mobile);
+      padding-top: 120px;
+      padding-bottom: 80px;
+    }
+
+    .metodo-titulo {
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+
+    .processo-lista {
+      gap: 24px;
+    }
+
+    .texto {
+      font-size: 18px;
+    }
+
+    .seta {
+      font-size: 18px;
+      margin-right: 10px;
+    }
+
+    .link-preparacao {
+      margin-top: 48px;
+      font-size: 15px;
+    }
+  }
+
+  /* ===== ACCESSIBILITY - REDUCED MOTION ===== */
+  @media (prefers-reduced-motion: reduce) {
+    .metodo-titulo,
+    .processo-item,
+    .link-preparacao {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    .processo-item:hover,
+    .processo-item:hover .seta {
+      transform: none !important;
+    }
+  }
+</style>

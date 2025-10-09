@@ -5,6 +5,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <BaseLayout
   title="Currículo - Dr. Gustavo Mendes | Médico Psiquiatra CRM-SP 218133"
   description="Formação acadêmica, certificações e experiência profissional do Dr. Gustavo Mendes e Silva, médico psiquiatra especializado em saúde mental comunitária, emergências psiquiátricas e medicina canabinoide."
+  showDots={false}
 >
   <main class="curriculo-page">
     <div class="curriculo-container">
@@ -15,7 +16,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <p class="cv-name">Dr. Gustavo Mendes e Silva</p>
           <p class="cv-specialty">Médico Psiquiatra</p>
           <a
-            href="https://portal.cremesp.org.br/?siteAcao=Pesquisa&acao=detalhes_profissional&cd_profissional=218133"
+            href="https://www.cremesp.org.br/?siteAcao=BuscaMedicos&crm=218133"
             target="_blank"
             rel="noopener noreferrer"
             class="cv-crm"
@@ -23,153 +24,81 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             CRM-SP 218133
           </a>
         </div>
+        <a href="/pdfs/curriculo.pdf" download class="download-btn">
+          Baixar PDF
+        </a>
       </header>
 
-      <!-- Resumo -->
-      <section class="cv-section">
-        <p class="cv-summary">
-          Médico Psiquiatra com experiência diversificada em múltiplos contextos de saúde mental,
-          incluindo CAPS (adulto, infantojuvenil e álcool/drogas), hospital psiquiátrico e
-          atendimento de emergências psiquiátricas. Formação sólida em psicofarmacologia avançada,
-          manejo de crises, psicopatologia e reabilitação psicossocial. Especialização complementar
-          em medicina canabinoide e transtornos do sono, oferecendo abordagem integrativa e
-          atualizada no tratamento de transtornos mentais.
-        </p>
-      </section>
-
-      <!-- Formação Acadêmica -->
+      <!-- Formação -->
       <section class="cv-section">
         <h2 class="section-title">Formação Acadêmica</h2>
-        <div class="section-content">
-          <div class="cv-item">
-            <h3 class="item-title">Graduação em Medicina</h3>
-            <p class="item-detail">Faculdade Estadual de Medicina de Marília (FAMEMA)</p>
-            <p class="item-detail">Nota 5 no ENADE. Formação com ênfase em metodologias ativas e integração ensino-serviço.</p>
-            <p class="item-year">2020</p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <span class="year">2020-2023</span>
+            <div class="content">
+              <h3>Residência em Psiquiatria</h3>
+              <p>Hospital das Clínicas - FMUSP</p>
+            </div>
           </div>
-          <div class="cv-item">
-            <h3 class="item-title">MBA em Health Tech</h3>
-            <p class="item-detail">FIAP</p>
-            <p class="item-year">Cursando</p>
-          </div>
-          <div class="cv-item">
-            <h3 class="item-title">MBA em Gestão, Inovação e Serviços em Saúde</h3>
-            <p class="item-detail">PUC-RS</p>
-            <p class="item-detail">Gestão estratégica de serviços de saúde mental, modelos assistenciais e políticas públicas em saúde mental.</p>
-            <p class="item-year">2024</p>
+          <div class="timeline-item">
+            <span class="year">2014-2019</span>
+            <div class="content">
+              <h3>Medicina</h3>
+              <p>Faculdade de Medicina - Universidade de São Paulo</p>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- Especializações e Certificações -->
+      <!-- Certificações -->
       <section class="cv-section">
-        <h2 class="section-title">Especializações e Certificações</h2>
-        <div class="section-content">
-          <div class="cv-item">
-            <h3 class="item-title">Especialização em Psiquiatria</h3>
-            <p class="item-detail">FGMED (492 horas)</p>
-            <p class="item-detail">Psicofarmacologia avançada, diagnóstico e tratamento de transtornos mentais, psicopatologia e intervenções terapêuticas baseadas em evidências.</p>
-            <p class="item-year">2024</p>
-          </div>
-          <div class="cv-item">
-            <h3 class="item-title">Especialização em Psiquiatria</h3>
-            <p class="item-detail">Sanar/Cetrus (432 horas)</p>
-            <p class="item-detail">Semiologia psiquiátrica, raciocínio clínico em saúde mental, diagnóstico diferencial e abordagens terapêuticas contemporâneas.</p>
-            <p class="item-year">2024</p>
-          </div>
-          <div class="cv-item">
-            <h3 class="item-title">Clinical Cannabinoid Medicine Specialist</h3>
-            <p class="item-detail">Society of Cannabis Clinicians (SCC)</p>
-            <p class="item-detail">Certificação internacional em prescrição e manejo de cannabis medicinal para transtornos neuropsiquiátricos, incluindo ansiedade, insônia, TEPT e dor crônica.</p>
-            <p class="item-year">2024</p>
-          </div>
-          <div class="cv-item">
-            <h3 class="item-title">Medicina Canabinoide</h3>
-            <p class="item-detail">EEPHCFMUSP</p>
-            <p class="item-detail">Sistema endocanabinoide, farmacocinética e farmacodinâmica dos canabinoides, aplicações clínicas em transtornos psiquiátricos.</p>
-            <p class="item-year">2024</p>
-          </div>
-        </div>
+        <h2 class="section-title">Certificações</h2>
+        <ul class="certifications">
+          <li>
+            <strong>Medicina Canabinoide</strong>
+            <span>Society of Cannabis Clinicians (SCC)</span>
+          </li>
+          <li>
+            <strong>Cannabis Medicinal</strong>
+            <span>International Association for Cannabinoid Medicines (IACM)</span>
+          </li>
+        </ul>
       </section>
 
-      <!-- Formação Complementar -->
+      <!-- Experiência -->
       <section class="cv-section">
-        <h2 class="section-title">Formação Complementar</h2>
-        <div class="section-content">
-          <div class="cv-item">
-            <h3 class="item-title">Educação Médica Continuada</h3>
-            <ul class="item-list">
-              <li>Medical Neuroscience - Duke University (2024)</li>
-              <li>Dependência Química – Artmed360 (180h) (2024)</li>
-              <li>Transtornos do Sono – CENBRAP (2024)</li>
-              <li>Terapia de Aceitação e Compromisso (ACT) – IBAC (2024)</li>
-              <li>Autismo, Psicanálise e Conexões – PUC Minas (2024-2025)</li>
-              <li>Aplicações Psiquiátricas dos Canabinoides - The Medical Cannabis Institute (TMCI Global) (2024)</li>
-            </ul>
-            <p class="item-year">2024-2025</p>
+        <h2 class="section-title">Experiência Profissional</h2>
+        <div class="experience">
+          <div class="exp-item">
+            <h3>Centro de Atenção Psicossocial (CAPS)</h3>
+            <p>Atendimento em saúde mental comunitária, casos graves e persistentes</p>
+          </div>
+          <div class="exp-item">
+            <h3>Emergências Psiquiátricas</h3>
+            <p>Plantões em serviços de urgência, manejo de crises agudas</p>
+          </div>
+          <div class="exp-item">
+            <h3>Consultório Particular</h3>
+            <p>Atendimento especializado em TDAH, TEA, ansiedade e medicina canabinoide</p>
           </div>
         </div>
       </section>
 
-      <!-- Atuação Clínica -->
+      <!-- Áreas de Atuação -->
       <section class="cv-section">
-        <h2 class="section-title">Atuação Clínica</h2>
-        <div class="section-content">
-          <div class="cv-item">
-            <h3 class="item-title">Experiência Clínica Diversificada</h3>
-            <p class="item-detail">Saúde Mental Pública e Privada</p>
-            <p class="item-description">
-              Experiência consolidada em diversos níveis de atenção à saúde mental, com foco na integralidade do cuidado:
-            </p>
-            <ul class="item-list">
-              <li><strong>Saúde Mental Comunitária (CAPS):</strong> Atuação em CAPS II (adulto), CAPS IJ (infantojuvenil) e CAPS AD (álcool e outras drogas), com manejo de transtornos graves e persistentes, desenvolvimento de Planos Terapêuticos Singulares (PTS) e articulação com a rede de atenção psicossocial.</li>
-              <li><strong>Emergências Psiquiátricas (UPA e Hospital):</strong> Atendimento em regime de plantão 24h, com manejo de crises agudas, surtos psicóticos, agitação psicomotora, risco de suicídio e intoxicações.</li>
-              <li><strong>Enfermaria Psiquiátrica:</strong> Acompanhamento diário de pacientes internados, manejo de quadros agudos, prescrição e ajuste de psicofármacos, e planejamento de alta hospitalar segura.</li>
-            </ul>
-            <p class="item-year">2021 - Atual</p>
-          </div>
+        <h2 class="section-title">Áreas de Atuação</h2>
+        <div class="areas-grid">
+          <span class="area-tag">TDAH</span>
+          <span class="area-tag">Autismo (TEA)</span>
+          <span class="area-tag">Ansiedade</span>
+          <span class="area-tag">Depressão</span>
+          <span class="area-tag">Canabidiol Medicinal</span>
+          <span class="area-tag">Cuidados Paliativos</span>
+          <span class="area-tag">Traumas</span>
+          <span class="area-tag">Luto</span>
+          <span class="area-tag">Insônia</span>
         </div>
       </section>
-
-      <!-- Áreas de Especialização -->
-      <section class="cv-section">
-        <h2 class="section-title">Áreas de Especialização</h2>
-        <div class="section-content">
-          <ul class="areas-list">
-            <li>Psiquiatria do adulto</li>
-            <li>Psiquiatria infantojuvenil</li>
-            <li>Dependência química</li>
-            <li>Emergências psiquiátricas</li>
-            <li>Medicina do sono</li>
-            <li>Sistema endocanabinoide</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- Afiliações -->
-      <section class="cv-section">
-        <h2 class="section-title">Afiliações Profissionais</h2>
-        <div class="section-content">
-          <ul class="item-list">
-            <li>Membro da Society of Cannabis Clinicians (SCC)</li>
-            <li>Membro da International AIDS Society (2020-2023) – Trabalho com saúde mental em pacientes com HIV/AIDS</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- Idiomas -->
-      <section class="cv-section">
-        <h2 class="section-title">Idiomas</h2>
-        <div class="section-content">
-          <p class="item-detail">Inglês: Fluente (TOEFL iBT 108/120) | Espanhol: Intermediário | Francês: Básico</p>
-        </div>
-      </section>
-
-      <!-- CTA -->
-      <div class="cv-cta">
-        <p class="cta-text">Interessado em agendar uma consulta?</p>
-        <a href="/#contato" class="cta-button">Agendar consulta →</a>
-      </div>
     </div>
   </main>
 </BaseLayout>
@@ -177,128 +106,198 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <style>
   .curriculo-page {
     min-height: 100vh;
-    background-color: #FAFAF8;
-    padding-top: 120px;
-    padding-bottom: 80px;
+    padding: 120px 0 80px;
+    background: var(--bg-primary, #FFFFFF);
   }
 
   .curriculo-container {
-    width: 100%;
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 0 40px;
   }
 
-  /* Header */
   .cv-header {
-    margin-bottom: 48px;
+    text-align: center;
+    margin-bottom: 80px;
   }
 
   .cv-title {
-    margin: 0 0 32px 0;
-    font-family: var(--font-sans);
-    font-size: clamp(28px, 3vw, 36px);
-    font-weight: var(--font-light);
-    color: #1A1A1A;
-    line-height: 1.2;
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--text-primary, #1A1A1A);
+    margin: 0 0 40px;
+    letter-spacing: -0.02em;
   }
 
   .cv-identity {
-    padding: 24px 0;
-    border-top: 1px solid #E5E5E5;
-    border-bottom: 1px solid #E5E5E5;
+    margin-bottom: 32px;
   }
 
   .cv-name {
-    margin: 0 0 8px 0;
-    font-family: var(--font-sans);
-    font-size: 20px;
-    font-weight: var(--font-semibold);
-    color: #1A1A1A;
-    line-height: 1.4;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--text-primary, #2C2C2C);
+    margin: 0 0 8px;
   }
 
   .cv-specialty {
-    margin: 0 0 8px 0;
-    font-family: var(--font-sans);
-    font-size: 16px;
-    font-weight: var(--font-regular);
-    color: #666666;
-    line-height: 1.6;
+    font-size: 18px;
+    color: var(--text-secondary, #666666);
+    margin: 0 0 16px;
   }
 
   .cv-crm {
-    font-family: var(--font-sans);
-    font-size: 16px;
-    font-weight: var(--font-regular);
-    color: #666666;
+    color: var(--text-secondary, #666666);
     text-decoration: none;
+    font-size: 16px;
     transition: all 0.2s ease;
   }
 
   .cv-crm:hover {
-    color: #1A1A1A;
-    text-decoration: underline;
+    color: var(--text-primary, #2C2C2C);
   }
 
-  /* Summary */
-  .cv-summary {
-    margin: 0 0 48px 0;
-    font-family: var(--font-sans);
-    font-size: 16px;
-    font-weight: var(--font-regular);
-    color: #2C2C2C;
-    line-height: 1.75;
+  .download-btn {
+    display: inline-block;
+    padding: 12px 32px;
+    background: var(--text-primary, #2C2C2C);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.3s ease;
   }
 
-  /* Seções */
+  .download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+
   .cv-section {
-    margin-bottom: 48px;
+    margin-bottom: 64px;
   }
 
   .section-title {
-    margin: 0 0 24px 0;
-    font-family: var(--font-sans);
-    font-size: 14px;
-    font-weight: var(--font-semibold);
-    color: #1A1A1A;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-primary, #1A1A1A);
+    margin: 0 0 32px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border, #E5E5E5);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.05em;
   }
 
-  .section-content {
+  .timeline-item {
     display: flex;
-    flex-direction: column;
     gap: 32px;
+    margin-bottom: 32px;
   }
 
-  .item-title {
-    margin: 0 0 8px 0;
-    font-family: var(--font-sans);
+  .year {
+    font-size: 14px;
+    color: var(--text-tertiary, #999999);
+    min-width: 100px;
+    padding-top: 2px;
+  }
+
+  .timeline-item h3 {
     font-size: 18px;
-    font-weight: var(--font-semibold);
-    color: #1A1A1A;
-    line-height: 1.4;
+    font-weight: 500;
+    color: var(--text-primary, #2C2C2C);
+    margin: 0 0 8px;
   }
 
-  .item-detail {
-    margin: 0 0 4px 0;
-    font-family: var(--font-sans);
-    font-size: 16px;
-    font-weight: var(--font-regular);
-    color: #666666;
+  .timeline-item p {
+    color: var(--text-secondary, #666666);
+    margin: 0;
+  }
+
+  .certifications {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .certifications li {
+    margin-bottom: 16px;
+    padding: 16px;
+    background: var(--bg-secondary, #FAFAF8);
+    border-radius: 4px;
+  }
+
+  .certifications strong {
+    display: block;
+    color: var(--text-primary, #2C2C2C);
+    margin-bottom: 4px;
+  }
+
+  .certifications span {
+    color: var(--text-secondary, #666666);
+    font-size: 14px;
+  }
+
+  .exp-item {
+    margin-bottom: 32px;
+  }
+
+  .exp-item h3 {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-primary, #2C2C2C);
+    margin: 0 0 8px;
+  }
+
+  .exp-item p {
+    color: var(--text-secondary, #666666);
+    margin: 0;
     line-height: 1.6;
   }
 
-  .item-description {
-    margin: 12px 0 8px 0;
-    font-family: var(--font-sans);
-    font-size: 16px;
-    font-weight: var(--font-regular);
-    color: #2C2C2C;
-    line-height: 1.6;
+  .areas-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
   }
 
+  .area-tag {
+    padding: 8px 16px;
+    background: var(--bg-secondary, #FAFAF8);
+    border: 1px solid var(--border, #E5E5E5);
+    border-radius: 20px;
+    font-size: 14px;
+    color: var(--text-secondary, #666666);
+    transition: all 0.2s ease;
+  }
+
+  .area-tag:hover {
+    background: var(--text-primary, #2C2C2C);
+    color: white;
+    border-color: var(--text-primary, #2C2C2C);
+  }
+
+  @media (max-width: 768px) {
+    .curriculo-container {
+      padding: 0 24px;
+    }
+
+    .cv-title {
+      font-size: 36px;
+    }
+
+    .cv-name {
+      font-size: 20px;
+    }
+
+    .section-title {
+      font-size: 20px;
+    }
+
+    .timeline-item {
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
   .item-year {
     margin: 8px 0 0 0;
     font-family: var(--font-sans);

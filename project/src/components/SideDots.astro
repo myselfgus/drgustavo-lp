@@ -1,27 +1,70 @@
 ---
-// Side Dots Navigation - 6 seções
+// Side dots navigation component
 const sections = [
-  { id: 'hero', label: 'Hero' },
+  { id: 'hero', label: 'Início' },
   { id: 'manifesto', label: 'Manifesto' },
   { id: 'para-quem', label: 'Para Quem' },
   { id: 'metodo', label: 'Método' },
   { id: 'credenciais', label: 'Credenciais' },
-  { id: 'contato', label: 'Contato' },
+  { id: 'contato', label: 'Contato' }
 ];
 ---
 
 <nav class="side-dots" aria-label="Navegação entre seções">
   {sections.map((section, index) => (
-    <a
-      href={`#${section.id}`}
-      class="dot hero-nav-element"
+    <button
+      class="dot"
       data-section={section.id}
       aria-label={`Ir para ${section.label}`}
+      data-index={index}
     >
+      <span class="dot-indicator"></span>
       <span class="dot-label">{section.label}</span>
-    </a>
+    </button>
   ))}
 </nav>
+
+<script>
+  const dots = document.querySelectorAll<HTMLButtonElement>('.side-dots .dot');
+  const sectionElements = document.querySelectorAll<HTMLElement>('section[id]');
+  
+  // Smooth scroll to section
+  dots.forEach((dot) => {
+    dot.addEventListener('click', () => {
+      const sectionId = dot.dataset.section;
+      if (!sectionId) {
+        return;
+      }
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+  
+  // Update active dot on scroll
+  const observerOptions = {
+    threshold: 0.5,
+    rootMargin: '0px 0px -50% 0px'
+  };
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const sectionId = entry.target.id;
+        dots.forEach((dot) => {
+          if (dot.dataset.section === sectionId) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      }
+    });
+  }, observerOptions);
+  
+  sectionElements.forEach((section) => observer.observe(section));
+</script>
 
 <style>
   .side-dots {
@@ -29,119 +72,61 @@ const sections = [
     right: 40px;
     top: 50%;
     transform: translateY(-50%);
-    z-index: var(--z-dots);
+    z-index: 100;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    opacity: 1;
+    gap: 20px;
   }
-
+  
   .dot {
     position: relative;
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .dot-indicator {
+    display: block;
     width: 4px;
     height: 4px;
-    background: var(--color-border-light);
+    background: #CCCCCC;
     border-radius: 50%;
-    transition: all var(--duration-fast) var(--ease-smooth);
-    cursor: pointer;
+    transition: all 0.3s ease;
   }
-
-  .dot.active {
+  
+  .dot.active .dot-indicator {
     width: 6px;
     height: 6px;
-    background: var(--color-text-primary);
+    background: var(--text-primary, #2C2C2C);
   }
-
-  .dot:hover {
-    width: 6px;
-    height: 6px;
-    background: var(--color-text-secondary);
-  }
-
-  /* Label aparece no hover */
+  
   .dot-label {
     position: absolute;
-    right: 16px;
+    right: 20px;
     top: 50%;
     transform: translateY(-50%);
-    padding: var(--space-xs) var(--space-sm);
-    background: rgba(250, 250, 248, 0.95);
-    backdrop-filter: blur(10px);
-    color: var(--color-text-primary);
-    font-size: 13px;
-    font-weight: var(--font-medium);
-    white-space: nowrap;
+    background: var(--bg-primary, #FFFFFF);
+    padding: 4px 8px;
     border-radius: 4px;
+    font-size: 12px;
+    color: var(--text-primary, #2C2C2C);
+    white-space: nowrap;
     opacity: 0;
     pointer-events: none;
-    transition: opacity var(--duration-fast) ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   }
-
+  
   .dot:hover .dot-label {
     opacity: 1;
+    right: 24px;
   }
-
-  /* Mobile: ocultar */
+  
   @media (max-width: 768px) {
     .side-dots {
       display: none;
     }
   }
-
-  /* Tablet: mover mais para dentro */
-  @media (min-width: 769px) and (max-width: 1023px) {
-    .side-dots {
-      right: 24px;
-    }
-  }
 </style>
-
-<script>
-  // Smooth scroll para seções
-  document.querySelectorAll('.side-dots .dot').forEach(dot => {
-    dot.addEventListener('click', (e) => {
-      e.preventDefault();
-      const sectionId = (dot as HTMLElement).dataset.section;
-      const section = document.getElementById(sectionId || '');
-
-      if (section) {
-        section.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
-    });
-  });
-
-  // Atualizar dot ativo baseado na seção visível
-  const updateActiveDot = () => {
-    const sections = document.querySelectorAll('section[id]');
-    const scrollPosition = window.scrollY + window.innerHeight / 2;
-
-    sections.forEach((section) => {
-      const sectionTop = (section as HTMLElement).offsetTop;
-      const sectionHeight = (section as HTMLElement).offsetHeight;
-      const sectionId = section.id;
-
-      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-        // Remove active de todos
-        document.querySelectorAll('.side-dots .dot').forEach(d => {
-          d.classList.remove('active');
-        });
-
-        // Adiciona active ao dot correto
-        const activeDot = document.querySelector(`.side-dots .dot[data-section="${sectionId}"]`);
-        if (activeDot) {
-          activeDot.classList.add('active');
-        }
-      }
-    });
-  };
-
-  // Atualizar ao scrollar
-  window.addEventListener('scroll', updateActiveDot);
-
-  // Atualizar na carga
-  updateActiveDot();
-</script>
