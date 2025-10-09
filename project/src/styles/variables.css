@@ -3,7 +3,10 @@
   --color-text-primary: #1A1A1A;
   --color-text-secondary: #666666;
   --color-text-tertiary: #999999;
-  --color-text-hero-light: #2C2C2C;
+
+  /* Hero specific colors (from spec) */
+  --color-hero-line-1: #2C2C2C;
+  --color-hero-line-2: #1A1A1A;
 
   --color-bg-primary: #FFFFFF;
   --color-bg-secondary: #FAFAF8;

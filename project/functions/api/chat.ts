@@ -60,11 +60,11 @@ export const onRequest: PagesFunction<Env> = async (context) => {
       ...messages
     ];
 
-    // Gerar resposta com streaming
-    const stream = await context.env.AI.run('@cf/meta/llama-3-8b-instruct', {
+    // Gerar resposta com streaming usando DeepSeek R1
+    const stream = await context.env.AI.run('@cf/deepseek-ai/deepseek-r1-distill-qwen-32b', {
       messages: fullMessages,
       stream: true,
-      max_tokens: 512,
+      max_tokens: 4096,
       temperature: 0.7,
     });
 

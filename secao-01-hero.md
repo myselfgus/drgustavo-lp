@@ -1,7 +1,4 @@
-# SEÇÃO 1 - HERO
-
-## OBJETIVO
-Criar disrupção cognitiva imediata. Fazer a pessoa parar, questionar e sentir que está em um espaço diferente.
+# SEÇÃO 1 -Criar disrupção cognitiva imediata. Fazer a pessoa parar, questionar e sentir que está em um espaço diferente.
 
 ---
 
