@@ -1,6 +1,3 @@
-
-<<<<<<< HEAD
-=======
 Site de psiquiatria humanizada com uso de IA para análise comportamental e tratamento personalizado.
 
 **Localização:** São José do Rio Preto - SP (presencial e online)
@@ -20,8 +17,8 @@ Site de psiquiatria humanizada com uso de IA para análise comportamental e trat
 ## 🚀 Stack Técnico
 
 - **Framework:** Astro 4.x
-- **Hosting:** Cloudflare Pages
-- **Edge Functions:** Cloudflare Workers
+- **Hosting:** Cloudflare Workers (via Wrangler)
+- **Edge Runtime:** Cloudflare Workers
 - **Styling:** CSS puro com variáveis
 - **Analytics:** Cloudflare Web Analytics
 - **Agendamento:** Cal.com (embedded modal)
@@ -48,9 +45,9 @@ project/
 | --- | --- |
 | `npm install` | Instalar dependências |
 | `npm run dev` | Iniciar servidor de desenvolvimento (`localhost:4321`) |
-| `npm run build` | Build de produção em `./dist/` |
+| `npm run build` | Gera o pacote de produção em `./dist/` com `_worker.js` |
 | `npm run preview` | Preview do build localmente |
-| `npm run deploy` | Deploy para Cloudflare Pages |
+| `npm run deploy` | Executa `npm run build` e publica via `wrangler deploy` |
 
 ## 🎨 Design System
 
@@ -109,13 +106,20 @@ Crie uma conta em [cal.com](https://cal.com) e configure:
 - Duração: 120 minutos
 - Customize o link: `drgustavomendes/consulta-inicial`
 
-### 3. Cloudflare Pages
+### 3. Cloudflare Workers
+
+O deploy é feito com Wrangler usando o `wrangler.jsonc` deste projeto. Ajuste `account_id` e demais bindings conforme seu ambiente.
 
 ```bash
 wrangler login
-wrangler pages project create drgustavomendes
+npm run deploy  # executa build e wrangler deploy
+```
+
+Se preferir rodar localmente como Worker:
+
+```bash
 npm run build
-npm run deploy
+wrangler dev dist/_worker.js/index.js
 ```
 
 ## 📱 Responsividade
@@ -133,14 +137,14 @@ npm run deploy
 
 ## 🚀 Deploy
 
-O site é automaticamente deployado via GitHub Actions quando há push para `main`.
-
-Ou deploy manual:
+- Pipeline recomendado: GitHub Actions rodando `npm run deploy` para publicar no Worker `drgustavomendes`.
+- Deploy manual:
 
 ```bash
-npm run build
 npm run deploy
 ```
+
+O comando acima garante o build e usa `wrangler deploy` para publicar o Worker e servir os assets presentes em `dist/`.
 
 ## 📝 Próximos Passos
 
@@ -159,5 +163,4 @@ Para questões técnicas, consulte:
 
 ---
 
-**Desenvolvido com Astro + Cloudflare** 🚀
->>>>>>> 957ed91 (4)
+**Desenvolvido com Astro + Cloudflare Workers** 🚀
