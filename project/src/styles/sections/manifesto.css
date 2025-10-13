@@ -13,30 +13,37 @@
   z-index: 0;
 }
 
-.manifesto__layer {
+.manifesto__pattern {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(0);
-  opacity: 0.35;
-  animation: manifesto-layer 26s ease-in-out infinite alternate;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
 }
 
-.manifesto__layer--one {
-  width: clamp(420px, 38vw, 520px);
-  height: clamp(420px, 38vw, 520px);
-  top: -18%;
-  left: -12%;
-  background: radial-gradient(circle at 30% 30%, rgba(125, 168, 123, 0.32), rgba(125, 168, 123, 0));
+.manifesto__pattern-grid {
+  animation: manifesto-pattern-shift 15s linear infinite;
 }
 
-.manifesto__layer--two {
-  width: clamp(360px, 32vw, 460px);
-  height: clamp(360px, 32vw, 460px);
-  bottom: -20%;
-  right: -18%;
-  opacity: 0.28;
-  background: radial-gradient(circle at 70% 40%, rgba(31, 62, 70, 0.28), rgba(31, 62, 70, 0));
-  animation-delay: 6s;
+.manifesto__pattern-fade {
+  mix-blend-mode: lighten;
+}
+
+.manifesto__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.3;
+  filter: saturate(0.7) brightness(1.1);
+}
+
+.manifesto__video-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, transparent 0%, rgba(250,250,248,0.4) 60%);
+  mix-blend-mode: lighten;
 }
 
 .manifesto__grain {
@@ -155,12 +162,12 @@
   }
 }
 
-@keyframes manifesto-layer {
+@keyframes manifesto-pattern-shift {
   from {
-    transform: translate3d(0, 0, 0) scale(1);
+    transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translate3d(3%, -3%, 0) scale(1.06);
+    transform: translate3d(80px, 80px, 0);
   }
 }
 
@@ -174,6 +181,14 @@
 }
 
 @media (max-width: 767px) {
+  .manifesto__pattern {
+    opacity: 0.4;
+  }
+
+  .manifesto__video {
+    opacity: 0.2;
+  }
+
   .manifesto__content {
     gap: clamp(16px, 4vh, 28px);
   }
@@ -233,5 +248,9 @@
   .manifesto__row[data-row] {
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  .manifesto__pattern-grid {
+    animation: none !important;
   }
 }

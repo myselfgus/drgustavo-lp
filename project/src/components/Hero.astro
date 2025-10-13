@@ -47,7 +47,7 @@ const [initialHeroQuote] = heroQuotesData;
         </div>
 
         <p class="hero__lead" data-animate="fade-right">
-          Consultas longas, tecnologia como apoio discreto e planos vivos construídos em colaboração — para que cada paciente compreenda o porquê, não só o que fazer.
+          Consultas de 2 horas. Tecnologia discreta. Planos vivos construídos juntos.
         </p>
 
         <div class="hero__highlights" data-stagger>
@@ -57,7 +57,14 @@ const [initialHeroQuote] = heroQuotesData;
         </div>
 
         <div class="hero__actions">
-          <button class="hero__cta" data-open-cal data-animate="fade-right" aria-label="Agendar consulta">
+          <button
+            class="hero__cta"
+            data-cal-namespace="primeira-consulta"
+            data-cal-link="drgustavomendes/primeira-consulta"
+            data-cal-config='{"layout":"month_view"}'
+            data-animate="fade-right"
+            aria-label="Agendar consulta"
+          >
             Agendar consulta
           </button>
         </div>
@@ -95,7 +102,6 @@ const [initialHeroQuote] = heroQuotesData;
 
   if (heroSection) {
     const scrollButton = heroSection.querySelector('[data-scroll-target]');
-    const calButton = heroSection.querySelector('[data-open-cal]');
     const quoteFigure = heroSection.querySelector('.hero__quote');
     const quoteText = heroSection.querySelector('[data-hero-quote]');
     const quoteAuthor = heroSection.querySelector('[data-hero-author]');
@@ -116,12 +122,6 @@ const [initialHeroQuote] = heroQuotesData;
           quoteFigure.classList.remove('is-swapping');
         }, swapDuration);
       }, swapInterval);
-    }
-
-    if (calButton) {
-      calButton.addEventListener('click', () => {
-        window.dispatchEvent(new CustomEvent('open-cal-modal'));
-      });
     }
 
     if (scrollButton) {

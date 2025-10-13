@@ -1,8 +1,198 @@
 ---
-// Blog Layout
 import BaseLayout from './BaseLayout.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+  publishedAt: Date;
+  readingTime: number;
+  tags?: string[];
+  image?: string;
+  imageAlt?: string;
+}
+
+const {
+  title,
+  description,
+  publishedAt,
+  readingTime,
+  tags = [],
+  image,
+  imageAlt
+} = Astro.props;
+
+const formattedDate = new Intl.DateTimeFormat('pt-BR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric'
+}).format(publishedAt);
 ---
 
-<BaseLayout>
-  <slot />
+<BaseLayout
+  title={`${title} - Dr. Gustavo Mendes | Blog`}
+  description={description ?? title}
+  ogImage={image}
+  showDots={false}
+>
+  <article class="blog-article">
+    <header class="blog-article__header" data-animate="fade-up">
+      <div class="blog-article__meta">
+        <time datetime={publishedAt.toISOString()}>{formattedDate}</time>
+        <span aria-hidden="true">·</span>
+        <span>{readingTime} min de leitura</span>
+      </div>
+      <h1 class="blog-article__title">{title}</h1>
+      {description && <p class="blog-article__description">{description}</p>}
+
+      {tags.length > 0 && (
+        <ul class="blog-article__tags" aria-label="Tags do artigo">
+          {tags.map(tag => (
+            <li class="blog-article__tag">{tag}</li>
+          ))}
+        </ul>
+      )}
+    </header>
+
+    {image && (
+      <figure class="blog-article__figure" data-animate="fade-up">
+        <img src={image} alt={imageAlt ?? title} loading="lazy" />
+      </figure>
+    )}
+
+    <div class="blog-article__content" data-animate="fade-up">
+      <slot />
+    </div>
+  </article>
 </BaseLayout>
+
+<style>
+  .blog-article {
+    position: relative;
+    max-width: 840px;
+    margin: 0 auto;
+    padding: 160px clamp(20px, 5vw, 48px) 120px;
+  }
+
+  .blog-article__header {
+    display: grid;
+    gap: 18px;
+    margin-bottom: clamp(40px, 7vw, 64px);
+    text-align: left;
+  }
+
+  .blog-article__meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    color: rgba(31, 62, 70, 0.6);
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .blog-article__title {
+    margin: 0;
+    font-size: clamp(2.3rem, 4.5vw, 3.6rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--text-primary, #1A1A1A);
+    font-weight: 500;
+  }
+
+  .blog-article__description {
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-secondary, #5c615c);
+    max-width: 680px;
+  }
+
+  .blog-article__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .blog-article__tag {
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    background: rgba(31, 62, 70, 0.08);
+    color: rgba(31, 62, 70, 0.75);
+    text-transform: lowercase;
+  }
+
+  .blog-article__figure {
+    margin: 0;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(31, 62, 70, 0.14);
+    box-shadow: 0 12px 38px rgba(18, 19, 16, 0.1);
+  }
+
+  .blog-article__figure img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .blog-article__content {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text-primary, #1A1A1A);
+    display: grid;
+    gap: 24px;
+  }
+
+  .blog-article__content h2,
+  .blog-article__content h3,
+  .blog-article__content h4 {
+    font-family: var(--font-serif, 'Fraunces', serif);
+    color: var(--text-primary, #1A1A1A);
+  }
+
+  .blog-article__content h2 {
+    font-size: 1.8rem;
+  }
+
+  .blog-article__content h3 {
+    font-size: 1.4rem;
+  }
+
+  .blog-article__content p {
+    margin: 0;
+  }
+
+  .blog-article__content ul {
+    margin: 0;
+    padding-left: 1.4rem;
+    display: grid;
+    gap: 12px;
+  }
+
+  .blog-article__content li {
+    line-height: 1.7;
+  }
+
+  .blog-article__content strong {
+    font-weight: 600;
+  }
+
+  @media (max-width: 720px) {
+    .blog-article {
+      padding: 120px 20px 80px;
+    }
+
+    .blog-article__title {
+      font-size: 2.2rem;
+    }
+
+    .blog-article__description {
+      font-size: 1rem;
+    }
+  }
+</style>

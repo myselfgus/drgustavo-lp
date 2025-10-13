@@ -3,58 +3,86 @@ import '../styles/sections/credenciais.css';
 ---
 
 <section id="credenciais" class="credenciais" aria-labelledby="credenciais-title">
+  <div class="credenciais__backdrop" aria-hidden="true">
+    <span class="credenciais__halo credenciais__halo--one"></span>
+    <span class="credenciais__halo credenciais__halo--two"></span>
+  </div>
+
   <div class="credenciais__content container">
-    <header class="credenciais__lead">
-      <span class="credenciais__eyebrow" data-animate="fade-right">Quem conduz</span>
-      <h2 id="credenciais-title" class="credenciais__title" data-animate="fade-right">Dr. Gustavo Mendes · CRM-SP 218133</h2>
-      <p class="credenciais__subtitle" data-animate="fade-right">
-        Psiquiatra em São José do Rio Preto. Atuo entre CAPS, emergências e consultório, usando inteligência artificial e medicina canabinoide para transformar o que você fala em planos aplicáveis.
+    <header class="credenciais__header" data-animate="fade-up">
+      <span class="credenciais__eyebrow">Quem conduz</span>
+      <h2 id="credenciais-title" class="credenciais__title">Dr. Gustavo Mendes</h2>
+      <p class="credenciais__crm">CRM-SP 218133 · Psiquiatra</p>
+      <p class="credenciais__subtitle">
+        São José do Rio Preto · Atuo entre CAPS, emergências e consultório, usando inteligência artificial e medicina canabinoide para transformar o que você fala em planos aplicáveis.
       </p>
-      <div class="credenciais__links" data-stagger>
-        <a href="https://www.cremesp.org.br/?siteAcao=BuscaMedicos&crm=218133" target="_blank" rel="noopener">Validar CRM</a>
-        <a href="/curriculo">Currículo</a>
-        <a href="/publicacoes">Publicações</a>
-      </div>
     </header>
 
-    <div class="credenciais__layout">
-      <div class="credenciais__narrative" data-animate="fade-right">
+    <div class="credenciais__grid">
+      <div class="credenciais__card" data-animate="fade-up">
+        <div class="credenciais__card-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="credenciais__card-title">Trajetória</h3>
         <p>
-          Passei pelos três eixos que mais desafiam a psiquiatria brasileira: CAPS (adulto, infantojuvenil e álcool/drogas), plantões 24h de urgência e acompanhamento diário em enfermaria. Isso garante repertório para manejar crises, reorganizar rede e sustentar continuidade.
+          CAPS (adulto, infantojuvenil e álcool/drogas), plantões 24h de urgência e enfermaria. Consultas de 120 minutos documentadas com IA clínica.
         </p>
-        <p>
-          No consultório, trago esse rigor para consultas de 120 minutos documentadas com IA clínica — assim você sai com narrativa clara, indicadores para seguir e espaço seguro para temas como canabinoides e desempenho profissional.
-        </p>
-        <ul class="credenciais__badges">
-          <li>Consultas de 120 minutos com narrativa compartilhável</li>
-          <li>Certificação internacional em cannabis medicinal (SCC)</li>
-          <li>Atuação em CAPS, emergência e enfermaria psiquiátrica</li>
+      </div>
+
+      <div class="credenciais__card" data-animate="fade-up" data-delay="100ms">
+        <div class="credenciais__card-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="credenciais__card-title">Como atuo hoje</h3>
+        <ul class="credenciais__list">
+          <li>Consultório em SJRP + teleconsulta para todo o Brasil</li>
+          <li>Supervisão de equipes em CAPS e redes públicas</li>
+          <li>Plantões em urgência e retaguarda hospitalar</li>
         </ul>
       </div>
 
-      <div class="credenciais__details" data-animate="fade-left">
-        <div>
-          <h3>Como atuo hoje</h3>
-          <ul>
-            <li>Consultório em São José do Rio Preto com teleconsulta para todo o Brasil.</li>
-            <li>Supervisão e coordenação de equipes em CAPS e redes públicas.</li>
-            <li>Plantões em urgência psiquiátrica e retaguarda hospitalar.</li>
-          </ul>
+      <div class="credenciais__card" data-animate="fade-up" data-delay="200ms">
+        <div class="credenciais__card-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89318 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
-        <div>
-          <h3>Focos que mais me procuram</h3>
-          <ul>
-            <li>Adultos neurodivergentes (TDAH, TEA) que precisam reorganizar rotina.</li>
-            <li>Ansiedade resistente, depressão recorrente e comorbidades do sono.</li>
-            <li>Profissionais da saúde, líderes e estudantes com agenda crítica.</li>
-          </ul>
-        </div>
+        <h3 class="credenciais__card-title">Focos principais</h3>
+        <ul class="credenciais__list">
+          <li>Neurodivergentes (TDAH, TEA) reorganizando rotina</li>
+          <li>Ansiedade resistente e depressão recorrente</li>
+          <li>Profissionais da saúde com agenda crítica</li>
+        </ul>
       </div>
     </div>
 
-    <button class="credenciais__next" type="button" data-scroll-target="contato" aria-label="Ir para a próxima seção">
-      Agendar consulta ↓
-    </button>
+    <div class="credenciais__badges" data-animate="fade-up">
+      <span class="credenciais__badge">Consultas 120 min</span>
+      <span class="credenciais__badge">Certificação SCC Cannabis</span>
+      <span class="credenciais__badge">CAPS + Emergência</span>
+      <span class="credenciais__badge">IA Clínica</span>
+    </div>
+
+    <div class="credenciais__footer" data-animate="fade-up">
+      <div class="credenciais__links">
+        <a href="https://www.cremesp.org.br/?siteAcao=BuscaMedicos&crm=218133" target="_blank" rel="noopener">Validar CRM</a>
+        <a href="/curriculo">Currículo completo</a>
+        <a href="/publicacoes">Publicações</a>
+      </div>
+      <button class="credenciais__cta" type="button" data-scroll-target="contato" aria-label="Ir para contato">
+        Agendar consulta
+      </button>
+    </div>
   </div>
 </section>
 

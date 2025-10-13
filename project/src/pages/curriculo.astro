@@ -8,8 +8,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   showDots={false}
 >
   <main class="curriculo-page">
+    <div class="curriculo__backdrop" aria-hidden="true">
+      <span class="curriculo__halo curriculo__halo--one"></span>
+      <span class="curriculo__halo curriculo__halo--two"></span>
+    </div>
+
     <div class="curriculo-container">
-      <header class="cv-header">
+      <header class="cv-header" data-animate="fade-up">
         <div class="cv-heading">
           <h1 class="cv-title">Currículo</h1>
           <div class="cv-identity">
@@ -29,6 +34,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             <li>Emergências e enfermaria psiquiátrica 24h</li>
             <li>Medicina canabinoide e IA em consultas clínicas</li>
           </ul>
+          <div class="cv-social">
+            <a
+              href="https://linkedin.com/in/drgustavomendes"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              LinkedIn
+            </a>
+            <a
+              href="https://github.com/myselfgus"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </a>
+            <a href="mailto:contato@drgustavomendes.com">contato@drgustavomendes.com</a>
+          </div>
         </div>
         <div class="cv-summary-block">
           <p>
@@ -43,7 +65,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
       </header>
 
-      <section class="cv-section">
+      <section class="cv-section" data-animate="fade-up">
         <h2 class="section-title">Formação Acadêmica</h2>
         <div class="timeline">
           <div class="timeline-item">
@@ -76,7 +98,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
       </section>
 
-      <section class="cv-section">
+      <section class="cv-section" data-animate="fade-up">
         <h2 class="section-title">Especializações e Certificações</h2>
         <ul class="certifications">
           <li>
@@ -110,7 +132,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </ul>
       </section>
 
-      <section class="cv-section">
+      <section class="cv-section" data-animate="fade-up">
         <h2 class="section-title">Formação Complementar</h2>
         <div class="section-block">
           <h3 class="subsection-title">Cursos e Aprofundamentos</h3>
@@ -126,7 +148,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
       </section>
 
-      <section class="cv-section">
+      <section class="cv-section" data-animate="fade-up">
         <h2 class="section-title">Atuação Clínica</h2>
         <div class="section-block">
           <h3 class="subsection-title">Experiência Clínica Diversificada</h3>
@@ -139,7 +161,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
       </section>
 
-      <section class="cv-section">
+      <section class="cv-section" data-animate="fade-up">
         <h2 class="section-title">Competências e Perfil</h2>
         <div class="section-grid">
           <div class="section-block">
@@ -177,7 +199,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </div>
       </section>
 
-      <section class="cv-section">
+      <section class="cv-section" data-animate="fade-up">
         <h2 class="section-title">Afiliações e Idiomas</h2>
         <div class="section-content">
           <div class="section-block">
@@ -203,30 +225,83 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <style>
   .curriculo-page {
+    position: relative;
     min-height: 100vh;
     padding: 120px 0 80px;
-    background: var(--bg-primary, #FFFFFF);
+    background: linear-gradient(180deg, #fafaf8 0%, #ffffff 100%);
+    overflow: hidden;
+  }
+
+  .curriculo__backdrop {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .curriculo__halo {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.35;
+    animation: curriculo-halo 20s ease-in-out infinite alternate;
+  }
+
+  .curriculo__halo--one {
+    width: clamp(380px, 32vw, 480px);
+    height: clamp(380px, 32vw, 480px);
+    top: -8%;
+    right: -5%;
+    background: radial-gradient(circle at 50% 50%, rgba(125, 168, 123, 0.3), rgba(125, 168, 123, 0));
+  }
+
+  .curriculo__halo--two {
+    width: clamp(320px, 28vw, 420px);
+    height: clamp(320px, 28vw, 420px);
+    bottom: -10%;
+    left: -3%;
+    background: radial-gradient(circle at 50% 50%, rgba(31, 62, 70, 0.25), rgba(31, 62, 70, 0));
+    animation-delay: 4s;
+  }
+
+  @keyframes curriculo-halo {
+    from {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    to {
+      transform: translate3d(3%, -3%, 0) scale(1.06);
+    }
   }
 
   .curriculo-container {
+    position: relative;
+    z-index: 1;
     max-width: 1080px;
     margin: 0 auto;
-    padding: 0 48px;
+    padding: 0 clamp(24px, 4vw, 48px);
   }
 
   .cv-header {
     display: grid;
     grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
-    gap: clamp(32px, 6vw, 64px);
-    margin-bottom: 80px;
+    gap: clamp(24px, 4vw, 40px);
+    margin-bottom: clamp(48px, 8vh, 72px);
+    padding: clamp(28px, 5vw, 40px);
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(31, 62, 70, 0.08);
+    border-radius: var(--radius-lg, 12px);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 16px rgba(18, 19, 16, 0.04);
   }
 
   .cv-title {
-    font-size: clamp(38px, 6vw, 48px);
-    font-weight: 300;
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: var(--font-light, 300);
     color: var(--text-primary, #1A1A1A);
-    margin: 0 0 32px;
+    margin: 0 0 clamp(20px, 4vh, 32px);
     letter-spacing: -0.02em;
+    line-height: 1.2;
   }
 
   .cv-heading {
@@ -286,6 +361,34 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     font-size: 18px;
   }
 
+  .cv-social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .cv-social a {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-primary, #2C2C2C);
+    text-decoration: none;
+    padding: 8px 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(31, 62, 70, 0.18);
+    background: rgba(255, 255, 255, 0.65);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+  }
+
+  .cv-social a:hover {
+    transform: translateY(-1px);
+    border-color: rgba(31, 62, 70, 0.28);
+    background: rgba(125, 168, 123, 0.16);
+  }
+
   .cv-summary-block {
     display: grid;
     gap: var(--space-sm, 16px);
@@ -311,18 +414,30 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .cv-section {
-    margin-bottom: 64px;
+    margin-bottom: clamp(32px, 6vh, 56px);
+    padding: clamp(24px, 4vw, 32px);
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(31, 62, 70, 0.08);
+    border-radius: var(--radius-lg, 12px);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 16px rgba(18, 19, 16, 0.04);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  .cv-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(18, 19, 16, 0.08);
   }
 
   .section-title {
-    font-size: 24px;
-    font-weight: 600;
+    font-family: var(--font-serif);
+    font-size: clamp(1.3rem, 3vw, 1.5rem);
+    font-weight: var(--font-semibold, 600);
     color: var(--text-primary, #1A1A1A);
-    margin: 0 0 32px;
+    margin: 0 0 clamp(20px, 3vh, 28px);
     padding-bottom: 12px;
-    border-bottom: 1px solid var(--border, #E5E5E5);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    border-bottom: 1px solid rgba(31, 62, 70, 0.1);
+    letter-spacing: 0.02em;
   }
 
   .timeline {
@@ -367,26 +482,36 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   }
 
   .certifications li {
-    margin-bottom: 16px;
-    padding: 16px;
-    background: var(--bg-secondary, #FAFAF8);
-    border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(31, 62, 70, 0.06);
+  }
+
+  .certifications li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
   }
 
   .certifications strong {
     display: block;
+    font-family: var(--font-serif);
+    font-size: var(--text-body, 1rem);
+    font-weight: var(--font-semibold, 600);
     color: var(--text-primary, #2C2C2C);
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
 
   .certifications span {
+    display: block;
     color: var(--text-secondary, #666666);
-    font-size: 14px;
+    font-size: var(--text-xs, 0.875rem);
+    margin-bottom: 8px;
   }
 
   .cert-description {
-    margin: 8px 0 0 0;
+    margin: 0;
     color: var(--text-secondary, #666666);
+    font-size: var(--text-sm, 0.9375rem);
     line-height: 1.6;
   }
 
@@ -431,6 +556,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   @media (max-width: 768px) {
     .curriculo-container {
       padding: 0 24px;
+    }
+
+    .cv-social {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .cv-social a {
+      width: 100%;
     }
 
     .section-title {
@@ -521,8 +655,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       padding: 0 24px;
     }
 
+    .cv-header {
+      grid-template-columns: 1fr;
+      padding: clamp(20px, 5vw, 24px);
+    }
+
     .cv-section {
-      margin-bottom: 40px;
+      margin-bottom: clamp(24px, 5vh, 32px);
+      padding: clamp(18px, 4vw, 22px);
     }
 
     .cv-summary-block {
@@ -533,6 +673,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .section-grid,
     .section-content {
       gap: 24px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .curriculo__halo {
+      animation: none !important;
+    }
+
+    .cv-section,
+    .download-btn {
+      transition: none !important;
     }
   }
 </style>

@@ -4,8 +4,31 @@ import '../styles/sections/manifesto.css';
 
 <section id="manifesto" class="manifesto" aria-labelledby="manifesto-title">
   <div class="manifesto__backdrop" aria-hidden="true">
-    <span class="manifesto__layer manifesto__layer--one"></span>
-    <span class="manifesto__layer manifesto__layer--two"></span>
+    <!-- Opção 1: Grid geométrico (ativo por padrão) -->
+    <svg class="manifesto__pattern" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="grid-pattern" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+          <rect x="0" y="0" width="80" height="80" fill="none" stroke="rgba(31,62,70,0.18)" stroke-width="1"/>
+          <circle cx="40" cy="40" r="3" fill="rgba(125,168,123,0.25)"/>
+        </pattern>
+        <radialGradient id="fade-edges" cx="50%" cy="50%" r="70%">
+          <stop offset="0%" style="stop-color:rgba(255,255,255,0);stop-opacity:1" />
+          <stop offset="100%" style="stop-color:rgba(250,250,248,0.3);stop-opacity:1" />
+        </radialGradient>
+      </defs>
+
+      <rect class="manifesto__pattern-grid" width="100%" height="100%" fill="url(#grid-pattern)"/>
+      <rect class="manifesto__pattern-fade" width="100%" height="100%" fill="url(#fade-edges)"/>
+    </svg>
+
+    <!-- Opção 2: Vídeo (comentado - descomente para usar) -->
+    <!--
+    <video class="manifesto__video" autoplay loop muted playsinline>
+      <source src="/videos/manifesto-background.mp4" type="video/mp4">
+    </video>
+    <div class="manifesto__video-overlay"></div>
+    -->
+
     <span class="manifesto__grain"></span>
   </div>
 

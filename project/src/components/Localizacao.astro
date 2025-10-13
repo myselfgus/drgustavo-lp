@@ -1,0 +1,162 @@
+---
+import '../styles/sections/localizacao.css';
+---
+
+<section id="localizacao" class="localizacao" aria-labelledby="localizacao-title">
+  <div class="localizacao__backdrop" aria-hidden="true">
+    <span class="localizacao__halo localizacao__halo--one"></span>
+    <span class="localizacao__halo localizacao__halo--two"></span>
+  </div>
+
+  <div class="localizacao__content container">
+    <header class="localizacao__header" data-animate="fade-up">
+      <span class="localizacao__eyebrow">Onde atendo</span>
+      <h2 id="localizacao-title" class="localizacao__title">C&W Offices, Unidade Amadeu</h2>
+      <p class="localizacao__subtitle">
+        Rua Amadeu Segundo Cherubini, 504 · Jd. Panorama · São José do Rio Preto/SP
+      </p>
+    </header>
+
+    <div class="localizacao__grid" data-stagger>
+      <div class="localizacao__map-wrapper">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1892404.2055858364!2d-47.91200355!3d-22.12208775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa933428a82cbb4c9%3A0x2ae1ba9fdcd83661!2sDr.%20Gustavo%20Mendes%20e%20Silva%20-%20M%C3%A9dico%20Psiquiatra%20e%20Psicoterapeuta!5e0!3m2!1spt-BR!2sbr!4v1760337711412!5m2!1spt-BR!2sbr"
+          width="100%"
+          height="280"
+          style="border:0;"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+
+      <div class="localizacao__carousel">
+        <div class="localizacao__photos">
+          <img
+            src="https://coandwork.com.br/wp-content/uploads/2025/04/coworking-ParteII-101.jpg"
+            alt="Entrada C&W Offices Unidade Amadeu"
+            loading="lazy"
+            class="localizacao__photo"
+            data-active="true"
+          />
+          <img
+            src="https://coandwork.com.br/wp-content/uploads/2022/10/coworking-ParteII-90.jpg"
+            alt="Recepção C&W Offices"
+            loading="lazy"
+            class="localizacao__photo"
+          />
+          <img
+            src="https://coandwork.com.br/wp-content/uploads/2022/10/Bruno-Rossete-Fotografia-CoWorking-57.jpg"
+            alt="Sala de atendimento para 2 pessoas"
+            loading="lazy"
+            class="localizacao__photo"
+          />
+        </div>
+
+        <button class="localizacao__nav localizacao__nav--prev" aria-label="Foto anterior">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+
+        <button class="localizacao__nav localizacao__nav--next" aria-label="Próxima foto">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+
+        <div class="localizacao__indicators">
+          <button class="localizacao__dot" data-index="0" aria-label="Ver foto 1"></button>
+          <button class="localizacao__dot" data-index="1" aria-label="Ver foto 2"></button>
+          <button class="localizacao__dot" data-index="2" aria-label="Ver foto 3"></button>
+        </div>
+      </div>
+    </div>
+
+    <footer class="localizacao__footer" data-animate="fade-up">
+      <a
+        href="https://maps.app.goo.gl/PjL26I3kNspkRtuLk"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="localizacao__link"
+      >
+        Ver no Google Meu Negócio
+      </a>
+    </footer>
+  </div>
+</section>
+
+<script>
+  const carousel = document.querySelector('.localizacao__carousel');
+
+  if (carousel) {
+    const photos = Array.from(carousel.querySelectorAll('.localizacao__photo'));
+    const dots = Array.from(carousel.querySelectorAll('.localizacao__dot'));
+    const prevBtn = carousel.querySelector('.localizacao__nav--prev');
+    const nextBtn = carousel.querySelector('.localizacao__nav--next');
+
+    let currentIndex = 0;
+    let autoplayInterval: number;
+
+    function showPhoto(index: number) {
+      photos.forEach((photo, i) => {
+        if (i === index) {
+          photo.setAttribute('data-active', 'true');
+        } else {
+          photo.removeAttribute('data-active');
+        }
+      });
+
+      dots.forEach((dot, i) => {
+        if (i === index) {
+          dot.setAttribute('data-active', 'true');
+        } else {
+          dot.removeAttribute('data-active');
+        }
+      });
+
+      currentIndex = index;
+    }
+
+    function nextPhoto() {
+      const next = (currentIndex + 1) % photos.length;
+      showPhoto(next);
+    }
+
+    function prevPhoto() {
+      const prev = (currentIndex - 1 + photos.length) % photos.length;
+      showPhoto(prev);
+    }
+
+    function startAutoplay() {
+      autoplayInterval = window.setInterval(nextPhoto, 5000);
+    }
+
+    function stopAutoplay() {
+      clearInterval(autoplayInterval);
+    }
+
+    prevBtn?.addEventListener('click', () => {
+      prevPhoto();
+      stopAutoplay();
+      startAutoplay();
+    });
+
+    nextBtn?.addEventListener('click', () => {
+      nextPhoto();
+      stopAutoplay();
+      startAutoplay();
+    });
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        showPhoto(index);
+        stopAutoplay();
+        startAutoplay();
+      });
+    });
+
+    dots[0]?.setAttribute('data-active', 'true');
+    startAutoplay();
+  }
+</script>

@@ -1,0 +1,133 @@
+---
+/**
+ * ElevenLabs Voice Agent Component
+ *
+ * Agente de voz para agendamento de consultas com:
+ * - Conversação natural em português
+ * - Coleta de dados do paciente
+ * - Integração com pagamento e agendamento
+ */
+
+interface Props {
+  agentId?: string;
+}
+
+const {
+  agentId = "agent_4301k53hd1fke37983rze0nvdct4"
+} = Astro.props;
+---
+
+<div class="elevenlabs-agent" id="elevenlabs-container">
+  <elevenlabs-convai agent-id={agentId}></elevenlabs-convai>
+</div>
+
+<!-- ElevenLabs ConvAI Widget Script -->
+<script
+  src="https://unpkg.com/@elevenlabs/convai-widget-embed"
+  async
+  type="text/javascript"
+></script>
+
+<style>
+  .elevenlabs-agent {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: var(--z-float, 9999);
+    transition: transform var(--transition-base), opacity var(--transition-base);
+  }
+
+  .elevenlabs-agent:hover {
+    transform: scale(1.02);
+  }
+
+  /* Customizar aparência do widget ElevenLabs */
+  elevenlabs-convai {
+    /* Cores do tema */
+    --elevenlabs-primary-color: var(--text-primary, #1A1A1A);
+    --elevenlabs-secondary-color: var(--text-secondary, #666666);
+    --elevenlabs-background-color: var(--bg-primary, #FFFFFF);
+    --elevenlabs-text-color: var(--text-primary, #2C2C2C);
+
+    /* Bordas e sombras */
+    --elevenlabs-border-radius: 16px;
+    --elevenlabs-shadow: 0 4px 20px rgba(0, 0, 0, 0.08),
+                         0 1px 4px rgba(0, 0, 0, 0.04);
+
+    /* Animações */
+    --elevenlabs-transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .elevenlabs-agent {
+      bottom: 16px;
+      right: 16px;
+      /* Garante que não sobrepõe a navegação mobile */
+      z-index: var(--z-header, 1000);
+    }
+  }
+
+  /* Acessibilidade - movimento reduzido */
+  @media (prefers-reduced-motion: reduce) {
+    .elevenlabs-agent {
+      transition: none;
+    }
+
+    .elevenlabs-agent:hover {
+      transform: none;
+    }
+  }
+
+  /* Estado de carregamento */
+  .elevenlabs-agent:empty::before {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--text-primary, #1A1A1A);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 0.6;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+  }
+
+  /* Esconder durante impressão */
+  @media print {
+    .elevenlabs-agent {
+      display: none;
+    }
+  }
+</style>
+
+<!-- Analytics tracking (opcional) -->
+<script>
+  if (typeof window !== 'undefined') {
+    // Rastrear quando o widget é carregado
+    window.addEventListener('load', () => {
+      const widget = document.querySelector('elevenlabs-convai');
+      if (widget) {
+        console.log('[ElevenLabs] Widget loaded successfully');
+
+        // Pode adicionar tracking aqui se necessário
+        // Ex: plausible('ElevenLabs Widget Loaded');
+      }
+    });
+
+    // Rastrear erros do widget
+    window.addEventListener('error', (event) => {
+      if (event.message?.includes('elevenlabs')) {
+        console.error('[ElevenLabs] Widget error:', event.error);
+      }
+    });
+  }
+</script>

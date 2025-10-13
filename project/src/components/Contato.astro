@@ -3,55 +3,62 @@ import '../styles/sections/contato.css';
 ---
 
 <section id="contato" class="contato" aria-labelledby="contato-title">
-  <div class="contato__content container">
-    <h2 id="contato-title">Agende sua consulta</h2>
+  <div class="contato__background">
+    <div class="contato__halo contato__halo--one"></div>
+    <div class="contato__halo contato__halo--two"></div>
+  </div>
 
-    <div class="contato__details">
-      <div>
-        <p class="contato__location">São José do Rio Preto</p>
-        <p class="contato__info">Atendimento presencial e teleconsulta para todo o Brasil</p>
+  <div class="contato__content container">
+    <div class="contato__header" data-animate>
+      <h2 id="contato-title">Agende sua consulta</h2>
+      <p class="contato__location">São José do Rio Preto</p>
+    </div>
+
+    <div class="contato__grid" data-stagger>
+      <div class="contato__card">
+        <span class="contato__label">Modalidade</span>
+        <p>Presencial e online<br/>para todo o Brasil</p>
       </div>
-      <div>
-        <p class="contato__duration">Primeira consulta: <strong>120 minutos</strong></p>
-        <p class="contato__duration">Retornos: <strong>60 minutos</strong></p>
+
+      <div class="contato__card">
+        <span class="contato__label">Duração</span>
+        <p>Primeira consulta: <strong>120 min</strong><br/>Retornos: <strong>60 min</strong></p>
       </div>
-      <div>
-        <p class="contato__programas">Programas com valores especiais para profissionais da saúde e estudantes</p>
+
+      <div class="contato__card">
+        <span class="contato__label">Investimento</span>
+        <p>Valores especiais para<br/>profissionais da saúde</p>
       </div>
     </div>
 
-    <div class="contato__actions">
-      <button class="contato__cta" data-open-cal aria-label="Abrir agendamento">
+    <div class="contato__actions" data-animate data-delay="400ms">
+      <button
+        class="contato__cta"
+        data-cal-namespace="primeira-consulta"
+        data-cal-link="drgustavomendes/primeira-consulta"
+        data-cal-config='{"layout":"month_view"}'
+        aria-label="Abrir agendamento"
+      >
         Agendar consulta
       </button>
-      <a class="contato__whatsapp" href="https://wa.me/5517211011228?text=Olá,%20vim%20do%20site" target="_blank" rel="noopener">
-        Dúvidas? Fale pelo WhatsApp
+      <a
+        class="contato__link"
+        href="https://wa.me/5517211011228?text=Olá,%20vim%20do%20site"
+        target="_blank"
+        rel="noopener"
+      >
+        Ou fale pelo WhatsApp
       </a>
     </div>
 
-    <footer class="contato__footer">
-      <nav aria-label="Links do rodapé">
+
+    <footer class="contato__footer" data-animate data-delay="600ms">
+      <nav class="contato__nav" aria-label="Links do rodapé">
         <a href="/blog">Blog</a>
-        <span aria-hidden="true">·</span>
         <a href="/curriculo">Currículo</a>
-        <span aria-hidden="true">·</span>
         <a href="/publicacoes">Publicações</a>
       </nav>
-      <p>© 2025 Dr. Gustavo Mendes e Silva · CRM-SP 218133</p>
+      <p class="contato__copyright">Dr. Gustavo Mendes e Silva · CRM-SP 218133</p>
     </footer>
   </div>
 </section>
-
-<script>
-  const contatoSection = document.getElementById('contato');
-
-  if (contatoSection) {
-    const calButton = contatoSection.querySelector<HTMLButtonElement>('[data-open-cal]');
-
-    if (calButton) {
-      calButton.addEventListener('click', () => {
-        window.dispatchEvent(new CustomEvent('open-cal-modal'));
-      });
-    }
-  }
-</script>

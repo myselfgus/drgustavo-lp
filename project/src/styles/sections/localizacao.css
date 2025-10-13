@@ -1,0 +1,300 @@
+/* =============================================
+   Localização - Seção 8
+   ============================================= */
+
+.localizacao {
+  position: relative;
+  background: linear-gradient(180deg, #ffffff 0%, #fafaf8 100%);
+  overflow: hidden;
+}
+
+.localizacao__backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.localizacao__halo {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  animation: localizacao-halo 24s ease-in-out infinite alternate;
+}
+
+.localizacao__halo--one {
+  width: clamp(380px, 32vw, 480px);
+  height: clamp(380px, 32vw, 480px);
+  top: -12%;
+  left: -8%;
+  background: radial-gradient(circle at 50% 50%, rgba(125, 168, 123, 0.28), rgba(125, 168, 123, 0));
+}
+
+.localizacao__halo--two {
+  width: clamp(320px, 28vw, 420px);
+  height: clamp(320px, 28vw, 420px);
+  bottom: -15%;
+  right: -6%;
+  background: radial-gradient(circle at 50% 50%, rgba(31, 62, 70, 0.22), rgba(31, 62, 70, 0));
+  animation-delay: 6s;
+}
+
+.localizacao__content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: clamp(28px, 4.5vh, 44px);
+  align-content: center;
+  min-height: 100%;
+  padding-block: clamp(36px, 6vh, 56px);
+}
+
+.localizacao__header {
+  display: grid;
+  gap: clamp(8px, 1.5vh, 12px);
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.localizacao__eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.localizacao__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 3.8vw, 1.95rem);
+  line-height: 1.25;
+  color: var(--text-primary);
+}
+
+.localizacao__subtitle {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.55;
+  max-width: 56ch;
+  margin-inline: auto;
+}
+
+.localizacao__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(20px, 3vw, 32px);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.localizacao__map-wrapper {
+  width: 100%;
+  height: 280px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(31, 62, 70, 0.08);
+  box-shadow: 0 4px 12px rgba(18, 19, 16, 0.06);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.localizacao__map-wrapper:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(18, 19, 16, 0.1);
+}
+
+.localizacao__map-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.localizacao__carousel {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(31, 62, 70, 0.08);
+  box-shadow: 0 4px 12px rgba(18, 19, 16, 0.06);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.localizacao__carousel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(18, 19, 16, 0.1);
+}
+
+.localizacao__photos {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.localizacao__photo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.localizacao__photo[data-active] {
+  opacity: 1;
+}
+
+.localizacao__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(31, 62, 70, 0.12);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 1;
+  transition: all var(--transition-base);
+  backdrop-filter: blur(8px);
+}
+
+.localizacao__nav:hover {
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(31, 62, 70, 0.2);
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.localizacao__nav--prev {
+  left: 12px;
+}
+
+.localizacao__nav--next {
+  right: 12px;
+}
+
+.localizacao__indicators {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.localizacao__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(31, 62, 70, 0.4);
+  border: 1px solid rgba(31, 62, 70, 0.6);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  padding: 0;
+}
+
+.localizacao__dot:hover {
+  background: rgba(31, 62, 70, 0.7);
+  transform: scale(1.15);
+}
+
+.localizacao__dot[data-active] {
+  background: rgba(31, 62, 70, 0.9);
+  width: 24px;
+  border-radius: 4px;
+  border-color: rgba(31, 62, 70, 0.9);
+}
+
+.localizacao__footer {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.localizacao__link {
+  font-size: var(--text-sm);
+  color: var(--brand-primary);
+  text-decoration: none;
+  position: relative;
+  transition: color var(--transition-fast);
+}
+
+.localizacao__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-base);
+}
+
+.localizacao__link:hover {
+  color: var(--text-primary);
+}
+
+.localizacao__link:hover::after {
+  transform: scaleX(1);
+}
+
+@keyframes localizacao-halo {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(-3%, 3%, 0) scale(1.06);
+  }
+}
+
+@media (max-width: 767px) {
+  .localizacao__content {
+    gap: clamp(24px, 4vh, 36px);
+  }
+
+  .localizacao__header {
+    text-align: left;
+  }
+
+  .localizacao__grid {
+    grid-template-columns: 1fr;
+    gap: clamp(16px, 3vw, 20px);
+  }
+
+  .localizacao__map-wrapper,
+  .localizacao__carousel {
+    height: 260px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .localizacao__halo {
+    animation: none !important;
+  }
+
+  .localizacao__photo,
+  .localizacao__nav,
+  .localizacao__dot,
+  .localizacao__link,
+  .localizacao__map-wrapper,
+  .localizacao__carousel {
+    transition: none !important;
+  }
+}

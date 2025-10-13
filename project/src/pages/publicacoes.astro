@@ -1,123 +1,335 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import BlogCard from '../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+const blogEntries = await getCollection('blog', ({ data }) => !data.draft);
+const posts = blogEntries
+  .slice()
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
 ---
 
 <BaseLayout
-  title="Publicações Científicas - Dr. Gustavo Mendes | Psiquiatria"
-  description="Artigos científicos, capítulos de livros e apresentações em congressos do Dr. Gustavo Mendes sobre psiquiatria, neurodiversidade e canabidiol medicinal."
+  title="Publicações - Dr. Gustavo Mendes | Artigos, Pesquisas e Livros"
+  description="Explore artigos do blog, trabalhos científicos em andamento e futuros lançamentos editoriais do Dr. Gustavo Mendes."
+  showDots={false}
 >
-  <main class="publicacoes-page">
-    <div class="publicacoes-container">
-      <h1 class="page-title">Publicações Científicas</h1>
+  <main class="publications">
+    <div class="publications__halo publications__halo--one" aria-hidden="true"></div>
+    <div class="publications__halo publications__halo--two" aria-hidden="true"></div>
 
-      <!-- Estado: Sem publicações ainda (placeholder elegante) -->
-      <div class="placeholder-content">
-        <p class="placeholder-text">Trabalhos em desenvolvimento.</p>
-        <p class="placeholder-description">
-          Atualmente estou focado em compartilhar conhecimento através do blog,
-          onde publico artigos sobre psiquiatria, neurodiversidade e abordagens
-          inovadoras em saúde mental.
+    <div class="publications__container">
+      <header class="publications__header" data-animate="fade-up">
+        <span class="publications__eyebrow">Arquivo vivo</span>
+        <h1 class="publications__title">Publicações</h1>
+        <p class="publications__subtitle">
+          Uma coleção em construção contínua: artigos do blog, projetos científicos e obras editoriais que expandem o cuidado em saúde mental.
         </p>
-        <a href="/blog" class="blog-link">Ler artigos do blog →</a>
-        <p class="placeholder-note">
-          Esta página será atualizada conforme novos trabalhos científicos forem publicados.
-        </p>
-      </div>
+      </header>
+
+      <section class="publications-section" data-animate="fade-up">
+        <div class="publications-section__heading">
+          <h2>Artigos do blog</h2>
+          <p>Pesquisas, experimentos clínicos e reflexões sobre psiquiatria dimensional, neurodiversidade e tecnologia.</p>
+        </div>
+
+        <div class="publications-section__content">
+          <div class="publications-grid" role="list">
+            {posts.map(({ slug, data }) => (
+              <BlogCard
+                href={`/blog/${slug}`}
+                title={data.title}
+                excerpt={data.excerpt}
+                image={data.image}
+                imageAlt={data.imageAlt}
+                publishedAt={data.publishedAt}
+                tags={data.tags}
+              />
+            ))}
+          </div>
+
+          <a class="publications__cta" href="/blog">
+            Ver todos os artigos
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path d="M5 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+        </div>
+      </section>
+
+      <section class="publications-section" data-animate="fade-up">
+        <div class="publications-section__heading">
+          <h2>Artigos científicos</h2>
+          <p>Estudos clínicos em psiquiatria, cannabis medicinal e inteligência artificial em saúde.</p>
+        </div>
+
+        <div class="placeholder-card">
+          <span class="placeholder-card__badge">Em desenvolvimento</span>
+          <h3>Coleta de dados e revisão metodológica</h3>
+          <p>
+            Projetos acadêmicos em andamento sobre aplicação de IA no registro clínico, desfechos terapêuticos de cannabis medicinal
+            e construção de planos terapêuticos singulares. Os resultados serão publicados aqui assim que finalizados.
+          </p>
+          <ul>
+            <li>Protocolos em revisão com coautores e bancas científicas.</li>
+            <li>Trilhas de submissão para periódicos nacionais e internacionais.</li>
+            <li>Artigos em coautoria com equipes de CAPS e redes públicas.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="publications-section" data-animate="fade-up">
+        <div class="publications-section__heading">
+          <h2>Livros e capítulos</h2>
+          <p>Conteúdos long-form que traduzem prática clínica em narrativas acessíveis para profissionais e pacientes.</p>
+        </div>
+
+        <div class="placeholder-card">
+          <span class="placeholder-card__badge placeholder-card__badge--outline">Em breve</span>
+          <h3>Documentação narrativa aplicada à psiquiatria</h3>
+          <p>
+            Um guia prático sobre como transformar consultas longas em documentação que envolve pacientes, equipes e familiares.
+            Roteiros, exemplos de casos e integrações com tecnologia estão em fase de curadoria editorial.
+          </p>
+          <ul>
+            <li>Estruturação de capítulos e estudos de caso reais.</li>
+            <li>Participação de colaboradores da rede de saúde mental.</li>
+            <li>Previsão de lançamento: 2025.</li>
+          </ul>
+        </div>
+      </section>
     </div>
   </main>
 </BaseLayout>
 
 <style>
-  .publicacoes-page {
+  .publications {
+    position: relative;
     min-height: 100vh;
-    background-color: #FFFFFF;
-    padding-top: 120px;
-    padding-bottom: 80px;
+    padding: 140px 0 120px;
+    background: linear-gradient(180deg, #fafaf8 0%, #ffffff 100%);
+    overflow: hidden;
   }
 
-  .publicacoes-container {
-    width: 100%;
-    max-width: 900px;
+  .publications__halo {
+    position: absolute;
+    filter: blur(120px);
+    opacity: 0.3;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: publications-float 24s ease-in-out infinite alternate;
+  }
+
+  .publications__halo--one {
+    top: -18%;
+    left: -12%;
+    width: clamp(360px, 40vw, 520px);
+    height: clamp(360px, 40vw, 520px);
+    background: radial-gradient(circle, rgba(125, 168, 123, 0.4), transparent 70%);
+  }
+
+  .publications__halo--two {
+    bottom: -16%;
+    right: -10%;
+    width: clamp(320px, 36vw, 480px);
+    height: clamp(320px, 36vw, 480px);
+    background: radial-gradient(circle, rgba(31, 62, 70, 0.28), transparent 70%);
+    animation-delay: 8s;
+  }
+
+  @keyframes publications-float {
+    from {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    to {
+      transform: translate3d(4%, -3%, 0) scale(1.06);
+    }
+  }
+
+  .publications__container {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0 clamp(24px, 5vw, 48px);
+    display: grid;
+    gap: clamp(60px, 10vh, 80px);
   }
 
-  .page-title {
-    margin: 0 0 64px 0;
-    font-family: var(--font-sans);
-    font-size: clamp(28px, 3vw, 36px);
-    font-weight: var(--font-light);
-    color: #1A1A1A;
-    line-height: 1.2;
-  }
-
-  /* Placeholder State */
-  .placeholder-content {
+  .publications__header {
     text-align: center;
-    max-width: 600px;
+    display: grid;
+    gap: 18px;
+    max-width: 760px;
     margin: 0 auto;
-    padding: 40px 0;
   }
 
-  .placeholder-text {
-    margin: 0 0 24px 0;
-    font-family: var(--font-sans);
-    font-size: 20px;
-    font-weight: var(--font-medium);
-    color: #1A1A1A;
-    line-height: 1.5;
+  .publications__eyebrow {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.24em;
+    color: rgba(31, 62, 70, 0.6);
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
   }
 
-  .placeholder-description {
-    margin: 0 0 32px 0;
-    font-family: var(--font-sans);
-    font-size: 17px;
-    font-weight: var(--font-regular);
-    color: #666666;
+  .publications__title {
+    margin: 0;
+    font-size: clamp(2.8rem, 5vw, 3.6rem);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+  }
+
+  .publications__subtitle {
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-secondary, #5c615c);
+  }
+
+  .publications-section {
+    display: grid;
+    gap: 32px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(31, 62, 70, 0.1);
+    border-radius: 22px;
+    padding: clamp(32px, 6vw, 48px);
+    box-shadow: 0 18px 40px rgba(18, 19, 16, 0.08);
+  }
+
+  .publications-section__heading {
+    max-width: 680px;
+    display: grid;
+    gap: 12px;
+  }
+
+  .publications-section__heading h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    font-family: var(--font-serif, 'Fraunces', serif);
+    font-weight: 500;
+  }
+
+  .publications-section__heading p {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--text-secondary, #5c615c);
     line-height: 1.7;
   }
 
-  .blog-link {
-    display: inline-block;
-    margin-bottom: 32px;
-    font-family: var(--font-sans);
-    font-size: 16px;
-    font-weight: var(--font-medium);
-    color: #1A1A1A;
+  .publications-section__content {
+    display: grid;
+    gap: 32px;
+  }
+
+  .publications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(24px, 4vw, 36px);
+  }
+
+  .publications__cta {
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border-radius: 999px;
+    border: 1px solid rgba(31, 62, 70, 0.18);
+    font-weight: 500;
+    color: var(--text-primary, #1A1A1A);
     text-decoration: none;
-    padding: 12px 32px;
-    border: 1px solid #1A1A1A;
-    border-radius: 4px;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   }
 
-  .blog-link:hover {
-    background: #1A1A1A;
-    color: #FFFFFF;
+  .publications__cta:hover {
+    transform: translateY(-2px);
+    border-color: rgba(31, 62, 70, 0.28);
+    box-shadow: 0 10px 30px rgba(18, 19, 16, 0.12);
   }
 
-  .placeholder-note {
+  .placeholder-card {
+    border: 1px dashed rgba(31, 62, 70, 0.18);
+    border-radius: 18px;
+    padding: clamp(28px, 5vw, 40px);
+    background: linear-gradient(135deg, rgba(125, 168, 123, 0.04), rgba(31, 62, 70, 0.04));
+    display: grid;
+    gap: 18px;
+    color: var(--text-primary, #1A1A1A);
+  }
+
+  .placeholder-card__badge {
+    justify-self: start;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: linear-gradient(135deg, rgba(31, 62, 70, 0.95), rgba(125, 168, 123, 0.85));
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .placeholder-card__badge--outline {
+    background: transparent;
+    color: rgba(31, 62, 70, 0.8);
+    border: 1px solid rgba(31, 62, 70, 0.35);
+  }
+
+  .placeholder-card h3 {
     margin: 0;
-    font-family: var(--font-sans);
-    font-size: 14px;
-    font-weight: var(--font-regular);
-    color: #999999;
+    font-size: 1.4rem;
+    font-family: var(--font-serif, 'Fraunces', serif);
+  }
+
+  .placeholder-card p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-secondary, #5c615c);
+  }
+
+  .placeholder-card ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 12px;
+    color: rgba(31, 62, 70, 0.8);
+  }
+
+  .placeholder-card li {
     line-height: 1.6;
   }
 
-  /* Responsive - Mobile */
-  @media (max-width: 767px) {
-    .publicacoes-page {
-      padding-top: 100px;
-      padding-bottom: 60px;
+  @media (max-width: 900px) {
+    .publications {
+      padding: 120px 0 80px;
     }
 
-    .publicacoes-container {
-      padding: 0 24px;
+    .publications-section {
+      padding: 28px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .publications-section {
+      padding: 24px;
     }
 
-    .placeholder-content {
-      padding: 20px 0;
+    .placeholder-card {
+      padding: 22px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .publications__halo {
+      animation: none;
+    }
+
+    .publications-section,
+    .publications__cta,
+    .placeholder-card,
+    .blog-card {
+      transition: none !important;
     }
   }
 </style>

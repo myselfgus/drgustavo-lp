@@ -1,72 +1,43 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
 
-const posts = [
-  {
-    slug: 'disruptura-cognitiva',
-    title: 'Disruptura cognitiva: quebrando padrões',
-    excerpt: 'Estratégias para auxiliar pacientes a quebrar padrões de pensamento negativos e construir nova arquitetura mental...',
-    readTime: '12 min',
-    date: '2025-01-10',
-    image: null
-  },
-  {
-    slug: 'ia-saude',
-    title: 'IA na saúde: rehumanizar a clínica',
-    excerpt: 'Como a tecnologia, bem aplicada, pode liberar o médico para focar no que mais importa: a conexão humana...',
-    readTime: '10 min',
-    date: '2025-01-08',
-    image: null
-  },
-  {
-    slug: 'neurodiversidade-sociedade',
-    title: 'Neurodiversidade não é defeito',
-    excerpt: 'Uma reflexão sobre como a sociedade patologiza diferenças neurológicas e a importância de abraçar a diversidade cognitiva...',
-    readTime: '15 min',
-    date: '2025-01-05',
-    image: null
-  }
-];
+const entries = await getCollection('blog', ({ data }) => !data.draft);
+const posts = entries
+  .slice()
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
 ---
 
 <BaseLayout
   title="Blog - Dr. Gustavo Mendes | Artigos sobre Saúde Mental"
-  description="Artigos sobre psiquiatria, neurodiversidade, TDAH, autismo e saúde mental. Reflexões e insights para profissionais e pacientes."
+  description="Artigos sobre psiquiatria, neurodiversidade, tecnologia clínica e uso ético de IA para re-humanizar o cuidado."
   showDots={false}
 >
   <main class="blog-page">
+    <div class="blog-page__halo blog-page__halo--one" aria-hidden="true"></div>
+    <div class="blog-page__halo blog-page__halo--two" aria-hidden="true"></div>
+
     <div class="blog-container">
-      <!-- Cabeçalho -->
-      <header class="blog-header">
+      <header class="blog-header" data-animate="fade-up">
+        <span class="blog-eyebrow">Cadernos de leitura</span>
         <h1 class="blog-title">Blog</h1>
         <p class="blog-subtitle">
-          Reflexões sobre saúde mental, neurodiversidade e psiquiatria humanizada
+          Artigos e reflexões sobre psiquiatria dimensional, neurodiversidade e tecnologia aplicada ao cuidado.
         </p>
       </header>
 
-      <!-- Grid de artigos -->
       <section class="blog-grid" aria-label="Artigos do blog">
-        {posts.map((post) => (
-          <article class="blog-card">
-            <a href={`/blog/${post.slug}`} class="card-link">
-              <div class="card-image-placeholder"></div>
-              <div class="card-content">
-                <h2 class="card-title">{post.title}</h2>
-                <p class="card-excerpt">{post.excerpt}</p>
-                <div class="card-meta">
-                  <span class="read-time">{post.readTime}</span>
-                  <span class="separator">·</span>
-                  <time datetime={post.date}>
-                    {new Date(post.date).toLocaleDateString('pt-BR', {
-                      day: 'numeric',
-                      month: 'short',
-                      year: 'numeric'
-                    })}
-                  </time>
-                </div>
-              </div>
-            </a>
-          </article>
+        {posts.map(({ slug, data }) => (
+          <BlogCard
+            href={`/blog/${slug}`}
+            title={data.title}
+            excerpt={data.excerpt}
+            image={data.image}
+            imageAlt={data.imageAlt}
+            publishedAt={data.publishedAt}
+            tags={data.tags}
+          />
         ))}
       </section>
     </div>
@@ -75,129 +46,111 @@ const posts = [
 
 <style>
   .blog-page {
+    position: relative;
     min-height: 100vh;
-    padding: 120px 0 80px;
-    background: var(--bg-primary, #FFFFFF);
+    padding: 140px 0 100px;
+    background: radial-gradient(circle at top left, rgba(125, 168, 123, 0.08), transparent 45%),
+      linear-gradient(180deg, #fafaf8 0%, #ffffff 100%);
+    overflow: hidden;
+  }
+
+  .blog-page__halo {
+    position: absolute;
+    filter: blur(96px);
+    opacity: 0.32;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: float-halo 22s ease-in-out infinite alternate;
+  }
+
+  .blog-page__halo--one {
+    top: -12%;
+    left: -8%;
+    width: clamp(320px, 38vw, 460px);
+    height: clamp(320px, 38vw, 460px);
+    background: radial-gradient(circle, rgba(125, 168, 123, 0.38), transparent 65%);
+  }
+
+  .blog-page__halo--two {
+    bottom: -18%;
+    right: -10%;
+    width: clamp(280px, 32vw, 420px);
+    height: clamp(280px, 32vw, 420px);
+    background: radial-gradient(circle, rgba(31, 62, 70, 0.28), transparent 70%);
+    animation-delay: 6s;
+  }
+
+  @keyframes float-halo {
+    from {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    to {
+      transform: translate3d(3%, -4%, 0) scale(1.08);
+    }
   }
 
   .blog-container {
-    max-width: 1200px;
+    position: relative;
+    z-index: 1;
+    max-width: 1220px;
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0 clamp(24px, 5vw, 48px);
   }
 
   .blog-header {
     text-align: center;
-    margin-bottom: 80px;
+    margin-bottom: clamp(56px, 10vh, 80px);
+    display: grid;
+    gap: 18px;
+  }
+
+  .blog-eyebrow {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: rgba(31, 62, 70, 0.6);
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
   }
 
   .blog-title {
-    font-size: 48px;
-    font-weight: 300;
-    color: var(--text-primary, #1A1A1A);
-    margin: 0 0 16px;
+    margin: 0;
+    font-size: clamp(2.6rem, 5vw, 3.8rem);
+    font-weight: 400;
     letter-spacing: -0.02em;
+    color: var(--text-primary, #1A1A1A);
   }
 
   .blog-subtitle {
-    font-size: 18px;
-    color: var(--text-secondary, #666666);
-    margin: 0;
-    max-width: 600px;
     margin: 0 auto;
-    line-height: 1.6;
+    max-width: 720px;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-secondary, #5c615c);
   }
 
   .blog-grid {
     display: grid;
+    gap: clamp(28px, 4vw, 40px);
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 40px;
   }
 
-  .blog-card {
-    background: var(--bg-primary, #FFFFFF);
-    border: 1px solid var(--border, #E5E5E5);
-    border-radius: 8px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-  }
-
-  .blog-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    border-color: transparent;
-  }
-
-  .card-link {
-    text-decoration: none;
-    display: block;
-  }
-
-  .card-image-placeholder {
-    width: 100%;
-    height: 200px;
-    background: linear-gradient(135deg, #F5F5F5 0%, #E5E5E5 100%);
-  }
-
-  .card-content {
-    padding: 32px;
-  }
-
-  .card-title {
-    font-size: 24px;
-    font-weight: 500;
-    color: var(--text-primary, #1A1A1A);
-    margin: 0 0 16px;
-    line-height: 1.3;
-  }
-
-  .card-excerpt {
-    font-size: 16px;
-    color: var(--text-secondary, #666666);
-    line-height: 1.6;
-    margin: 0 0 24px;
-  }
-
-  .card-meta {
-    font-size: 14px;
-    color: var(--text-tertiary, #999999);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .separator {
-    opacity: 0.4;
-  }
-
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     .blog-page {
-      padding: 100px 0 60px;
-    }
-
-    .blog-container {
-      padding: 0 24px;
-    }
-
-    .blog-title {
-      font-size: 36px;
-    }
-
-    .blog-subtitle {
-      font-size: 16px;
+      padding: 110px 0 80px;
     }
 
     .blog-grid {
       grid-template-columns: 1fr;
-      gap: 32px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .blog-page__halo {
+      animation: none;
     }
 
-    .card-content {
-      padding: 24px;
-    }
-
-    .card-title {
-      font-size: 20px;
+    .blog-card {
+      transition: none;
     }
   }
 </style>

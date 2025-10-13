@@ -1,15 +1,29 @@
 ---
-// Artigo individual
 import BlogLayout from '../../layouts/BlogLayout.astro';
+import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  return [];
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
 }
 
-const { slug } = Astro.params;
+const { post } = Astro.props;
+const { Content } = await post.render();
+const wordCount = post.body ? post.body.split(/\s+/).filter(Boolean).length : 0;
+const readingTime = Math.max(3, Math.round(wordCount / 180));
 ---
 
-<BlogLayout>
-  <h1>{slug}</h1>
-  <!-- Artigo será implementado -->
+<BlogLayout
+  title={post.data.title}
+  description={post.data.description ?? post.data.excerpt}
+  publishedAt={post.data.publishedAt}
+  readingTime={readingTime}
+  tags={post.data.tags}
+  image={post.data.image}
+  imageAlt={post.data.imageAlt}
+>
+  <Content />
 </BlogLayout>

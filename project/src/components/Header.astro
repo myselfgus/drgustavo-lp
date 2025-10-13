@@ -1,16 +1,80 @@
 ---
 import '../styles/components/header.css';
+
+interface NavItem {
+  label: string;
+  href: string;
+}
+
+const navItems: NavItem[] = [
+  { label: 'Início', href: '/' },
+  { label: 'Currículo', href: '/curriculo' },
+  { label: 'Publicações', href: '/publicacoes' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Recursos', href: '/recursos' }
+];
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => {
+  if (href === '/') {
+    return currentPath === '/';
+  }
+
+  const normalized = href.replace(/\/$/, '');
+  return currentPath === normalized || currentPath.startsWith(`${normalized}/`);
+};
 ---
 
 <header id="main-header" class="site-header">
   <div class="site-header__inner">
-    <a href="/#hero" class="site-header__brand" aria-label="Voltar ao topo">
+    <a href="/" class="site-header__brand" aria-label="Ir para a página inicial">
       <span>Dr. Gustavo Mendes</span>
     </a>
 
+    <button
+      class="site-header__menu"
+      type="button"
+      aria-controls="site-nav"
+      aria-expanded="false"
+      data-nav-toggle
+    >
+      <span class="sr-only">Abrir menu</span>
+      <span class="site-header__menu-bar"></span>
+      <span class="site-header__menu-bar"></span>
+      <span class="site-header__menu-bar"></span>
+    </button>
+
+    <nav id="site-nav" class="site-header__nav" aria-label="Navegação principal">
+      <ul>
+        {navItems.map(item => {
+          const active = isActive(item.href);
+          return (
+            <li>
+              <a
+                href={item.href}
+                class={{
+                  'site-header__nav-link': true,
+                  'site-header__nav-link--active': active
+                }}
+                aria-current={active ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+
     <div class="site-header__actions">
       <span class="site-header__badge">Consultas 120 min</span>
-      <button class="site-header__cta" data-open-cal aria-label="Agendar consulta">
+      <button
+        class="site-header__cta"
+        data-cal-namespace="primeira-consulta"
+        data-cal-link="drgustavomendes/primeira-consulta"
+        data-cal-config='{"layout":"month_view"}'
+        aria-label="Agendar consulta"
+      >
         Agendar
       </button>
     </div>
@@ -18,14 +82,78 @@ import '../styles/components/header.css';
 </header>
 
 <script>
-  const header = document.getElementById('main-header');
+  function initHeader() {
+    const header = document.getElementById('main-header');
+    if (!header) return;
 
-  if (header) {
-    const ctaButton = header.querySelector<HTMLButtonElement>('[data-open-cal]');
     const brandLink = header.querySelector<HTMLAnchorElement>('.site-header__brand');
+    const nav = header.querySelector<HTMLElement>('.site-header__nav');
+    const navToggle = header.querySelector<HTMLButtonElement>('[data-nav-toggle]');
+    const navLinks = Array.from(header.querySelectorAll('.site-header__nav-link')) as HTMLAnchorElement[];
+    const SCROLL_OFFSET = 140;
     let lastScrollY = window.scrollY;
+    let ticking = false;
 
-    window.addEventListener('scroll', () => {
+    const toggleNav = (force?: boolean) => {
+      if (!nav || !navToggle) return;
+      const isOpen = force ?? !nav.classList.contains('site-header__nav--open');
+      nav.classList.toggle('site-header__nav--open', isOpen);
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+
+      if (isOpen) {
+        navToggle.classList.add('site-header__menu--active');
+        navLinks[0]?.focus();
+      } else {
+        navToggle.classList.remove('site-header__menu--active');
+      }
+    };
+
+    navToggle?.addEventListener('click', () => {
+      toggleNav();
+    });
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', event => {
+        const targetPath = link.pathname.replace(/\/$/, '') || '/';
+        const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+
+        if (!link.hash && targetPath === currentPath) {
+          event.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        if (window.matchMedia('(max-width: 899px)').matches) {
+          toggleNav(false);
+        }
+      });
+    });
+
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (!nav || !navToggle) return;
+      if (!nav.classList.contains('site-header__nav--open')) return;
+      if (!header.contains(event.target as Node)) {
+        toggleNav(false);
+      }
+    };
+
+    document.addEventListener('click', handleOutsideClick);
+
+    window.addEventListener('resize', () => {
+      if (window.matchMedia('(min-width: 900px)').matches) {
+        toggleNav(false);
+      }
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        toggleNav(false);
+        navToggle?.focus();
+      }
+    });
+
+    const contrastTargets = ['para-quem', 'contato'];
+
+    const updateHeaderState = () => {
       const current = window.scrollY;
 
       if (current > 40) {
@@ -34,40 +162,56 @@ import '../styles/components/header.css';
         header.classList.remove('site-header--scrolled');
       }
 
-      if (current > lastScrollY && current > 140) {
+      if (current > lastScrollY + 6 && current > SCROLL_OFFSET) {
         header.classList.add('site-header--hidden');
-      } else {
+      } else if (current < lastScrollY - 6) {
         header.classList.remove('site-header--hidden');
       }
 
-      const darkSection = document.getElementById('para-quem');
-      if (darkSection) {
-        const { top, bottom } = darkSection.getBoundingClientRect();
-        const headerHeight = header.offsetHeight;
-        if (top < headerHeight && bottom > headerHeight) {
-          header.classList.add('site-header--contrast');
-        } else {
-          header.classList.remove('site-header--contrast');
-        }
-      }
+      const headerHeight = header.offsetHeight;
+      const shouldContrast = contrastTargets.some(sectionId => {
+        const section = document.getElementById(sectionId);
+        if (!section) return false;
+        const rect = section.getBoundingClientRect();
+        return rect.top < headerHeight && rect.bottom > 0;
+      });
+
+      header.classList.toggle('site-header--contrast', shouldContrast);
 
       lastScrollY = current;
-    });
+    };
 
-    if (ctaButton) {
-      ctaButton.addEventListener('click', () => {
-        window.dispatchEvent(new CustomEvent('open-cal-modal'));
-      });
-    }
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateHeaderState();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', updateHeaderState);
+    updateHeaderState();
 
     if (brandLink) {
-      brandLink.addEventListener('click', (event) => {
-        const href = brandLink.getAttribute('href');
-        if (href?.startsWith('/#')) {
+      brandLink.addEventListener('click', event => {
+        if (brandLink.pathname === '/' && window.location.pathname === '/') {
           event.preventDefault();
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        if (window.matchMedia('(max-width: 899px)').matches) {
+          toggleNav(false);
+        }
       });
     }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeader);
+  } else {
+    initHeader();
   }
 </script>
