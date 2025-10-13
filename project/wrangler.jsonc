@@ -5,6 +5,10 @@
   "compatibility_flags": ["nodejs_compat"],
   "account_id": "1a481f7cdb7027c30174a692c89cbda1",
 
+  "build": {
+    "command": "npm install && npm run build"
+  },
+
   "observability": {
     "enabled": true,
     "head_sampling_rate": 1
