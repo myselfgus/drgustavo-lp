@@ -1,0 +1,145 @@
+---
+import '../styles/sections/programas.css';
+
+const programs = [
+  {
+    id: 'professionals',
+    label: 'Profissionais da saúde',
+    headline: 'Plantões pesados não podem ser tratados com planos genéricos.',
+    description:
+      'Consultas de 120 minutos com documentação narrativa pronta para dividir com equipe, sigilo absoluto e planos vivos que acompanham escalas, viagens e turnos irregulares.',
+    bullets: [
+      'Narrativa clínica organizada automaticamente após cada encontro',
+      'Integração com rede pública/privada e acompanhamento longitudinal',
+      'Valores diferenciados contínuos para colegas da saúde'
+    ]
+  },
+  {
+    id: 'students',
+    label: 'Estudantes e residentes',
+    headline: 'A formação exige clareza emocional para seguir aprendendo.',
+    description:
+      'Suporte psiquiátrico longitudinal para conciliar provas, estágios e vida pessoal — com manejo medicamentoso criterioso, hábitos ajustados e tabelas acessíveis até o fim da graduação.',
+    bullets: [
+      'Monitoramento das oscilações durante ciclo de provas e plantões',
+      'Plano terapêutico integrado com estratégias de estudo e higiene do sono',
+      'Valores fixos durante todo o período acadêmico'
+    ]
+  }
+];
+---
+
+<section id="programas" class="programas" aria-labelledby="programas-title">
+  <div class="programas__content container">
+    <header class="programas__header">
+      <span class="programas__eyebrow" data-animate="fade-right">Programas dedicados</span>
+      <h2 id="programas-title" class="programas__title" data-animate="fade-right">Cuidar de quem cuida e de quem está chegando</h2>
+      <p class="programas__lead" data-animate="fade-right">
+        Consultas longas, documentação narrativa e ajustes contínuos com condições especiais para quem vive a rotina da saúde — na prática ou ainda na formação.
+      </p>
+    </header>
+
+    <div class="programas__slider" data-program-slider>
+      <button
+        class="programas__nav programas__nav--prev"
+        type="button"
+        aria-label="Mostrar programa anterior"
+        data-program-prev
+      >
+        ←
+      </button>
+
+      <div class="programas__viewport">
+        <div class="programas__track" data-program-track>
+          {programs.map((program, index) => (
+            <article
+              class={`programas__slide${index === 0 ? ' is-active' : ''}`}
+              data-program-slide
+              data-index={index}
+            >
+              <header class="programas__slide-header">
+                <span class="programas__slide-label">{program.label}</span>
+                <h3>{program.headline}</h3>
+              </header>
+              <p>{program.description}</p>
+              <ul>
+                {program.bullets.map(item => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+              <button class="programas__cta" type="button" data-open-cal>
+                Solicitar agenda com condições especiais
+              </button>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <button
+        class="programas__nav programas__nav--next"
+        type="button"
+        aria-label="Mostrar próximo programa"
+        data-program-next
+      >
+        →
+      </button>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ programs }} is:inline>
+  const slider = document.querySelector('[data-program-slider]');
+
+  if (slider) {
+    const track = slider.querySelector('[data-program-track]');
+    const slides = track ? Array.from(track.querySelectorAll('[data-program-slide]')) : [];
+    if (!track || slides.length === 0) {
+      return;
+    }
+    const prev = slider.querySelector('[data-program-prev]');
+    const next = slider.querySelector('[data-program-next]');
+    const interval = 9000;
+    let index = 0;
+    let timer = window.setTimeout(step, interval);
+
+    function updatePosition() {
+      track.style.setProperty('--program-offset', String(index));
+      slides.forEach((slide, slideIndex) => {
+        slide.classList.toggle('is-active', slideIndex === index);
+      });
+    }
+
+    function step(direction = 1) {
+      index = (index + direction + slides.length) % slides.length;
+      updatePosition();
+      timer = window.setTimeout(step, interval);
+    }
+
+    prev?.addEventListener('click', () => {
+      window.clearTimeout(timer);
+      step(-1);
+    });
+
+    next?.addEventListener('click', () => {
+      window.clearTimeout(timer);
+      step(1);
+    });
+
+    slider.addEventListener('mouseenter', () => {
+      window.clearTimeout(timer);
+    });
+
+    slider.addEventListener('mouseleave', () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(step, interval);
+    });
+
+    updatePosition();
+
+    slider.querySelectorAll('[data-open-cal]').forEach(button => {
+      button.addEventListener('click', () => {
+        window.dispatchEvent(new CustomEvent('open-cal-modal'));
+      });
+    });
+  }
+</script>

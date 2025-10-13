@@ -1,298 +1,52 @@
 ---
-// Manifesto section - Seção 2
-// Especificação: secao-02-manifesto.md
+import '../styles/sections/manifesto.css';
 ---
 
-<section id="manifesto" class="manifesto-section" aria-label="Manifesto">
-  <div class="manifesto-container">
-    <!-- Lado Esquerdo - Texto (50%) -->
-    <div class="manifesto-esquerda">
-      <!-- Par 1 -->
-      <div class="manifesto-par" data-index="0">
-        <p class="linha-problema">A psiquiatria tradicional categoriza.</p>
-        <p class="linha-solucao">Eu busco compreender padrões.</p>
-      </div>
+<section id="manifesto" class="manifesto" aria-labelledby="manifesto-title">
+  <div class="manifesto__backdrop" aria-hidden="true">
+    <span class="manifesto__layer manifesto__layer--one"></span>
+    <span class="manifesto__layer manifesto__layer--two"></span>
+    <span class="manifesto__grain"></span>
+  </div>
 
-      <!-- Par 2 -->
-      <div class="manifesto-par" data-index="1">
-        <p class="linha-problema">Consultas de 2 horas não são luxo.</p>
-        <p class="linha-solucao">São o tempo necessário para <strong>pensar junto</strong>.</p>
-      </div>
-
-      <!-- Par 3 -->
-      <div class="manifesto-par" data-index="2">
-        <p class="linha-problema">Inteligência artificial não substitui escuta.</p>
-        <p class="linha-solucao">Ela libera minha mente para <strong>estar presente</strong>.</p>
-      </div>
-
-      <!-- Par 4 -->
-      <div class="manifesto-par" data-index="3">
-        <p class="linha-problema">Você não é um diagnóstico do DSM.</p>
-        <p class="linha-solucao">Você é um <strong>sistema complexo</strong> em busca de coerência.</p>
-      </div>
-
-      <!-- Link Blog -->
-      <a href="/blog" class="manifesto-link">
-        Leia mais sobre essa abordagem no blog →
-      </a>
+  <div class="manifesto__content container">
+    <div class="manifesto__intro">
+      <h2 id="manifesto-title" class="manifesto__title">Quando o cuidado deixa de ser automático.</h2>
+      <p class="manifesto__lead">
+        Sustento consultas longas, olho para padrões e reescrevo o plano junto com você. Abaixo, um resumo de como isso acontece na prática.
+      </p>
     </div>
 
-    <!-- Lado Direito - Vazio Elegante (50%) -->
-    <div class="manifesto-direita" aria-hidden="true">
-      <div class="gradiente-fundo"></div>
-      <div class="noise-texture"></div>
+    <div class="manifesto__matrix">
+      <header class="manifesto__matrix-header" aria-hidden="true">
+        <span>Quando é automático</span>
+        <span>Quando fazemos juntos</span>
+      </header>
+
+      <div class="manifesto__row" data-row>
+        <span class="manifesto__index">01</span>
+        <p class="manifesto__col manifesto__col--soft">Protocolos prontos, pouca escuta.</p>
+        <p class="manifesto__col manifesto__col--bold">Escuta longa e leitura de padrões antes de qualquer decisão.</p>
+      </div>
+
+      <div class="manifesto__row" data-row>
+        <span class="manifesto__index">02</span>
+        <p class="manifesto__col manifesto__col--soft">Consulta curta, foco na prescrição.</p>
+        <p class="manifesto__col manifesto__col--bold">Sessões de 120 minutos para cruzar história, dados e rotina.</p>
+      </div>
+
+      <div class="manifesto__row" data-row>
+        <span class="manifesto__index">03</span>
+        <p class="manifesto__col manifesto__col--soft">Tecnologia afasta o médico.</p>
+        <p class="manifesto__col manifesto__col--bold">Uso IA apenas para organizar informação e dedicar presença total.</p>
+      </div>
+
+      <div class="manifesto__row" data-row>
+        <span class="manifesto__index">04</span>
+        <p class="manifesto__col manifesto__col--soft">Plano rígido, sem ajustes.</p>
+        <p class="manifesto__col manifesto__col--bold">Mapa vivo com ajustes contínuos e acordos compartilhados.</p>
+      </div>
     </div>
+
   </div>
 </section>
-
-<script>
-  function setupManifestoAnimations() {
-    const manifestoSection = document.getElementById('manifesto');
-    if (!manifestoSection) return;
-
-    const pares = manifestoSection.querySelectorAll('.manifesto-par');
-    const link = manifestoSection.querySelector('.manifesto-link');
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      },
-      {
-        threshold: 0.35,
-        rootMargin: '0px 0px -10% 0px',
-      }
-    );
-
-    pares.forEach((par) => {
-      observer.observe(par);
-    });
-
-    // Link aparece quando último par está visível
-    const lastPar = pares[pares.length - 1];
-    const linkObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && link) {
-            setTimeout(() => {
-              link.classList.add('visible');
-            }, 400);
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    if (lastPar && link) {
-      linkObserver.observe(lastPar);
-    }
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupManifestoAnimations);
-  } else {
-    setupManifestoAnimations();
-  }
-</script>
-
-<style>
-  /* ===== SEÇÃO MANIFESTO - 100vh EXATO + SPLIT 50/50 ===== */
-  .manifesto-section {
-    width: 100%;
-    height: 100vh;
-    min-height: 100vh;
-    max-height: 100vh;
-    background: var(--bg-primary);
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* ===== CONTAINER - SPLIT 50/50 EXATO ===== */
-  .manifesto-container {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-  }
-
-  /* ===== LADO ESQUERDO (50%) - TEXTO ===== */
-  .manifesto-esquerda {
-    padding-top: 15%;
-    padding-bottom: 10%;
-    padding-left: 8%;
-    padding-right: 8%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: var(--gap-manifesto-pairs);
-  }
-
-  /* ===== PARES CONTRASTANTES ===== */
-  .manifesto-par {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-manifesto-lines);
-    max-width: 600px;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 600ms var(--ease-smooth),
-                transform 600ms var(--ease-smooth);
-  }
-
-  .manifesto-par[data-index="0"] { transition-delay: 200ms; }
-  .manifesto-par[data-index="1"] { transition-delay: 300ms; }
-  .manifesto-par[data-index="2"] { transition-delay: 400ms; }
-  .manifesto-par[data-index="3"] { transition-delay: 500ms; }
-
-  .manifesto-par.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Linha 1 de cada par (Tradicional/Problema) */
-  .linha-problema {
-    margin: 0;
-    font-size: var(--text-manifesto);
-    font-weight: var(--font-light);
-    color: var(--text-secondary);
-    line-height: 1.5;
-  }
-
-  /* Linha 2 de cada par (Nova abordagem/Solução) */
-  .linha-solucao {
-    margin: 0;
-    font-size: var(--text-manifesto);
-    font-weight: var(--font-medium);
-    color: var(--text-primary);
-    line-height: 1.5;
-  }
-
-  .linha-solucao strong {
-    font-weight: var(--font-semibold);
-  }
-
-  /* ===== LINK BLOG ===== */
-  .manifesto-link {
-    margin-top: 80px;
-    font-size: var(--text-sm);
-    font-weight: var(--font-regular);
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: all var(--transition-fast);
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  .manifesto-link.visible {
-    animation: fadeInUp 400ms var(--ease-smooth) forwards;
-  }
-
-  .manifesto-link:hover {
-    color: var(--text-primary);
-    text-decoration: underline;
-    transform: translateX(4px);
-  }
-
-  /* ===== LADO DIREITO (50%) - VAZIO ELEGANTE ===== */
-  .manifesto-direita {
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* Gradiente sutil */
-  .gradiente-fundo {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 60%);
-  }
-
-  /* Textura noise */
-  .noise-texture {
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.02;
-    pointer-events: none;
-  }
-
-  /* ===== ANIMATIONS ===== */
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* ===== RESPONSIVE - TABLET ===== */
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .manifesto-container {
-      grid-template-columns: 45fr 55fr;
-    }
-
-    .linha-problema,
-    .linha-solucao {
-      font-size: 26px;
-    }
-
-    .manifesto-esquerda {
-      padding-left: 6%;
-      padding-right: 6%;
-    }
-
-    .manifesto-par {
-      gap: 50px;
-    }
-  }
-
-  /* ===== RESPONSIVE - MOBILE ===== */
-  @media (max-width: 767px) {
-    .manifesto-section {
-      height: 100dvh;
-      min-height: 100dvh;
-      max-height: 100dvh;
-    }
-
-    /* Layout muda: sem split, texto ocupa 100% */
-    .manifesto-container {
-      grid-template-columns: 1fr;
-    }
-
-    .manifesto-direita {
-      display: none;
-    }
-
-    .manifesto-esquerda {
-      padding: 24px;
-      padding-top: 120px;
-      padding-bottom: 80px;
-      gap: 40px;
-    }
-
-    .linha-problema,
-    .linha-solucao {
-      font-size: 22px;
-    }
-
-    .manifesto-link {
-      margin-top: 60px;
-    }
-  }
-
-  /* ===== ACCESSIBILITY - REDUCED MOTION ===== */
-  @media (prefers-reduced-motion: reduce) {
-    .manifesto-par,
-    .manifesto-link {
-      animation: none !important;
-      opacity: 1 !important;
-      transform: none !important;
-      transition: none !important;
-    }
-  }
-</style>

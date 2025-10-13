@@ -1,0 +1,120 @@
+.depoimentos {
+  position: relative;
+  background: linear-gradient(160deg, #eef2ed 0%, #ffffff 54%, #f4f7f5 100%);
+}
+
+.depoimentos__content {
+  display: grid;
+  gap: clamp(24px, 5vh, 40px);
+  align-content: center;
+  min-height: 100%;
+  padding-block: clamp(56px, 16vh, 96px);
+}
+
+.depoimentos__eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.depoimentos__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: var(--text-title-lg);
+  line-height: 1.2;
+}
+
+.depoimentos__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: clamp(20px, 4vw, 32px);
+  width: 100%;
+}
+
+.depoimentos__card {
+  position: relative;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: clamp(24px, 4vw, 32px);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(31, 62, 70, 0.1);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 24px 44px rgba(18, 19, 16, 0.1);
+  backdrop-filter: blur(10px);
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.depoimentos__card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 20% 18%, rgba(210, 168, 87, 0.16), transparent 60%),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.06));
+  pointer-events: none;
+}
+
+.depoimentos__card blockquote {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1.05rem, 1.7vw, 1.35rem);
+  line-height: 1.5;
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+
+.depoimentos__card figcaption {
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(31, 62, 70, 0.6);
+}
+
+.depoimentos__card.is-highlighted {
+  border-color: rgba(31, 62, 70, 0.26);
+  box-shadow: 0 30px 60px rgba(18, 19, 16, 0.16);
+  transform: translateY(-6px);
+}
+
+.depoimentos__card.is-highlighted::before {
+  background:
+    radial-gradient(circle at 22% 18%, rgba(210, 168, 87, 0.24), transparent 60%),
+    linear-gradient(150deg, rgba(125, 168, 123, 0.18), rgba(255, 255, 255, 0.24));
+}
+
+.depoimentos__next {
+  border: none;
+  background: transparent;
+  color: var(--brand-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: transform var(--transition-fast), color var(--transition-fast);
+}
+
+.depoimentos__next:hover {
+  transform: translateY(-2px);
+  color: var(--text-primary);
+}
+
+@media (max-width: 767px) {
+  .depoimentos__content {
+    align-content: stretch;
+  }
+
+  .depoimentos__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .depoimentos__card {
+    padding: clamp(20px, 6vw, 28px);
+  }
+}

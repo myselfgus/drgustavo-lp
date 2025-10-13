@@ -17,8 +17,8 @@ export interface Props {
 }
 
 const {
-  title = 'Dr. Gustavo Mendes | Psiquiatria Humanizada em São José do Rio Preto',
-  description = 'Psiquiatria com consultas de 2 horas. Especialista em TDAH, autismo e neurodiversidade. Abordagem humanizada e uso criterioso de canabidiol medicinal.',
+  title = 'Dr. Gustavo Mendes | Psiquiatria com IA em São José do Rio Preto',
+  description = 'Consultas de 120 minutos guiadas por inteligência artificial para TDAH, autismo e ansiedade. Atendimento presencial e online saindo de São José do Rio Preto, com uso criterioso de canabidiol.',
   ogImage = '/images/og-default.jpg',
   showDots = true
 } = Astro.props;
@@ -46,7 +46,10 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter+Tight:wght@300;400;500;600;700&display=swap"
+    />
   </head>
   <body>
     <a class="skip-to-content" href="#main-content">Ir para o conteúdo principal</a>
@@ -60,12 +63,109 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
 
     <WhatsAppButton />
     <CalEmbed />
-    
+
+    <script is:inline>
+      const observers = [];
+
+      const disconnectObservers = () => {
+        observers.forEach(observer => {
+          if (observer && typeof observer.disconnect === 'function') {
+            observer.disconnect();
+          }
+        });
+        observers.length = 0;
+      };
+
+      const createObserver = (selector, callback, options) => {
+        if (!('IntersectionObserver' in window)) {
+          return null;
+        }
+
+        const observer = new IntersectionObserver(callback, options);
+        document.querySelectorAll(selector).forEach(element => observer.observe(element));
+        return observer;
+      };
+
+      const revealAllImmediately = () => {
+        document.querySelectorAll('[data-animate]').forEach(element => {
+          element.classList.add('is-visible');
+        });
+
+        document.querySelectorAll('[data-stagger] > *').forEach(element => {
+          element.classList.add('is-visible');
+        });
+      };
+
+      const setupRevealAnimations = () => {
+        disconnectObservers();
+
+        if (!('IntersectionObserver' in window)) {
+          revealAllImmediately();
+          return;
+        }
+
+        const animateObserver = createObserver(
+          '[data-animate]',
+          entries => {
+            entries.forEach(entry => {
+              if (!entry.isIntersecting) return;
+              const element = entry.target;
+              const delay = element.getAttribute('data-delay');
+              if (delay) {
+                element.style.setProperty('--reveal-delay', delay);
+              }
+              requestAnimationFrame(() => {
+                element.classList.add('is-visible');
+              });
+              animateObserver.unobserve(element);
+            });
+          },
+          { threshold: 0.2, rootMargin: '0px 0px -100px 0px' }
+        );
+
+        const staggerObserver = createObserver(
+          '[data-stagger]',
+          entries => {
+            entries.forEach(entry => {
+              if (!entry.isIntersecting) return;
+              const container = entry.target;
+              const children = Array.from(container.children);
+              children.forEach((child, index) => {
+                child.style.setProperty('--stagger-delay', `${index * 90}ms`);
+                requestAnimationFrame(() => {
+                  child.classList.add('is-visible');
+                });
+              });
+              staggerObserver.unobserve(container);
+            });
+          },
+          { threshold: 0.18, rootMargin: '0px 0px -80px 0px' }
+        );
+
+        if (animateObserver) observers.push(animateObserver);
+        if (staggerObserver) observers.push(staggerObserver);
+      };
+
+      if (typeof window !== 'undefined') {
+        const flagKey = '__drgAnimationsInitialized';
+
+        const init = () => {
+          if (!window[flagKey]) {
+            window[flagKey] = true;
+            document.addEventListener('astro:after-swap', setupRevealAnimations);
+            document.addEventListener('astro:page-load', setupRevealAnimations);
+          }
+
+          setupRevealAnimations();
+        };
+
+        init();
+      } else {
+        revealAllImmediately();
+      }
+    </script>
+
     <script>
-      // Smooth scroll behavior
-      document.documentElement.style.scrollBehavior = 'smooth';
-      
-      // Respect reduced motion preference
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
       if (prefersReducedMotion.matches) {
         document.documentElement.classList.add('reduced-motion');
@@ -90,7 +190,7 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
   
   body {
     margin: 0;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: var(--font-sans);
     color: var(--text-primary);
     background: var(--bg-primary);
     line-height: 1.6;

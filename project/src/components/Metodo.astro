@@ -1,311 +1,111 @@
 ---
-// Método section - Seção 4
-// Especificação: secao-04-metodo.md
+import '../styles/sections/metodo.css';
+
+const steps = [
+  {
+    title: 'Escuta ativa',
+    description: 'Consulta de 120 minutos onde sua história é ouvida com atenção. Sem pressa, sem interrupções, abrindo espaço para compreender o seu contexto real.'
+  },
+  {
+    title: 'Análise comportamental',
+    description: 'Uso inteligência artificial para identificar padrões sutis e cruzar sinais clínicos com seus relatos, aumentando a precisão sem substituir a escuta.'
+  },
+  {
+    title: 'Documentação narrativa',
+    description: 'Transformo o encontro em um registro claro, organizado por temas, que facilita rever decisões e compartilhar com quem acompanha sua jornada.'
+  },
+  {
+    title: 'Plano terapêutico vivo',
+    description: 'Integro medicamentos, canabinoides quando indicado e estratégias comportamentais específicas, revisando tudo com você a cada etapa.'
+  }
+];
 ---
 
-<section id="metodo" class="metodo-section" aria-label="Como trabalhamos">
-  <div class="metodo-container">
-    <h2 class="metodo-titulo">Como trabalhamos</h2>
+<section id="metodo" class="metodo" aria-labelledby="metodo-title">
+  <div class="metodo__content container">
+    <div class="metodo__header">
+      <span class="metodo__eyebrow" data-animate="fade-right">Método</span>
+      <h2 id="metodo-title" class="metodo__title" data-animate="fade-right">Como conduzimos cada etapa</h2>
+      <p class="metodo__lead" data-animate="fade-right">
+        Uma jornada contínua que alterna análise, co-criação e ajustes frequentes — sempre com transparência sobre o que está funcionando e o que precisa mudar.
+      </p>
+      <p class="metodo__hint" data-animate="fade-right">Quatro movimentos que sustentam cada acompanhamento, da primeira escuta aos ajustes contínuos.</p>
+    </div>
 
-    <ol class="processo-lista">
-      <!-- Item 1 -->
-      <li class="processo-item" data-index="0">
-        <span class="seta" aria-hidden="true">→</span>
-        <span class="texto">
-          Primeira consulta: <strong>2 horas</strong> de análise sem pressa
-        </span>
-      </li>
+    <div class="metodo__journey" data-metodo-journey>
+      <div class="metodo__stages" data-stagger>
+        {steps.map((step, index) => (
+          <button
+            class={`metodo__stage${index === 0 ? ' is-active' : ''}`}
+            type="button"
+            data-metodo-stage={index}
+            aria-expanded={index === 0 ? 'true' : 'false'}
+          >
+            <span class="metodo__stage-number">{String(index + 1).padStart(2, '0')}</span>
+            <span class="metodo__stage-title">{step.title}</span>
+          </button>
+        ))}
+      </div>
 
-      <!-- Item 2 -->
-      <li class="processo-item" data-index="1">
-        <span class="seta" aria-hidden="true">→</span>
-        <span class="texto">
-          Você fala, eu ouço e <strong>estruturo padrões com IA</strong>
-        </span>
-      </li>
-
-      <!-- Item 3 -->
-      <li class="processo-item" data-index="2">
-        <span class="seta" aria-hidden="true">→</span>
-        <span class="texto">
-          Construímos hipóteses juntos – <strong>seu insight importa</strong>
-        </span>
-      </li>
-
-      <!-- Item 4 -->
-      <li class="processo-item" data-index="3">
-        <span class="seta" aria-hidden="true">→</span>
-        <span class="texto">
-          Tratamento <strong>co-criado</strong>: medicação, canabidiol, estratégias comportamentais
-        </span>
-      </li>
-
-      <!-- Item 5 -->
-      <li class="processo-item" data-index="4">
-        <span class="seta" aria-hidden="true">→</span>
-        <span class="texto">
-          Relatórios detalhados – <strong>você entende</strong> o que está acontecendo
-        </span>
-      </li>
-
-      <!-- Item 6 -->
-      <li class="processo-item" data-index="5">
-        <span class="seta" aria-hidden="true">→</span>
-        <span class="texto">
-          Reavaliações: <strong>acompanhamento real</strong>, não receita automática
-        </span>
-      </li>
-    </ol>
-
-    <!-- Link Contextual -->
-    <a href="/recursos/preparacao" class="link-preparacao">
-      Como se preparar para primeira consulta →
-    </a>
+      <div class="metodo__panel" aria-live="polite" data-metodo-stage-root data-stage="0">
+        <div class="metodo__panel-inner">
+          <div class="metodo__panel-media" aria-hidden="true"></div>
+          <div class="metodo__panel-copy">
+            <h3 class="metodo__panel-title">{steps[0].title}</h3>
+            <p class="metodo__panel-text" data-metodo-panel>{steps[0].description}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<script>
-  function setupMetodoAnimations() {
-    const metodoSection = document.getElementById('metodo');
-    if (!metodoSection) return;
+<script define:vars={{ metodoStages: steps }} is:inline>
+  const journey = document.querySelector('[data-metodo-journey]');
 
-    const titulo = metodoSection.querySelector('.metodo-titulo');
-    const items = metodoSection.querySelectorAll('.processo-item');
-    const link = metodoSection.querySelector('.link-preparacao');
+  if (journey) {
+    const stages = Array.from(journey.querySelectorAll('[data-metodo-stage]'));
+    const panel = journey.querySelector('[data-metodo-panel]');
+    const panelTitle = journey.querySelector('.metodo__panel-title');
+    const panelRoot = journey.querySelector('[data-metodo-stage-root]');
+    let activeIndex = 0;
+    const intervalDelay = 8000;
+    let rotation = window.setInterval(nextStage, intervalDelay);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            if (titulo) titulo.classList.add('visible');
-            items.forEach((item) => item.classList.add('visible'));
-            if (link) link.classList.add('visible');
-          }
-        });
-      },
-      {
-        threshold: 0.3,
-      }
-    );
+    function activate(index) {
+      if (!panel || !panelTitle || !panelRoot) return;
+      activeIndex = index;
+      stages.forEach((stage, i) => {
+        const isActive = i === index;
+        stage.classList.toggle('is-active', isActive);
+        stage.setAttribute('aria-expanded', String(isActive));
+      });
+      const next = metodoStages[index];
+      panelTitle.textContent = next.title;
+      panel.textContent = next.description;
+      panelRoot.setAttribute('data-stage', String(index));
+    }
 
-    observer.observe(metodoSection);
-  }
+    function nextStage() {
+      const nextIndex = (activeIndex + 1) % stages.length;
+      activate(nextIndex);
+    }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupMetodoAnimations);
-  } else {
-    setupMetodoAnimations();
+    journey.addEventListener('mouseenter', () => {
+      window.clearInterval(rotation);
+    });
+
+    journey.addEventListener('mouseleave', () => {
+      window.clearInterval(rotation);
+      rotation = window.setInterval(nextStage, intervalDelay);
+    });
+
+    stages.forEach((stage, index) => {
+      stage.addEventListener('click', () => {
+        window.clearInterval(rotation);
+        activate(index);
+        rotation = window.setInterval(nextStage, intervalDelay);
+      });
+    });
   }
 </script>
-
-<style>
-  /* ===== SEÇÃO MÉTODO - 100vh EXATO + LAYOUT ASSIMÉTRICO ===== */
-  .metodo-section {
-    width: 100%;
-    height: 100vh;
-    min-height: 100vh;
-    max-height: 100vh;
-    background: var(--bg-primary);
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    overflow: hidden;
-  }
-
-  /* ===== CONTAINER - ASSIMETRIA ELEGANTE ===== */
-  .metodo-container {
-    width: 100%;
-    padding-left: 20%;
-    padding-right: 30%;
-    padding-top: 15%;
-    padding-bottom: 15%;
-    max-width: 1400px;
-  }
-
-  /* ===== TÍTULO ===== */
-  .metodo-titulo {
-    margin: 0 0 40px 0;
-    font-size: 16px;
-    font-weight: var(--font-semibold);
-    color: var(--text-primary);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  .metodo-titulo.visible {
-    animation: fadeInUp 600ms var(--ease-smooth) forwards;
-    animation-delay: 400ms;
-  }
-
-  /* ===== LISTA DO PROCESSO ===== */
-  .processo-lista {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-metodo);
-    max-width: 600px;
-  }
-
-  /* ===== ITEM DO PROCESSO ===== */
-  .processo-item {
-    display: flex;
-    align-items: flex-start;
-    opacity: 0;
-    transform: translateX(-20px);
-    transition: transform 0.3s ease;
-  }
-
-  .processo-item:hover {
-    transform: translateX(4px);
-  }
-
-  .processo-item.visible {
-    animation: slideIn 500ms var(--ease-smooth) forwards;
-  }
-
-  /* Stagger animation - 100ms delay entre cada */
-  .processo-item[data-index="0"].visible { animation-delay: 800ms; }
-  .processo-item[data-index="1"].visible { animation-delay: 900ms; }
-  .processo-item[data-index="2"].visible { animation-delay: 1000ms; }
-  .processo-item[data-index="3"].visible { animation-delay: 1100ms; }
-  .processo-item[data-index="4"].visible { animation-delay: 1200ms; }
-  .processo-item[data-index="5"].visible { animation-delay: 1300ms; }
-
-  /* ===== SETA ===== */
-  .seta {
-    font-size: 20px;
-    color: var(--text-tertiary);
-    margin-right: 12px;
-    margin-top: 2px;
-    flex-shrink: 0;
-    transition: all 0.3s ease;
-  }
-
-  .processo-item:hover .seta {
-    transform: translateX(8px);
-    color: var(--text-primary);
-  }
-
-  /* ===== TEXTO ===== */
-  .texto {
-    font-size: var(--text-metodo);
-    font-weight: var(--font-regular);
-    color: var(--text-primary-alt);
-    line-height: 1.6;
-  }
-
-  .texto strong {
-    font-weight: var(--font-semibold);
-  }
-
-  /* ===== LINK CONTEXTUAL ===== */
-  .link-preparacao {
-    display: inline-block;
-    margin-top: 60px;
-    font-size: var(--text-sm);
-    font-weight: var(--font-regular);
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: all var(--transition-fast);
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  .link-preparacao.visible {
-    animation: fadeInUp 400ms var(--ease-smooth) forwards;
-    animation-delay: 1800ms;
-  }
-
-  .link-preparacao:hover {
-    color: var(--text-primary);
-    text-decoration: underline;
-    transform: translateX(4px) translateY(0);
-  }
-
-  /* ===== ANIMATIONS ===== */
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes slideIn {
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  /* ===== RESPONSIVE - TABLET ===== */
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .metodo-container {
-      padding-left: 15%;
-      padding-right: 25%;
-    }
-
-    .texto {
-      font-size: 20px;
-    }
-  }
-
-  /* ===== RESPONSIVE - MOBILE ===== */
-  @media (max-width: 767px) {
-    .metodo-section {
-      height: 100dvh;
-      min-height: 100dvh;
-      max-height: 100dvh;
-    }
-
-    .metodo-container {
-      padding-left: var(--padding-mobile);
-      padding-right: var(--padding-mobile);
-      padding-top: 120px;
-      padding-bottom: 80px;
-    }
-
-    .metodo-titulo {
-      font-size: 14px;
-      margin-bottom: 32px;
-    }
-
-    .processo-lista {
-      gap: 24px;
-    }
-
-    .texto {
-      font-size: 18px;
-    }
-
-    .seta {
-      font-size: 18px;
-      margin-right: 10px;
-    }
-
-    .link-preparacao {
-      margin-top: 48px;
-      font-size: 15px;
-    }
-  }
-
-  /* ===== ACCESSIBILITY - REDUCED MOTION ===== */
-  @media (prefers-reduced-motion: reduce) {
-    .metodo-titulo,
-    .processo-item,
-    .link-preparacao {
-      animation: none !important;
-      opacity: 1 !important;
-      transform: none !important;
-    }
-
-    .processo-item:hover,
-    .processo-item:hover .seta {
-      transform: none !important;
-    }
-  }
-</style>

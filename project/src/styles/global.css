@@ -111,15 +111,26 @@ section {
   padding: 0 var(--padding-mobile);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 640px) {
   .container {
-    padding: 0 var(--padding-desktop);
+    padding: 0 var(--padding-tablet);
   }
 }
 
 @media (min-width: 1024px) {
   .container {
-    padding: 0 var(--padding-desktop-lg);
+    padding: 0 var(--padding-desktop);
+  }
+}
+
+section:not(#hero) > .container {
+  max-width: 1100px;
+  margin-inline: auto;
+}
+
+@media (max-width: 639px) {
+  section:not(#hero) > .container {
+    padding: 0 var(--padding-mobile);
   }
 }
 
@@ -148,7 +159,7 @@ section {
 /* Scroll indicator */
 .scroll-indicator {
   position: absolute;
-  bottom: 40px;
+  bottom: clamp(24px, 4vh, 40px);
   left: 50%;
   transform: translateX(-50%);
   cursor: pointer;
@@ -157,7 +168,7 @@ section {
 
 @media (max-width: 767px) {
   .scroll-indicator {
-    bottom: 32px;
+    bottom: 20px;
   }
 }
 

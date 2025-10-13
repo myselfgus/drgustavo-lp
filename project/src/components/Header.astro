@@ -1,220 +1,71 @@
 ---
-// Top navigation bar - Minimalista conforme spec
-// Estado inicial: transparente
-// Após scroll: backdrop-blur com background semi-transparente
-// Auto-hide ao rolar, reaparece ao parar ou rolar para cima
+import '../styles/components/header.css';
 ---
 
-<header id="main-header" class="header hero-nav-element">
-  <div class="header-container">
-    <!-- Logo à esquerda (clicável, volta ao topo) -->
-    <a href="/#hero" class="logo" aria-label="Voltar ao topo">
-      <span class="logo-text">Dr. Gustavo Mendes</span>
+<header id="main-header" class="site-header">
+  <div class="site-header__inner">
+    <a href="/#hero" class="site-header__brand" aria-label="Voltar ao topo">
+      <span>Dr. Gustavo Mendes</span>
     </a>
 
-    <!-- Botão à direita (sempre visível) -->
-    <button class="cta-button" data-open-cal aria-label="Agendar consulta">
-      Agendar
-    </button>
+    <div class="site-header__actions">
+      <span class="site-header__badge">Consultas 120 min</span>
+      <button class="site-header__cta" data-open-cal aria-label="Agendar consulta">
+        Agendar
+      </button>
+    </div>
   </div>
 </header>
 
-<style>
-  .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: var(--z-header);
-    background: transparent;
-    border-bottom: 1px solid transparent;
-    transition: transform 0.3s var(--ease-smooth),
-                background 0.3s var(--ease-smooth),
-                border-color 0.3s var(--ease-smooth);
-  }
-
-  /* Auto-hide */
-  .header.hidden {
-    transform: translateY(-100%);
-  }
-
-  /* Estado após scroll */
-  .header.scrolled {
-    background: rgba(250, 250, 248, 0.95);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom-color: rgba(0, 0, 0, 0.06);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  }
-
-  /* Estado sobre seção escura */
-  .header.dark-section {
-    background: rgba(26, 26, 26, 0.95);
-    border-bottom-color: rgba(255, 255, 255, 0.06);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-  }
-
-  .header.dark-section .logo-text {
-    color: #FFFFFF;
-  }
-
-  .header.dark-section .cta-button {
-    color: #FFFFFF;
-    border-color: #FFFFFF;
-  }
-
-  .header.dark-section .cta-button:hover {
-    background: #FFFFFF;
-    color: #1A1A1A;
-  }
-
-  .header-container {
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: var(--space-sm) var(--space-lg);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  /* Logo */
-  .logo {
-    text-decoration: none;
-    transition: opacity var(--duration-fast) ease;
-  }
-
-  .logo:hover {
-    opacity: 0.7;
-  }
-
-  .logo-text {
-    font-size: var(--text-base);
-    font-weight: var(--font-medium);
-    color: var(--color-hero-line-1);
-    letter-spacing: var(--tracking-tight);
-  }
-
-  /* CTA Button - "Agendar" */
-  .cta-button {
-    padding: 10px 24px;
-    background: transparent;
-    color: var(--color-hero-line-1);
-    border: 1px solid var(--color-hero-line-1);
-    border-radius: 6px;
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    font-family: var(--font-sans);
-    cursor: pointer;
-    transition: all var(--duration-fast) ease;
-  }
-
-  .cta-button:hover {
-    background: var(--color-hero-line-1);
-    color: var(--color-bg-primary);
-    transform: translateY(-1px);
-  }
-
-  .cta-button:focus-visible {
-    outline: 2px solid var(--color-hero-line-1);
-    outline-offset: 2px;
-  }
-
-  .cta-button:active {
-    transform: translateY(0);
-  }
-
-  /* Mobile adjustments */
-  @media (max-width: 767px) {
-    .header-container {
-      padding: var(--space-sm) var(--padding-mobile);
-    }
-
-    .logo-text {
-      font-size: var(--text-sm);
-    }
-
-    .cta-button {
-      padding: 8px 20px;
-      font-size: var(--text-xs);
-    }
-  }
-
-  /* Accessibility - Reduced Motion */
-  @media (prefers-reduced-motion: reduce) {
-    .header {
-      transition: none;
-    }
-
-    .cta-button {
-      transition: none;
-    }
-
-    .cta-button:hover {
-      transform: none;
-    }
-  }
-</style>
-
 <script>
-  // Auto-hide header behavior
-  let lastScroll = 0;
   const header = document.getElementById('main-header');
 
   if (header) {
+    const ctaButton = header.querySelector<HTMLButtonElement>('[data-open-cal]');
+    const brandLink = header.querySelector<HTMLAnchorElement>('.site-header__brand');
+    let lastScrollY = window.scrollY;
+
     window.addEventListener('scroll', () => {
-      const currentScroll = window.scrollY;
+      const current = window.scrollY;
 
-      // Add scrolled class when past top
-      if (currentScroll > 50) {
-        header.classList.add('scrolled');
+      if (current > 40) {
+        header.classList.add('site-header--scrolled');
       } else {
-        header.classList.remove('scrolled');
+        header.classList.remove('site-header--scrolled');
       }
 
-      // Auto-hide: hide when scrolling down, show when scrolling up or stopped
-      if (currentScroll > lastScroll && currentScroll > 100) {
-        header.classList.add('hidden');
+      if (current > lastScrollY && current > 140) {
+        header.classList.add('site-header--hidden');
       } else {
-        header.classList.remove('hidden');
+        header.classList.remove('site-header--hidden');
       }
 
-      // Detect if over dark section (Para Quem section)
-      const paraQuemSection = document.getElementById('para-quem');
-      if (paraQuemSection) {
-        const rect = paraQuemSection.getBoundingClientRect();
+      const darkSection = document.getElementById('para-quem');
+      if (darkSection) {
+        const { top, bottom } = darkSection.getBoundingClientRect();
         const headerHeight = header.offsetHeight;
-
-        // If header overlaps with Para Quem section
-        if (rect.top < headerHeight && rect.bottom > headerHeight) {
-          header.classList.add('dark-section');
+        if (top < headerHeight && bottom > headerHeight) {
+          header.classList.add('site-header--contrast');
         } else {
-          header.classList.remove('dark-section');
+          header.classList.remove('site-header--contrast');
         }
       }
 
-      lastScroll = currentScroll;
+      lastScrollY = current;
     });
 
-    // CTA Button - Open Cal.com modal
-    const ctaButton = header.querySelector('.cta-button');
     if (ctaButton) {
       ctaButton.addEventListener('click', () => {
-        // Dispatch custom event that will be handled by Cal.com component
         window.dispatchEvent(new CustomEvent('open-cal-modal'));
       });
     }
 
-    // Smooth scroll to top when clicking logo
-    const logo = header.querySelector('.logo');
-    if (logo) {
-      logo.addEventListener('click', (e) => {
-        const href = logo.getAttribute('href');
+    if (brandLink) {
+      brandLink.addEventListener('click', (event) => {
+        const href = brandLink.getAttribute('href');
         if (href?.startsWith('/#')) {
-          e.preventDefault();
-          window.scrollTo({
-            top: 0,
-            behavior: 'smooth',
-          });
+          event.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       });
     }

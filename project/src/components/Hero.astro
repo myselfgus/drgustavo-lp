@@ -1,267 +1,147 @@
 ---
-// Hero section - Seção 1
-// Especificação: secao-01-hero.md
+import '../styles/sections/hero.css';
+
+const heroHighlights = [
+  'Consultas de 120 minutos',
+  'IA como aliada discreta'
+];
+
+const heroQuotesData = [
+  {
+    text: '“Ele traduziu meu padrão de pensamento em um plano que finalmente fez sentido para mim e para minha família.”',
+    author: 'Paciente acompanhado desde 2023'
+  },
+  {
+    text: '“Consultas longas, informes claros e ajustes em tempo real. Senti pela primeira vez que eu comandava o processo.”',
+    author: 'Profissional de tecnologia, 34 anos'
+  },
+  {
+    text: '“Tive acompanhamento responsável com canabidiol, com ciência e sem promessas fáceis.”',
+    author: 'Paciente com dor crônica, 52 anos'
+  }
+];
+
+const [initialHeroQuote] = heroQuotesData;
 ---
 
-<section id="hero" class="hero-section" aria-label="Introdução">
-  <div class="hero-container">
-    <!-- Linha 1 (Provocação) -->
-    <h1 class="hero-line hero-line-1">
-      Você não precisa de mais diagnósticos.
-    </h1>
-
-    <!-- Linha 2 (Proposta) -->
-    <p class="hero-line hero-line-2">
-      Você precisa se entender.
-    </p>
-
-    <!-- Linha 3 e 4 (Identidade + Contexto) -->
-    <div class="hero-identity-group">
-      <p class="hero-identity-name">Dr. Gustavo Mendes</p>
-      <p class="hero-identity-context">Psiquiatria · São José do Rio Preto</p>
-    </div>
-
-    <!-- Scroll Indicator -->
-    <button
-      class="hero-scroll-indicator"
-      aria-label="Rolar para próxima seção"
-      data-scroll-to="manifesto"
-    >
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.5"
-      >
-        <path d="M12 5v14M19 12l-7 7-7-7" />
-      </svg>
-    </button>
+<section id="hero" class="hero" aria-labelledby="hero-title">
+  <div class="hero__background" aria-hidden="true">
+    <span class="hero__halo hero__halo--one"></span>
+    <span class="hero__halo hero__halo--two"></span>
+    <span class="hero__mesh"></span>
   </div>
+
+  <div class="hero__content container">
+    <div class="hero__grid">
+      <div class="hero__copy">
+        <span class="hero__eyebrow" data-animate="fade-right">Psiquiatria humanizada guiada por dados</span>
+
+        <h1 id="hero-title" class="hero__title" data-animate="fade-right">
+          <span class="hero__line hero__line--light">Você não precisa de mais diagnósticos.</span>
+          <span class="hero__line hero__line--bold">Você precisa se entender.</span>
+        </h1>
+
+        <div class="hero__identity" data-animate="fade-right">
+          <span class="hero__name">Dr. Gustavo Mendes</span>
+          <span class="hero__context">Psiquiatria · São José do Rio Preto</span>
+        </div>
+
+        <p class="hero__lead" data-animate="fade-right">
+          Consultas longas, tecnologia como apoio discreto e planos vivos construídos em colaboração — para que cada paciente compreenda o porquê, não só o que fazer.
+        </p>
+
+        <div class="hero__highlights" data-stagger>
+          {heroHighlights.map(item => (
+            <span class="hero__highlight">{item}</span>
+          ))}
+        </div>
+
+        <div class="hero__actions">
+          <button class="hero__cta" data-open-cal data-animate="fade-right" aria-label="Agendar consulta">
+            Agendar consulta
+          </button>
+        </div>
+      </div>
+
+      <aside class="hero__media" aria-hidden="true">
+        <div class="hero__frame" data-animate="fade-left">
+          <div class="hero__portrait"></div>
+          <span class="hero__ring hero__ring--outer"></span>
+          <span class="hero__ring hero__ring--inner"></span>
+        </div>
+
+        <figure class="hero__quote" data-animate="fade-left" aria-live="polite">
+          <blockquote data-hero-quote>{initialHeroQuote.text}</blockquote>
+          <figcaption data-hero-author>{initialHeroQuote.author}</figcaption>
+        </figure>
+      </aside>
+    </div>
+  </div>
+
+  <button
+    class="hero__scroll"
+    type="button"
+    data-scroll-target="manifesto"
+    aria-label="Ir para o manifesto"
+    data-animate="fade-up"
+  >
+    <span class="hero__scroll-icon" aria-hidden="true">⌄</span>
+    <span class="hero__scroll-text">ver manifesto</span>
+  </button>
 </section>
 
-<script>
-  const scrollIndicator = document.querySelector('.hero-scroll-indicator') as HTMLElement;
-  if (scrollIndicator) {
-    scrollIndicator.addEventListener('click', () => {
-      const target = scrollIndicator.getAttribute('data-scroll-to');
-      if (!target) return;
+<script define:vars={{ heroQuotes: heroQuotesData }} is:inline>
+  const heroSection = document.getElementById('hero');
 
-      const section = document.getElementById(target);
-      if (section) {
-        section.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
+  if (heroSection) {
+    const scrollButton = heroSection.querySelector('[data-scroll-target]');
+    const calButton = heroSection.querySelector('[data-open-cal]');
+    const quoteFigure = heroSection.querySelector('.hero__quote');
+    const quoteText = heroSection.querySelector('[data-hero-quote]');
+    const quoteAuthor = heroSection.querySelector('[data-hero-author]');
 
-    // Fade out scroll indicator when user starts scrolling
-    let scrolled = false;
-    window.addEventListener('scroll', () => {
-      if (!scrolled && window.scrollY > 50) {
-        scrolled = true;
-        scrollIndicator.style.opacity = '0';
-        scrollIndicator.style.pointerEvents = 'none';
-      }
-    });
+    if (quoteFigure && quoteText && quoteAuthor && heroQuotes.length > 1) {
+      let quoteIndex = 0;
+      const swapDuration = 260;
+      const swapInterval = 8000;
+
+      window.setInterval(() => {
+        quoteFigure.classList.add('is-swapping');
+
+        window.setTimeout(() => {
+          quoteIndex = (quoteIndex + 1) % heroQuotes.length;
+          const nextQuote = heroQuotes[quoteIndex];
+          quoteText.textContent = nextQuote.text;
+          quoteAuthor.textContent = nextQuote.author;
+          quoteFigure.classList.remove('is-swapping');
+        }, swapDuration);
+      }, swapInterval);
+    }
+
+    if (calButton) {
+      calButton.addEventListener('click', () => {
+        window.dispatchEvent(new CustomEvent('open-cal-modal'));
+      });
+    }
+
+    if (scrollButton) {
+      const targetId = scrollButton.getAttribute('data-scroll-target');
+      scrollButton.addEventListener('click', () => {
+        if (!targetId) return;
+        const nextSection = document.getElementById(targetId);
+        if (nextSection) {
+          nextSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+
+      let hasHidden = false;
+      window.addEventListener('scroll', () => {
+        if (hasHidden) return;
+        if (window.scrollY > 80) {
+          hasHidden = true;
+          scrollButton.classList.add('hero__scroll--hidden');
+        }
+      });
+    }
   }
 </script>
-
-<style>
-  /* ===== SEÇÃO HERO - 100vh EXATO ===== */
-  .hero-section {
-    width: 100%;
-    height: 100vh;
-    min-height: 100vh;
-    max-height: 100vh;
-    background: var(--bg-secondary);
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* ===== CONTAINER - 70% VAZIO (PRINCÍPIO DA SPEC) ===== */
-  .hero-container {
-    text-align: center;
-    padding: 0 var(--padding-desktop);
-    width: 100%;
-    max-width: 1200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* ===== TIPOGRAFIA CONFORME SPEC ===== */
-
-  /* Linha 1: "Você não precisa de mais diagnósticos." */
-  .hero-line-1 {
-    margin: 0;
-    font-size: var(--text-hero-xl);
-    font-weight: var(--font-light);
-    color: var(--text-primary-alt);
-    line-height: var(--leading-tight);
-    letter-spacing: -0.02em;
-    opacity: 0;
-    animation: fadeInUp 1s var(--ease-smooth) forwards;
-    animation-delay: 0.4s;
-  }
-
-  /* Linha 2: "Você precisa se entender." */
-  .hero-line-2 {
-    margin: 0;
-    margin-top: var(--gap-hero-lines);
-    font-size: var(--text-hero-xl);
-    font-weight: var(--font-medium);
-    color: var(--text-primary);
-    line-height: var(--leading-tight);
-    letter-spacing: -0.02em;
-    opacity: 0;
-    animation: fadeInUp 1s var(--ease-smooth) forwards;
-    animation-delay: 1.6s;
-  }
-
-  /* Identity Group (Linha 3 e 4) */
-  .hero-identity-group {
-    margin-top: 120px;
-    opacity: 0;
-    animation: fadeIn 1s ease-out forwards;
-    animation-delay: 2.2s;
-  }
-
-  .hero-identity-name {
-    margin: 0;
-    font-size: var(--text-hero-identity);
-    font-weight: var(--font-medium);
-    color: var(--text-primary);
-    line-height: var(--leading-normal);
-  }
-
-  .hero-identity-context {
-    margin: 8px 0 0;
-    font-size: var(--text-hero-context);
-    font-weight: var(--font-regular);
-    color: var(--text-secondary);
-    letter-spacing: 0.01em;
-    line-height: var(--leading-normal);
-  }
-
-  /* ===== SCROLL INDICATOR ===== */
-  .hero-scroll-indicator {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: none;
-    border: none;
-    color: var(--text-tertiary);
-    cursor: pointer;
-    padding: 8px;
-    opacity: 0;
-    animation: fadeInPulse 2s ease-in-out forwards;
-    animation-delay: 2.8s;
-    transition: all 0.3s ease;
-  }
-
-  .hero-scroll-indicator:hover {
-    transform: translateX(-50%) scale(1.1);
-    color: var(--text-primary-alt);
-  }
-
-  /* ===== ANIMATIONS ===== */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes fadeInPulse {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-  }
-
-  @keyframes pulse {
-    0%, 100% {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
-    }
-    50% {
-      transform: translateX(-50%) translateY(8px);
-      opacity: 0.6;
-    }
-  }
-
-  /* Aplicar pulse infinito após fade in */
-  .hero-scroll-indicator {
-    animation: fadeInPulse 2s ease-in-out forwards 2.8s,
-               pulse 2s ease-in-out infinite 4.8s;
-  }
-
-  /* ===== RESPONSIVE - TABLET ===== */
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .hero-line-1,
-    .hero-line-2 {
-      font-size: 50px;
-    }
-  }
-
-  /* ===== RESPONSIVE - MOBILE ===== */
-  @media (max-width: 767px) {
-    .hero-section {
-      height: 100dvh;
-      min-height: 100dvh;
-      max-height: 100dvh;
-    }
-
-    .hero-container {
-      padding: 0 var(--padding-mobile);
-    }
-
-    .hero-line-1,
-    .hero-line-2 {
-      font-size: 32px;
-    }
-
-    .hero-line-2 {
-      margin-top: 48px;
-    }
-
-    .hero-identity-group {
-      margin-top: 80px;
-    }
-
-    .hero-identity-name {
-      font-size: 18px;
-    }
-
-    .hero-identity-context {
-      font-size: 15px;
-    }
-
-    .hero-scroll-indicator {
-      bottom: 32px;
-    }
-  }
-
-  /* ===== ACCESSIBILITY - REDUCED MOTION ===== */
-  @media (prefers-reduced-motion: reduce) {
-    .hero-line-1,
-    .hero-line-2,
-    .hero-identity-group,
-    .hero-scroll-indicator {
-      animation: none !important;
-      opacity: 1 !important;
-      transform: none !important;
-    }
-  }
-</style>

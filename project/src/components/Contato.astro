@@ -1,456 +1,57 @@
 ---
-// Contato section - Seção 6
-// Especificação: secao-06-contato.md
+import '../styles/sections/contato.css';
 ---
 
-<section id="contato" class="contato-section" aria-label="Agendamento de consulta">
-  <div class="contato-container">
-    <!-- Título Principal -->
-    <h2 class="contato-titulo">Agende sua consulta</h2>
+<section id="contato" class="contato" aria-labelledby="contato-title">
+  <div class="contato__content container">
+    <h2 id="contato-title">Agende sua consulta</h2>
 
-    <!-- Informações Práticas -->
-    <div class="info-pratica">
-      <p class="localizacao">São José do Rio Preto</p>
-      <p class="atendimento">Atendimento presencial e online</p>
+    <div class="contato__details">
+      <div>
+        <p class="contato__location">São José do Rio Preto</p>
+        <p class="contato__info">Atendimento presencial e teleconsulta para todo o Brasil</p>
+      </div>
+      <div>
+        <p class="contato__duration">Primeira consulta: <strong>120 minutos</strong></p>
+        <p class="contato__duration">Retornos: <strong>60 minutos</strong></p>
+      </div>
+      <div>
+        <p class="contato__programas">Programas com valores especiais para profissionais da saúde e estudantes</p>
+      </div>
     </div>
 
-    <!-- Duração das Consultas -->
-    <div class="duracao-consultas">
-      <p class="duracao-item">Primeira consulta: <strong>2 horas</strong></p>
-      <p class="duracao-item">Retornos: <strong>1 hora</strong></p>
-    </div>
-
-    <!-- Botão Agendar (trigger do modal) -->
-    <div class="agendar-wrapper">
-      <button
-        id="agendar-contato-btn"
-        class="agendar-contato-btn"
-        aria-label="Abrir agendamento de consulta"
-      >
-        Agendar Consulta
+    <div class="contato__actions">
+      <button class="contato__cta" data-open-cal aria-label="Abrir agendamento">
+        Agendar consulta
       </button>
-    </div>
-
-    <!-- Alternativa WhatsApp -->
-    <div class="whatsapp-section">
-      <a
-        href="https://wa.me/5517211011228?text=Olá,%20vim%20do%20site"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="whatsapp-link"
-      >
+      <a class="contato__whatsapp" href="https://wa.me/5517211011228?text=Olá,%20vim%20do%20site" target="_blank" rel="noopener">
         Dúvidas? Fale pelo WhatsApp
       </a>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer-contato">
-      <!-- Links Navegação -->
-      <nav class="footer-nav" aria-label="Links do rodapé">
-        <a href="/blog" class="footer-link">Blog</a>
-        <span class="separator" aria-hidden="true">·</span>
-        <a href="/curriculo" class="footer-link">Currículo</a>
-        <span class="separator" aria-hidden="true">·</span>
-        <a href="/publicacoes" class="footer-link">Publicações</a>
+    <footer class="contato__footer">
+      <nav aria-label="Links do rodapé">
+        <a href="/blog">Blog</a>
+        <span aria-hidden="true">·</span>
+        <a href="/curriculo">Currículo</a>
+        <span aria-hidden="true">·</span>
+        <a href="/publicacoes">Publicações</a>
       </nav>
-
-      <!-- Copyright -->
-      <div class="footer-copyright">
-        <p class="copyright-text">© 2025 Dr. Gustavo Mendes e Silva</p>
-        <p class="copyright-crm">CRM-SP 218133</p>
-      </div>
+      <p>© 2025 Dr. Gustavo Mendes e Silva · CRM-SP 218133</p>
     </footer>
   </div>
 </section>
 
 <script>
-  function setupContatoAnimations() {
-    const contatoSection = document.getElementById('contato');
-    if (!contatoSection) return;
+  const contatoSection = document.getElementById('contato');
 
-    const titulo = contatoSection.querySelector('.contato-titulo');
-    const infoPratica = contatoSection.querySelector('.info-pratica');
-    const duracao = contatoSection.querySelector('.duracao-consultas');
-    const agendarWrapper = contatoSection.querySelector('.agendar-wrapper');
-    const whatsapp = contatoSection.querySelector('.whatsapp-section');
-    const footer = contatoSection.querySelector('.footer-contato');
+  if (contatoSection) {
+    const calButton = contatoSection.querySelector<HTMLButtonElement>('[data-open-cal]');
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            if (titulo) titulo.classList.add('visible');
-            if (infoPratica) infoPratica.classList.add('visible');
-            if (duracao) duracao.classList.add('visible');
-            if (agendarWrapper) agendarWrapper.classList.add('visible');
-            if (whatsapp) whatsapp.classList.add('visible');
-          }
-        });
-      },
-      {
-        threshold: 0.3,
-      }
-    );
-
-    const footerObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && footer) {
-            footer.classList.add('visible');
-          }
-        });
-      },
-      {
-        threshold: 0.8,
-      }
-    );
-
-    observer.observe(contatoSection);
-    if (footer) {
-      footerObserver.observe(contatoSection);
-    }
-
-    // Botão Agendar - Trigger para o Cal.com modal
-    const agendarBtn = document.getElementById('agendar-contato-btn');
-    if (agendarBtn) {
-      agendarBtn.addEventListener('click', () => {
-        // Dispara evento customizado que o CalModal escutará
+    if (calButton) {
+      calButton.addEventListener('click', () => {
         window.dispatchEvent(new CustomEvent('open-cal-modal'));
       });
     }
   }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupContatoAnimations);
-  } else {
-    setupContatoAnimations();
-  }
 </script>
-
-<style>
-  /* ===== SEÇÃO CONTATO - 100vh EXATO + CENTRALIZADO ===== */
-  .contato-section {
-    width: 100%;
-    height: 100vh;
-    min-height: 100vh;
-    max-height: 100vh;
-    background: var(--bg-secondary);
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow-y: auto;
-  }
-
-  /* ===== CONTAINER ===== */
-  .contato-container {
-    width: 100%;
-    max-width: 1200px;
-    padding: 0 10%;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 48px;
-  }
-
-  /* ===== TÍTULO ===== */
-  .contato-titulo {
-    margin: 0;
-    font-size: 48px;
-    font-weight: var(--font-light);
-    color: var(--text-primary);
-    line-height: 1.2;
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  .contato-titulo.visible {
-    animation: fadeInUp 700ms var(--ease-smooth) forwards;
-    animation-delay: 400ms;
-  }
-
-  /* ===== INFORMAÇÕES PRÁTICAS ===== */
-  .info-pratica {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    opacity: 0;
-  }
-
-  .info-pratica.visible {
-    animation: fadeIn 500ms ease-out forwards;
-    animation-delay: 700ms;
-  }
-
-  .localizacao {
-    margin: 0;
-    font-size: 20px;
-    font-weight: var(--font-medium);
-    color: var(--text-primary-alt);
-    line-height: 1.5;
-  }
-
-  .atendimento {
-    margin: 0;
-    font-size: 18px;
-    font-weight: var(--font-regular);
-    color: var(--text-secondary);
-    line-height: 1.5;
-  }
-
-  /* ===== DURAÇÃO ===== */
-  .duracao-consultas {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    opacity: 0;
-  }
-
-  .duracao-consultas.visible {
-    animation: fadeIn 500ms ease-out forwards;
-    animation-delay: 1000ms;
-  }
-
-  .duracao-item {
-    margin: 0;
-    font-size: var(--text-sm);
-    font-weight: var(--font-regular);
-    color: var(--text-secondary);
-    line-height: 1.6;
-  }
-
-  .duracao-item strong {
-    font-weight: var(--font-semibold);
-    color: var(--text-primary);
-  }
-
-  /* ===== BOTÃO AGENDAR ===== */
-  .agendar-wrapper {
-    opacity: 0;
-    transform: scale(0.98);
-  }
-
-  .agendar-wrapper.visible {
-    animation: scaleIn 800ms var(--ease-smooth) forwards;
-    animation-delay: 1300ms;
-  }
-
-  .agendar-contato-btn {
-    padding: 18px 48px;
-    background: var(--text-primary);
-    color: #FFFFFF;
-    border: none;
-    border-radius: 6px;
-    font-size: 18px;
-    font-weight: var(--font-medium);
-    cursor: pointer;
-    transition: all var(--transition-fast);
-    letter-spacing: -0.01em;
-  }
-
-  .agendar-contato-btn:hover {
-    background: var(--text-primary-alt);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  }
-
-  .agendar-contato-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  /* ===== WHATSAPP ===== */
-  .whatsapp-section {
-    margin-top: 16px;
-    opacity: 0;
-  }
-
-  .whatsapp-section.visible {
-    animation: fadeIn 400ms ease-out forwards;
-    animation-delay: 1800ms;
-  }
-
-  .whatsapp-link {
-    font-size: var(--text-sm);
-    font-weight: var(--font-regular);
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: all var(--transition-fast);
-    display: inline-block;
-  }
-
-  .whatsapp-link:hover {
-    color: var(--text-primary);
-    text-decoration: underline;
-    transform: translateY(-2px);
-  }
-
-  /* ===== FOOTER ===== */
-  .footer-contato {
-    width: 100%;
-    margin-top: 80px;
-    padding-top: 40px;
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    opacity: 0;
-  }
-
-  .footer-contato.visible {
-    animation: fadeIn 600ms ease-out forwards;
-  }
-
-  /* Footer Nav */
-  .footer-nav {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .footer-link {
-    font-size: 14px;
-    font-weight: var(--font-regular);
-    color: var(--text-tertiary);
-    text-decoration: none;
-    transition: all var(--transition-fast);
-  }
-
-  .footer-link:hover {
-    color: var(--text-primary);
-    text-decoration: underline;
-  }
-
-  .separator {
-    color: rgba(0, 0, 0, 0.4);
-    font-size: 14px;
-  }
-
-  /* Footer Copyright */
-  .footer-copyright {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    text-align: center;
-  }
-
-  .copyright-text,
-  .copyright-crm {
-    margin: 0;
-    font-size: 13px;
-    color: #CCCCCC;
-    line-height: 1.6;
-  }
-
-  /* ===== ANIMATIONS ===== */
-  @keyframes fadeIn {
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes scaleIn {
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  /* ===== RESPONSIVE - TABLET ===== */
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .contato-container {
-      padding: 0 8%;
-    }
-
-    .contato-titulo {
-      font-size: 42px;
-    }
-
-    .agendar-contato-btn {
-      font-size: 17px;
-      padding: 16px 40px;
-    }
-  }
-
-  /* ===== RESPONSIVE - MOBILE ===== */
-  @media (max-width: 767px) {
-    .contato-section {
-      height: 100dvh;
-      min-height: 100dvh;
-      max-height: 100dvh;
-    }
-
-    .contato-container {
-      padding: 0 var(--padding-mobile);
-      gap: 32px;
-    }
-
-    .contato-titulo {
-      font-size: 32px;
-    }
-
-    .localizacao {
-      font-size: 18px;
-    }
-
-    .atendimento {
-      font-size: 16px;
-    }
-
-    .agendar-contato-btn {
-      font-size: 16px;
-      padding: 14px 32px;
-      width: 100%;
-      max-width: 300px;
-    }
-
-    .footer-nav {
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .separator {
-      display: none;
-    }
-
-    .footer-contato {
-      margin-top: 60px;
-    }
-  }
-
-  /* ===== ACCESSIBILITY - REDUCED MOTION ===== */
-  @media (prefers-reduced-motion: reduce) {
-    .contato-titulo,
-    .info-pratica,
-    .duracao-consultas,
-    .agendar-wrapper,
-    .whatsapp-section,
-    .footer-contato {
-      animation: none !important;
-      opacity: 1 !important;
-      transform: none !important;
-    }
-
-    .agendar-contato-btn,
-    .whatsapp-link,
-    .footer-link {
-      transition: none !important;
-    }
-
-    .agendar-contato-btn:hover,
-    .whatsapp-link:hover {
-      transform: none !important;
-    }
-  }
-</style>

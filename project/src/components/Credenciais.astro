@@ -1,476 +1,73 @@
 ---
-// Credenciais section - Seção 5
-// Especificação: secao-05-credenciais.md
+import '../styles/sections/credenciais.css';
 ---
 
-<section id="credenciais" class="credenciais-section" aria-label="Credenciais e áreas de atuação">
-  <div class="credenciais-container">
-    <!-- Split Screen Superior -->
-    <div class="split-screen">
-      <!-- Lado Esquerdo - Credenciais (40%) -->
-      <div class="credenciais-esquerda">
-        <!-- Bloco 1: Registro -->
-        <div class="bloco-registro">
-          <h2 class="titulo-principal">Médico Psiquiatra</h2>
-          <a
-            href="https://www.cremesp.org.br/?siteAcao=BuscaMedicos&crm=218133"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="crm-link"
-            aria-label="Verificar registro CRM-SP 218133"
-          >
-            CRM-SP 218133
-          </a>
-        </div>
+<section id="credenciais" class="credenciais" aria-labelledby="credenciais-title">
+  <div class="credenciais__content container">
+    <header class="credenciais__lead">
+      <span class="credenciais__eyebrow" data-animate="fade-right">Quem conduz</span>
+      <h2 id="credenciais-title" class="credenciais__title" data-animate="fade-right">Dr. Gustavo Mendes · CRM-SP 218133</h2>
+      <p class="credenciais__subtitle" data-animate="fade-right">
+        Psiquiatra em São José do Rio Preto. Atuo entre CAPS, emergências e consultório, usando inteligência artificial e medicina canabinoide para transformar o que você fala em planos aplicáveis.
+      </p>
+      <div class="credenciais__links" data-stagger>
+        <a href="https://www.cremesp.org.br/?siteAcao=BuscaMedicos&crm=218133" target="_blank" rel="noopener">Validar CRM</a>
+        <a href="/curriculo">Currículo</a>
+        <a href="/publicacoes">Publicações</a>
+      </div>
+    </header>
 
-        <!-- Bloco 2: Certificações -->
-        <div class="bloco-certificacoes">
-          <h3 class="subtitulo">Certificado em Canabidiol</h3>
-          <ul class="certificacoes-lista">
-            <li>Society of Cannabis Clinicians (SCC)</li>
-            <li>International Association for Cannabinoid Medicines (IACM)</li>
+    <div class="credenciais__layout">
+      <div class="credenciais__narrative" data-animate="fade-right">
+        <p>
+          Passei pelos três eixos que mais desafiam a psiquiatria brasileira: CAPS (adulto, infantojuvenil e álcool/drogas), plantões 24h de urgência e acompanhamento diário em enfermaria. Isso garante repertório para manejar crises, reorganizar rede e sustentar continuidade.
+        </p>
+        <p>
+          No consultório, trago esse rigor para consultas de 120 minutos documentadas com IA clínica — assim você sai com narrativa clara, indicadores para seguir e espaço seguro para temas como canabinoides e desempenho profissional.
+        </p>
+        <ul class="credenciais__badges">
+          <li>Consultas de 120 minutos com narrativa compartilhável</li>
+          <li>Certificação internacional em cannabis medicinal (SCC)</li>
+          <li>Atuação em CAPS, emergência e enfermaria psiquiátrica</li>
+        </ul>
+      </div>
+
+      <div class="credenciais__details" data-animate="fade-left">
+        <div>
+          <h3>Como atuo hoje</h3>
+          <ul>
+            <li>Consultório em São José do Rio Preto com teleconsulta para todo o Brasil.</li>
+            <li>Supervisão e coordenação de equipes em CAPS e redes públicas.</li>
+            <li>Plantões em urgência psiquiátrica e retaguarda hospitalar.</li>
           </ul>
         </div>
-
-        <!-- Bloco 3: Experiência -->
-        <div class="bloco-experiencia">
-          <h3 class="subtitulo">Experiência</h3>
-          <p class="texto-experiencia">
-            CAPS, emergências psiquiátricas, casos complexos
-          </p>
+        <div>
+          <h3>Focos que mais me procuram</h3>
+          <ul>
+            <li>Adultos neurodivergentes (TDAH, TEA) que precisam reorganizar rotina.</li>
+            <li>Ansiedade resistente, depressão recorrente e comorbidades do sono.</li>
+            <li>Profissionais da saúde, líderes e estudantes com agenda crítica.</li>
+          </ul>
         </div>
-
-        <!-- Links -->
-        <div class="links-adicionais">
-          <a href="/curriculo" class="link-adicional">
-            Ver currículo completo →
-          </a>
-          <a href="/publicacoes" class="link-adicional">
-            Publicações científicas →
-          </a>
-        </div>
-      </div>
-
-      <!-- Lado Direito - Áreas de Atuação (60%) -->
-      <div class="credenciais-direita">
-        <h3 class="subtitulo">Áreas de atuação</h3>
-        <p class="areas-texto">
-          TDAH · Autismo (TEA) · Ansiedade<br>
-          Depressão · Canabidiol medicinal<br>
-          Cuidados paliativos · Traumas<br>
-          Luto · Insônia
-        </p>
       </div>
     </div>
 
-    <!-- Depoimento Inferior (Fullwidth) -->
-    <div class="depoimento-section">
-      <figure class="depoimento">
-        <blockquote>
-          <p class="depoimento-texto">
-            "Pela primeira vez um médico entendeu que meu TDAH não é defeito –
-            é arquitetura cognitiva diferente."
-          </p>
-        </blockquote>
-        <figcaption class="depoimento-autor">R.L.</figcaption>
-      </figure>
-    </div>
+    <button class="credenciais__next" type="button" data-scroll-target="contato" aria-label="Ir para a próxima seção">
+      Agendar consulta ↓
+    </button>
   </div>
 </section>
 
 <script>
-  function setupCredenciaisAnimations() {
-    const credenciaisSection = document.getElementById('credenciais');
-    if (!credenciaisSection) return;
-
-    const splitScreen = credenciaisSection.querySelector('.split-screen');
-    const esquerda = credenciaisSection.querySelector('.credenciais-esquerda');
-    const direita = credenciaisSection.querySelector('.credenciais-direita');
-    const blocos = credenciaisSection.querySelectorAll('.bloco-registro, .bloco-certificacoes, .bloco-experiencia, .links-adicionais');
-    const depoimento = credenciaisSection.querySelector('.depoimento');
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            if (splitScreen) splitScreen.classList.add('visible');
-            if (esquerda) esquerda.classList.add('visible');
-            if (direita) direita.classList.add('visible');
-            blocos.forEach((bloco) => bloco.classList.add('visible'));
-          }
-        });
-      },
-      {
-        threshold: 0.3,
-      }
-    );
-
-    const depoimentoObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && depoimento) {
-            depoimento.classList.add('visible');
-          }
-        });
-      },
-      {
-        threshold: 0.3,
-      }
-    );
-
-    observer.observe(credenciaisSection);
-    if (depoimento) {
-      depoimentoObserver.observe(depoimento);
+  const credenciaisSection = document.getElementById('credenciais');
+  if (credenciaisSection) {
+    const nextButton = credenciaisSection.querySelector<HTMLButtonElement>('[data-scroll-target]');
+    if (nextButton) {
+      const targetId = nextButton.dataset.scrollTarget;
+      nextButton.addEventListener('click', () => {
+        if (!targetId) return;
+        document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
     }
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupCredenciaisAnimations);
-  } else {
-    setupCredenciaisAnimations();
   }
 </script>
-
-<style>
-  /* ===== SEÇÃO CREDENCIAIS - 100vh EXATO + SPLIT 40/60 ===== */
-  .credenciais-section {
-    width: 100%;
-    height: 100vh;
-    min-height: 100vh;
-    max-height: 100vh;
-    background: var(--bg-primary);
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow-y: auto;
-  }
-
-  /* ===== CONTAINER ===== */
-  .credenciais-container {
-    width: 100%;
-    max-width: 1200px;
-    padding: 0 10%;
-    display: flex;
-    flex-direction: column;
-    gap: 80px;
-  }
-
-  /* ===== SPLIT SCREEN - 40/60 EXATO ===== */
-  .split-screen {
-    display: grid;
-    grid-template-columns: 0.4fr 0.6fr;
-    gap: 80px;
-    opacity: 0;
-  }
-
-  .split-screen.visible {
-    animation: fadeIn 600ms ease-out forwards;
-    animation-delay: 200ms;
-  }
-
-  /* ===== LADO ESQUERDO (40%) - CREDENCIAIS ===== */
-  .credenciais-esquerda {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-
-  .credenciais-esquerda.visible {
-    animation: slideInLeft 700ms var(--ease-smooth) forwards;
-    animation-delay: 400ms;
-  }
-
-  /* Blocos com stagger */
-  .bloco-registro {
-    opacity: 0;
-  }
-
-  .bloco-registro.visible {
-    animation: fadeIn 500ms ease-out forwards;
-    animation-delay: 600ms;
-  }
-
-  .bloco-certificacoes {
-    opacity: 0;
-  }
-
-  .bloco-certificacoes.visible {
-    animation: fadeIn 500ms ease-out forwards;
-    animation-delay: 750ms;
-  }
-
-  .bloco-experiencia {
-    opacity: 0;
-  }
-
-  .bloco-experiencia.visible {
-    animation: fadeIn 500ms ease-out forwards;
-    animation-delay: 900ms;
-  }
-
-  .links-adicionais {
-    margin-top: 8px;
-    opacity: 0;
-  }
-
-  .links-adicionais.visible {
-    animation: fadeIn 400ms ease-out forwards;
-    animation-delay: 1050ms;
-  }
-
-  /* ===== TIPOGRAFIA - LADO ESQUERDO ===== */
-  .titulo-principal {
-    margin: 0 0 12px 0;
-    font-size: 20px;
-    font-weight: var(--font-semibold);
-    color: var(--text-primary);
-    line-height: 1.4;
-  }
-
-  .crm-link {
-    font-size: var(--text-sm);
-    font-weight: var(--font-regular);
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: all var(--transition-fast);
-    display: inline-block;
-  }
-
-  .crm-link:hover {
-    color: var(--text-primary);
-    text-decoration: underline;
-    transform: translateX(4px);
-  }
-
-  .subtitulo {
-    margin: 0 0 12px 0;
-    font-size: 14px;
-    font-weight: var(--font-semibold);
-    color: var(--text-primary);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  .certificacoes-lista {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .certificacoes-lista li {
-    font-size: var(--text-sm);
-    font-weight: var(--font-regular);
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: 8px;
-  }
-
-  .texto-experiencia {
-    margin: 0;
-    font-size: var(--text-sm);
-    font-weight: var(--font-regular);
-    color: var(--text-secondary);
-    line-height: 1.6;
-  }
-
-  .links-adicionais {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .link-adicional {
-    font-size: 14px;
-    font-weight: var(--font-regular);
-    color: var(--text-tertiary);
-    text-decoration: none;
-    transition: all var(--transition-fast);
-    display: inline-block;
-  }
-
-  .link-adicional:hover {
-    color: var(--text-primary);
-    text-decoration: underline;
-    transform: translateX(4px);
-  }
-
-  /* ===== LADO DIREITO (60%) - ÁREAS ===== */
-  .credenciais-direita {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    opacity: 0;
-    transform: translateX(30px);
-  }
-
-  .credenciais-direita.visible {
-    animation: slideInRight 700ms var(--ease-smooth) forwards;
-    animation-delay: 400ms;
-  }
-
-  .areas-texto {
-    margin: 0;
-    font-size: 18px;
-    font-weight: var(--font-regular);
-    color: var(--text-primary-alt);
-    line-height: 1.8;
-  }
-
-  /* ===== DEPOIMENTO INFERIOR (FULLWIDTH) ===== */
-  .depoimento-section {
-    padding-top: 60px;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
-    background: var(--bg-secondary);
-    margin: 0 -10%;
-    padding-left: 10%;
-    padding-right: 10%;
-    padding-bottom: 60px;
-  }
-
-  .depoimento {
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: center;
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  .depoimento.visible {
-    animation: fadeInUp 800ms var(--ease-smooth) forwards;
-    animation-delay: 200ms;
-  }
-
-  .depoimento-texto {
-    margin: 0 0 16px 0;
-    font-size: 24px;
-    font-weight: var(--font-light);
-    font-style: italic;
-    color: var(--text-primary);
-    line-height: 1.6;
-  }
-
-  .depoimento-autor {
-    font-size: 14px;
-    font-weight: var(--font-regular);
-    color: var(--text-tertiary);
-    letter-spacing: 0.1em;
-    font-style: normal;
-  }
-
-  /* ===== ANIMATIONS ===== */
-  @keyframes fadeIn {
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes slideInLeft {
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes slideInRight {
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  /* ===== RESPONSIVE - TABLET ===== */
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .credenciais-container {
-      padding: 0 8%;
-    }
-
-    .split-screen {
-      grid-template-columns: 0.45fr 0.55fr;
-      gap: 60px;
-    }
-
-    .depoimento-texto {
-      font-size: 22px;
-    }
-  }
-
-  /* ===== RESPONSIVE - MOBILE ===== */
-  @media (max-width: 767px) {
-    .credenciais-section {
-      height: 100dvh;
-      min-height: 100dvh;
-      max-height: 100dvh;
-    }
-
-    .credenciais-container {
-      padding: 0 var(--padding-mobile);
-      gap: 40px;
-    }
-
-    /* Layout muda: stack vertical */
-    .split-screen {
-      grid-template-columns: 1fr;
-      gap: 48px;
-    }
-
-    .titulo-principal {
-      font-size: 18px;
-    }
-
-    .areas-texto {
-      font-size: 16px;
-    }
-
-    .depoimento-section {
-      margin: 0 calc(-1 * var(--padding-mobile));
-      padding-left: var(--padding-mobile);
-      padding-right: var(--padding-mobile);
-      padding-bottom: 40px;
-    }
-
-    .depoimento-texto {
-      font-size: 20px;
-      text-align: left;
-    }
-
-    .depoimento-autor {
-      text-align: left;
-    }
-  }
-
-  /* ===== ACCESSIBILITY - REDUCED MOTION ===== */
-  @media (prefers-reduced-motion: reduce) {
-    .split-screen,
-    .credenciais-esquerda,
-    .credenciais-direita,
-    .bloco-registro,
-    .bloco-certificacoes,
-    .bloco-experiencia,
-    .links-adicionais,
-    .depoimento {
-      animation: none !important;
-      opacity: 1 !important;
-      transform: none !important;
-    }
-
-    .crm-link,
-    .link-adicional {
-      transition: none !important;
-    }
-
-    .crm-link:hover,
-    .link-adicional:hover {
-      transform: none !important;
-    }
-  }
-</style>
