@@ -7,8 +7,8 @@ tags:
   - inteligência-artificial
   - clínica
   - humanização
-image: 'https://lh3.googleusercontent.com/d/18-wKgrXrwXJ_1yBqqXQYpO-e-DSvPoua'
-imageAlt: 'Integração de tecnologia e cuidado humano em ambiente clínico'
+image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&h=720&q=80'
+imageAlt: 'Profissionais de saúde analisando dados em um tablet durante consulta'
 ---
 
 O paradoxo da medicina moderna é que, enquanto nossa capacidade tecnológica avança exponencialmente, a experiência do paciente muitas vezes se torna mais fragmentada e impessoal. Médicos sobrecarregados gastam mais tempo preenchendo prontuários eletrônicos do que olhando nos olhos de seus pacientes. A consulta se resume a uma checklist de sintomas e a uma prescrição rápida. A humanidade se perde nos dados.

@@ -173,67 +173,67 @@
 }
 
 @media (max-width: 767px) {
+  .para-quem__overlay {
+    display: none;
+  }
+
   .para-quem__content {
-    padding-block: clamp(48px, 16vh, 80px);
-    gap: clamp(20px, 4vh, 36px);
+    justify-content: center;
   }
 
   .para-quem__header {
-    gap: clamp(12px, 2.5vh, 24px);
-  }
-
-  .para-quem__eyebrow {
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
+    text-align: center;
+    gap: 1rem;
   }
 
   .para-quem__title {
-    font-size: clamp(1.5rem, 5vw, 2rem);
+    font-size: clamp(1.8rem, 7vw, 2.5rem);
   }
 
   .para-quem__lead {
-    font-size: clamp(0.9rem, 2vw, 1.05rem);
+    font-size: 1rem;
+    max-width: 45ch;
+    margin-inline: auto;
+    color: rgba(255, 255, 255, 0.8);
   }
 
   .para-quem__tags {
-    gap: 6px;
+    gap: 0.5rem;
+    justify-content: center;
   }
 
   .para-quem__tag {
     padding: 6px 14px;
     font-size: 0.7rem;
-    letter-spacing: 0.12em;
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
   }
 
   .para-quem__list {
     grid-template-columns: 1fr;
-    gap: clamp(14px, 3vh, 24px);
+    gap: 1rem;
   }
 
   .para-quem__item {
-    padding: clamp(16px, 4vw, 24px);
-    gap: clamp(10px, 2vw, 14px);
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: none;
+    backdrop-filter: none;
+    text-align: center;
   }
 
   .para-quem__index {
-    font-size: 0.7rem;
-    letter-spacing: 0.36em;
+    display: none;
   }
 
   .para-quem__phrase {
-    font-size: clamp(0.9rem, 2vw, 1.05rem);
-    line-height: 1.5;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.95);
   }
 
   .para-quem__footnote {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-xs);
-    font-size: 0.7rem;
-    letter-spacing: 0.12em;
-  }
-
-  .para-quem__footnote span::before {
     display: none;
   }
 }

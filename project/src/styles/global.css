@@ -175,12 +175,21 @@ section:not(#hero) > .container {
 /* Mobile adjustments */
 @media (max-width: 767px) {
   main {
-    height: 100dvh;
+    scroll-snap-type: none;
+    height: auto;
   }
 
   section {
+    scroll-snap-align: none;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .hero {
+    min-height: 100vh;
     min-height: 100dvh;
-    height: 100dvh;
-    max-height: 100dvh;
   }
 }

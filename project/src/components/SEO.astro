@@ -11,7 +11,7 @@ export interface Props {
 }
 
 const {
-  title = 'Dr. Gustavo Mendes - Psiquiatria',
+  title = 'Dr. Gustavo Mendes e Silva - Psiquiatria',
   description = 'Consultas psiquiátricas de 120 minutos guiadas por inteligência artificial para TDAH, autismo e ansiedade em São José do Rio Preto.',
   canonical = Astro.url.href,
   ogImage = '/images/og-default.jpg',
@@ -21,8 +21,9 @@ const {
   noindex = false,
 } = Astro.props;
 
-const siteName = 'Dr. Gustavo Mendes - Psiquiatria';
-const fullTitle = title && title.includes('Dr. Gustavo') ? title : title ? `${title} - ${siteName}` : siteName;
+const siteName = 'Dr. Gustavo Mendes e Silva - Psiquiatria';
+const hasFullName = title?.includes('Dr. Gustavo Mendes e Silva');
+const fullTitle = hasFullName ? title : title ? `${title} - ${siteName}` : siteName;
 ---
 
 <!-- Primary Meta Tags -->

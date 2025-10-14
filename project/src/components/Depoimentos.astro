@@ -59,35 +59,37 @@ const depoimentos = [
       });
     }
 
-    const container = depoimentosSection.querySelector('[data-depoimentos]');
-    const cards = container ? Array.from(container.querySelectorAll('[data-depoimento-card]')) : [];
-    if (container && cards.length > 1) {
-      let activeIndex = 0;
-      const delays = [7000, 11000, 8500];
-      highlight(activeIndex);
-      let timer = window.setTimeout(next, delays[0]);
+    if (window.matchMedia('(min-width: 768px)').matches) {
+      const container = depoimentosSection.querySelector('[data-depoimentos]');
+      const cards = container ? Array.from(container.querySelectorAll('[data-depoimento-card]')) : [];
+      if (container && cards.length > 1) {
+        let activeIndex = 0;
+        const delays = [7000, 11000, 8500];
+        highlight(activeIndex);
+        let timer = window.setTimeout(next, delays[0]);
 
-      function highlight(index: number) {
-        cards.forEach((card, i) => {
-          card.classList.toggle('is-highlighted', i === index);
+        function highlight(index: number) {
+          cards.forEach((card, i) => {
+            card.classList.toggle('is-highlighted', i === index);
+          });
+          activeIndex = index;
+        }
+
+        function next() {
+          const nextIndex = (activeIndex + 1) % cards.length;
+          highlight(nextIndex);
+          timer = window.setTimeout(next, delays[nextIndex % delays.length]);
+        }
+
+        container.addEventListener('mouseenter', () => {
+          window.clearTimeout(timer);
         });
-        activeIndex = index;
+
+        container.addEventListener('mouseleave', () => {
+          window.clearTimeout(timer);
+          timer = window.setTimeout(next, delays[(activeIndex + 1) % delays.length]);
+        });
       }
-
-      function next() {
-        const nextIndex = (activeIndex + 1) % cards.length;
-        highlight(nextIndex);
-        timer = window.setTimeout(next, delays[nextIndex % delays.length]);
-      }
-
-      container.addEventListener('mouseenter', () => {
-        window.clearTimeout(timer);
-      });
-
-      container.addEventListener('mouseleave', () => {
-        window.clearTimeout(timer);
-        timer = window.setTimeout(next, delays[(activeIndex + 1) % delays.length]);
-      });
     }
   }
 </script>

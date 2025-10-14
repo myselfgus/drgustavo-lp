@@ -9,9 +9,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   { label: 'Início', href: '/' },
   { label: 'Currículo', href: '/curriculo' },
-  { label: 'Publicações', href: '/publicacoes' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Recursos', href: '/recursos' }
+  { label: 'Blog', href: '/blog' }
 ];
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -28,7 +26,7 @@ const isActive = (href: string) => {
 <header id="main-header" class="site-header">
   <div class="site-header__inner">
     <a href="/" class="site-header__brand" aria-label="Ir para a página inicial">
-      <span>Dr. Gustavo Mendes</span>
+      <span>Dr. Gustavo Mendes e Silva</span>
     </a>
 
     <button
@@ -39,9 +37,8 @@ const isActive = (href: string) => {
       data-nav-toggle
     >
       <span class="sr-only">Abrir menu</span>
-      <span class="site-header__menu-bar"></span>
-      <span class="site-header__menu-bar"></span>
-      <span class="site-header__menu-bar"></span>
+      <img src="https://api.iconify.design/ci:menu-alt-01.svg?color=%231f3e46" alt="" class="icon-open" />
+      <img src="https://api.iconify.design/ci:close-big.svg?color=%231f3e46" alt="" class="icon-close" />
     </button>
 
     <nav id="site-nav" class="site-header__nav" aria-label="Navegação principal">

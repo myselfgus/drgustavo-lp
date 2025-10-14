@@ -265,22 +265,73 @@
 }
 
 @media (max-width: 767px) {
+  .localizacao__backdrop {
+    display: none;
+  }
+
   .localizacao__content {
-    gap: clamp(24px, 4vh, 36px);
+    gap: 2.5rem;
+    justify-content: center;
   }
 
   .localizacao__header {
-    text-align: left;
+    text-align: center;
+  }
+
+  .localizacao__title {
+    font-size: clamp(1.8rem, 7vw, 2.5rem);
+  }
+
+  .localizacao__subtitle {
+    font-size: 1rem;
+    max-width: 45ch;
+    margin-inline: auto;
   }
 
   .localizacao__grid {
     grid-template-columns: 1fr;
-    gap: clamp(16px, 3vw, 20px);
+    gap: 1.5rem;
   }
 
   .localizacao__map-wrapper,
   .localizacao__carousel {
-    height: 260px;
+    height: 300px;
+    border-radius: var(--radius-lg);
+    box-shadow: none;
+    border: 1px solid var(--border-subtle);
+  }
+
+  .localizacao__carousel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    height: auto;
+    background: transparent;
+    padding: 0;
+  }
+
+  .localizacao__photos {
+    position: static;
+    display: contents; /* Use contents to have photos be direct grid items */
+  }
+
+  .localizacao__photo {
+    position: static;
+    opacity: 1;
+    border-radius: var(--radius-md);
+    aspect-ratio: 4 / 3;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .localizacao__nav,
+  .localizacao__indicators {
+    display: none;
+  }
+
+  .localizacao__footer {
+    margin-top: 1rem;
   }
 }
 

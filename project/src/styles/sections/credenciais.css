@@ -271,82 +271,107 @@
   }
 }
 
-@media (max-width: 1024px) {
-  .credenciais__grid {
-    grid-template-columns: 1fr;
-    gap: clamp(12px, 3vw, 16px);
-  }
-
-  .credenciais__card-icon {
-    width: 40px;
-    height: 40px;
-  }
-
-  .credenciais__card-icon svg {
-    width: 24px;
-    height: 24px;
-  }
-}
-
 @media (max-width: 767px) {
+  .credenciais__backdrop {
+    display: none;
+  }
+
   .credenciais__content {
-    gap: clamp(20px, 4vh, 32px);
-    padding-block: clamp(32px, 6vh, 48px);
+    gap: 2.5rem;
   }
 
   .credenciais__header {
-    text-align: left;
-    gap: clamp(4px, 1vh, 8px);
+    text-align: center;
   }
 
   .credenciais__title {
-    font-size: clamp(1.5rem, 5vw, 1.9rem);
+    font-size: clamp(1.8rem, 7vw, 2.5rem);
   }
 
   .credenciais__subtitle {
-    margin-inline: 0;
-    font-size: 0.9rem;
+    font-size: 1rem;
+    max-width: 45ch;
+    margin-inline: auto;
+  }
+
+  .credenciais__grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 
   .credenciais__card {
-    padding: clamp(18px, 5vw, 22px);
-    gap: clamp(8px, 1.5vh, 12px);
+    padding: 1.5rem;
+    background: var(--surface-2);
+    border: none;
+    box-shadow: none;
   }
 
   .credenciais__card-icon {
     width: 36px;
     height: 36px;
+    background: transparent;
+    color: var(--brand-primary);
+  }
+  
+  .credenciais__card-icon svg {
+      width: 32px;
+      height: 32px;
   }
 
-  .credenciais__card-icon svg {
-    width: 20px;
-    height: 20px;
+  .credenciais__card-title {
+    font-size: 1.25rem;
+  }
+
+  .credenciais__card p,
+  .credenciais__list li {
+    font-size: 1rem;
+    line-height: 1.6;
   }
 
   .credenciais__badges {
-    justify-content: flex-start;
-    padding: clamp(12px, 2vh, 16px);
-  }
-
-  .credenciais__badge {
-    font-size: 0.68rem;
-    padding: 6px 11px;
+    display: none;
   }
 
   .credenciais__footer {
-    justify-items: stretch;
-    gap: clamp(12px, 2vh, 16px);
+    justify-items: center;
+    gap: 1.5rem;
+    width: 100%;
   }
 
   .credenciais__links {
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: clamp(10px, 2vw, 14px);
+    align-items: stretch;
+    width: 100%;
+    max-width: 320px;
+    gap: 0.75rem;
+  }
+
+  .credenciais__links a {
+    display: block;
+    text-align: center;
+    padding: 12px 20px;
+    background: var(--surface-2);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+
+  .credenciais__links a:hover {
+    background: var(--surface-3);
+    color: var(--text-primary);
+  }
+
+  .credenciais__links a::after {
+    display: none;
   }
 
   .credenciais__cta {
     width: 100%;
-    padding: 11px 22px;
+    max-width: 320px;
+    padding: 16px 28px;
+    font-size: 1.125rem;
   }
 }
 

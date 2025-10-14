@@ -243,36 +243,69 @@
 
 /* Responsivo */
 @media (max-width: 767px) {
+  .contato__background {
+    display: none;
+  }
+
   .contato__content {
-    gap: clamp(32px, 7vh, 48px);
-    padding-inline: var(--padding-mobile);
-    padding-block: clamp(48px, 10vh, 72px);
+    gap: 2.5rem;
   }
 
   .contato__header h2 {
-    font-size: clamp(1.8rem, 7vw, 2.4rem);
+    font-size: clamp(2rem, 8vw, 2.5rem);
   }
 
   .contato__grid {
     grid-template-columns: 1fr;
-    gap: var(--space-sm);
+    gap: 1.5rem;
   }
 
   .contato__card {
-    padding: clamp(16px, 4vw, 20px);
+    padding: 0;
+    background: transparent;
+    border: none;
+    backdrop-filter: none;
+    box-shadow: none;
+    text-align: center;
+  }
+
+  .contato__card:hover {
+    background: transparent;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .contato__label {
+    font-size: 0.8rem;
+  }
+
+  .contato__card p {
+    font-size: 1rem;
   }
 
   .contato__cta {
     width: 100%;
+    max-width: 320px;
+    padding: 16px 28px;
+    font-size: 1.125rem;
+    background: white;
+    color: var(--text-primary);
+    border: 1px solid white;
+  }
+  
+  .contato__cta:hover {
+    background: transparent;
+    color: white;
   }
 
   .contato__footer {
-    margin-top: var(--space-md);
-    padding-top: var(--space-lg);
+    margin-top: 1rem;
+    padding-top: 1.5rem;
+    gap: 1rem;
   }
 
   .contato__nav {
-    gap: var(--space-sm);
+    gap: 1.5rem;
   }
 }
 

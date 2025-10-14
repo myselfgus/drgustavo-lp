@@ -86,10 +86,8 @@ project/
 
 ### Páginas Separadas
 
-- `/blog` - Artigos conceituais
+- `/blog` - Artigos, projetos de pesquisa e obras editoriais
 - `/curriculo` - CV completo + PDF
-- `/publicacoes` - Papers e trabalhos acadêmicos
-- `/recursos` - Guias e materiais (opcional)
 
 ## 🔧 Configuração
 

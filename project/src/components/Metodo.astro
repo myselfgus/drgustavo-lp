@@ -39,6 +39,7 @@ const steps = [
             class={`metodo__stage${index === 0 ? ' is-active' : ''}`}
             type="button"
             data-metodo-stage={index}
+            data-description={step.description}
             aria-expanded={index === 0 ? 'true' : 'false'}
           >
             <span class="metodo__stage-number">{String(index + 1).padStart(2, '0')}</span>

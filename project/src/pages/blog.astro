@@ -1,325 +1,92 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import '../styles/pages/blog.css';
+
+const entries = await getCollection('blog', ({ data }) => !data.draft);
+const posts = entries
+  .slice()
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('pt-BR', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric'
+  }).format(date);
+
+const tagList = Array.from(
+  new Set(
+    posts.flatMap(entry => (Array.isArray(entry.data.tags) ? entry.data.tags : []))
+  )
+);
+const tagStats = tagList.map(tag => ({
+  tag,
+  count: posts.filter(entry => entry.data.tags?.includes(tag)).length
+}));
+
+const totalPosts = posts.length;
+const latestPost = posts[0];
+const lastUpdated = latestPost ? formatDate(latestPost.data.publishedAt) : null;
 ---
 
 <BaseLayout
-  title="Blog - Dr. Gustavo Mendes | Psiquiatria e Neurodiversidade"
-  description="Artigos sobre psiquiatria dimensional, neurodiversidade, uso terapêutico de IA e abordagens não-tradicionais em saúde mental."
+  title="Blog - Dr. Gustavo Mendes e Silva | Psiquiatria e Neurodiversidade"
+  description="Artigos sobre psiquiatria dimensional, neurodiversidade, tecnologia em saúde e práticas clínicas contemporâneas."
 >
-  <main class="blog-page">
-    <div class="blog__backdrop" aria-hidden="true">
-      <span class="blog__halo blog__halo--one"></span>
-      <span class="blog__halo blog__halo--two"></span>
-    </div>
+  <main class="blog">
+    <header class="blog__header blog__wrap">
+      <h1>Psiquiatria em movimento</h1>
+      <p>
+        Artigos breves sobre psiquiatria, neurodiversidade e tecnologia clínica para pacientes e profissionais.
+      </p>
+      <p class="blog__meta">
+        {totalPosts} artigos publicados · {tagList.length} temas mapeados
+        {lastUpdated && <> · última atualização {lastUpdated}</>}
+      </p>
+      {tagStats.length > 0 && (
+        <ul class="blog__taglist">
+          {tagStats.slice(0, 8).map(stat => (
+            <li>
+              <a href={`/api/blog/search?tag=${encodeURIComponent(stat.tag)}`}>
+                #{stat.tag}
+              </a>
+              <span>{stat.count}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </header>
 
-    <div class="blog-container">
-      <header class="blog-header" data-animate="fade-up">
-        <h1 class="blog-title">Blog</h1>
-        <p class="blog-subtitle">
-          Reflexões sobre psiquiatria, neurodiversidade e tecnologia
-        </p>
-      </header>
+    <section class="blog__wrap" aria-labelledby="lista-artigos">
+      <h2 id="lista-artigos" class="blog__section-title">
+        Todos os artigos
+      </h2>
 
-      <section class="blog-grid" aria-label="Artigos do blog">
-        <article class="blog-card" data-animate="fade-up">
-          <a href="/blog/psiquiatria-dimensional" class="card-link">
-            <div class="card-image">
-              <svg class="card-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="1.5"/>
-                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="1.5"/>
-                <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="1.5"/>
-              </svg>
-            </div>
-            <div class="card-content">
-              <h2 class="card-title">Psiquiatria Dimensional: pelo fim do diagnóstico tradicional</h2>
-              <p class="card-excerpt">
-                Uma nova perspectiva sobre como entendemos e classificamos a saúde mental, movendo-se além de rótulos rígidos...
-              </p>
-              <div class="card-meta">
-                <span>15 min</span>
-                <span class="separator">·</span>
-                <time datetime="2025-01-12">12/01/25</time>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <article class="blog-card" data-animate="fade-up" data-delay="100ms">
-          <a href="/blog/disruptura-cognitiva" class="card-link">
-            <div class="card-image">
-              <svg class="card-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2L12 22" stroke="currentColor" stroke-width="1.5"/>
-                <path d="M17 7L7 17" stroke="currentColor" stroke-width="1.5"/>
-                <path d="M7 7L17 17" stroke="currentColor" stroke-width="1.5"/>
-              </svg>
-            </div>
-            <div class="card-content">
-              <h2 class="card-title">Disruptura cognitiva: apoiar o paciente</h2>
-              <p class="card-excerpt">
-                Estratégias para auxiliar pacientes a quebrar padrões de pensamento negativos e construir nova arquitetura mental...
-              </p>
-              <div class="card-meta">
-                <span>12 min</span>
-                <span class="separator">·</span>
-                <time datetime="2025-01-10">10/01/25</time>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <article class="blog-card" data-animate="fade-up" data-delay="200ms">
-          <a href="/blog/ia-saude" class="card-link">
-            <div class="card-image">
-              <svg class="card-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/>
-                <path d="M12 1V5" stroke="currentColor" stroke-width="1.5"/>
-                <path d="M12 19V23" stroke="currentColor" stroke-width="1.5"/>
-                <path d="M23 12H19" stroke="currentColor" stroke-width="1.5"/>
-                <path d="M5 12H1" stroke="currentColor" stroke-width="1.5"/>
-              </svg>
-            </div>
-            <div class="card-content">
-              <h2 class="card-title">IA na saúde: rehumanizar a clínica</h2>
-              <p class="card-excerpt">
-                Como a tecnologia, bem aplicada, pode liberar o médico para focar no que mais importa: a conexão humana...
-              </p>
-              <div class="card-meta">
-                <span>10 min</span>
-                <span class="separator">·</span>
-                <time datetime="2025-01-08">08/01/25</time>
-              </div>
-            </div>
-          </a>
-        </article>
-
-        <article class="blog-card" data-animate="fade-up" data-delay="300ms">
-          <a href="/blog/tdah-adultos" class="card-link">
-            <div class="card-image">
-              <svg class="card-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/>
-                <path d="M6 21V19C6 17 8 15 12 15C16 15 18 17 18 19V21" stroke="currentColor" stroke-width="1.5"/>
-              </svg>
-            </div>
-            <div class="card-content">
-              <h2 class="card-title">TDAH em adultos: além do estereótipo infantil</h2>
-              <p class="card-excerpt">
-                Desmistificando o TDAH adulto e entendendo como a condição se manifesta diferentemente ao longo da vida...
-              </p>
-              <div class="card-meta">
-                <span>18 min</span>
-                <span class="separator">·</span>
-                <time datetime="2025-01-05">05/01/25</time>
-              </div>
-            </div>
-          </a>
-        </article>
-      </section>
-    </div>
+      {posts.length > 0 ? (
+        <ul class="post-feed" role="list">
+          {posts.map(post => (
+            <li class="post-feed__item">
+              <a class="post-feed__link" href={`/blog/${post.slug}`}>
+                <time datetime={post.data.publishedAt.toISOString()}>
+                  {formatDate(post.data.publishedAt)}
+                </time>
+                <h3>{post.data.title}</h3>
+                <p>{post.data.excerpt}</p>
+                {post.data.tags?.length > 0 && (
+                  <ul class="post-feed__tags">
+                    {post.data.tags.slice(0, 3).map(tag => (
+                      <li>#{tag}</li>
+                    ))}
+                  </ul>
+                )}
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Novos artigos em edição. Volte em breve para mais leituras.</p>
+      )}
+    </section>
   </main>
 </BaseLayout>
-
-<style>
-  .blog-page {
-    position: relative;
-    min-height: 100vh;
-    background: linear-gradient(180deg, #fafaf8 0%, #ffffff 100%);
-    padding-top: 120px;
-    padding-bottom: 80px;
-    overflow: hidden;
-  }
-
-  .blog__backdrop {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .blog__halo {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.35;
-    animation: blog-halo 20s ease-in-out infinite alternate;
-  }
-
-  .blog__halo--one {
-    width: clamp(380px, 32vw, 480px);
-    height: clamp(380px, 32vw, 480px);
-    top: -12%;
-    left: -8%;
-    background: radial-gradient(circle at 50% 50%, rgba(125, 168, 123, 0.3), rgba(125, 168, 123, 0));
-  }
-
-  .blog__halo--two {
-    width: clamp(320px, 28vw, 420px);
-    height: clamp(320px, 28vw, 420px);
-    bottom: -15%;
-    right: -5%;
-    background: radial-gradient(circle at 50% 50%, rgba(31, 62, 70, 0.25), rgba(31, 62, 70, 0));
-    animation-delay: 4s;
-  }
-
-  .blog-container {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 clamp(24px, 4vw, 48px);
-  }
-
-  .blog-header {
-    text-align: center;
-    margin-bottom: clamp(48px, 8vh, 72px);
-  }
-
-  .blog-title {
-    margin: 0 0 12px 0;
-    font-family: var(--font-serif);
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: var(--font-light);
-    color: var(--text-primary);
-    line-height: 1.2;
-  }
-
-  .blog-subtitle {
-    margin: 0 auto;
-    font-size: var(--text-body);
-    color: var(--text-secondary);
-    line-height: 1.6;
-    max-width: 600px;
-  }
-
-  .blog-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: clamp(20px, 4vw, 28px);
-  }
-
-  .blog-card {
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid rgba(31, 62, 70, 0.08);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    backdrop-filter: blur(8px);
-    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
-    box-shadow: 0 4px 16px rgba(18, 19, 16, 0.04);
-  }
-
-  .blog-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 16px 40px rgba(18, 19, 16, 0.1);
-    border-color: rgba(125, 168, 123, 0.2);
-  }
-
-  .card-link {
-    text-decoration: none;
-    display: block;
-  }
-
-  .card-image {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    background: linear-gradient(135deg, rgba(125, 168, 123, 0.08) 0%, rgba(31, 62, 70, 0.08) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .card-icon {
-    width: 48px;
-    height: 48px;
-    color: rgba(31, 62, 70, 0.4);
-    transition: transform var(--transition-base), color var(--transition-base);
-  }
-
-  .blog-card:hover .card-icon {
-    transform: scale(1.1);
-    color: rgba(125, 168, 123, 0.7);
-  }
-
-  .card-content {
-    padding: clamp(20px, 4vw, 24px);
-  }
-
-  .card-title {
-    margin: 0 0 10px 0;
-    font-family: var(--font-serif);
-    font-size: clamp(1.1rem, 2vw, 1.3rem);
-    font-weight: var(--font-semibold);
-    color: var(--text-primary);
-    line-height: 1.3;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .card-excerpt {
-    margin: 0 0 14px 0;
-    font-size: var(--text-sm);
-    color: var(--text-secondary);
-    line-height: 1.6;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .card-meta {
-    font-size: var(--text-xs);
-    color: var(--text-tertiary);
-  }
-
-  .separator {
-    margin: 0 6px;
-  }
-
-  @keyframes blog-halo {
-    from {
-      transform: translate3d(0, 0, 0) scale(1);
-    }
-    to {
-      transform: translate3d(3%, -3%, 0) scale(1.06);
-    }
-  }
-
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .blog-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 767px) {
-    .blog-page {
-      padding-top: 100px;
-      padding-bottom: 60px;
-    }
-
-    .blog-header {
-      margin-bottom: clamp(36px, 6vh, 56px);
-    }
-
-    .blog-grid {
-      grid-template-columns: 1fr;
-      gap: clamp(16px, 4vw, 24px);
-    }
-
-    .card-icon {
-      width: 40px;
-      height: 40px;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .blog__halo {
-      animation: none !important;
-    }
-
-    .blog-card,
-    .card-icon {
-      transition: none !important;
-    }
-  }
-</style>

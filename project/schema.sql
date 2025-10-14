@@ -1,4 +1,4 @@
--- Dr. Gustavo Mendes - Database Schema
+-- Dr. Gustavo Mendes e Silva - Database Schema
 -- D1 SQLite Database
 
 -- Blog posts (alternativa ao Content Collections para conteúdo dinâmico)

@@ -107,14 +107,50 @@
 
 @media (max-width: 767px) {
   .depoimentos__content {
-    align-content: stretch;
+    gap: 2.5rem;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .depoimentos__title {
+    font-size: clamp(1.8rem, 7vw, 2.5rem);
   }
 
   .depoimentos__grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+    text-align: left;
   }
 
   .depoimentos__card {
-    padding: clamp(20px, 6vw, 28px);
+    padding: 1.5rem;
+    background: var(--surface-2);
+    border: 1px solid var(--border-subtle);
+    box-shadow: none;
+    backdrop-filter: none;
+    transform: none !important;
+  }
+
+  .depoimentos__card::before {
+    display: none;
+  }
+
+  .depoimentos__card.is-highlighted {
+    border-color: var(--border-subtle);
+    box-shadow: none;
+    transform: none;
+  }
+
+  .depoimentos__card blockquote {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .depoimentos__card figcaption {
+    font-size: 0.8rem;
+  }
+
+  .depoimentos__next {
+    display: none;
   }
 }

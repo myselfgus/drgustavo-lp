@@ -89,7 +89,7 @@ import '../styles/sections/localizacao.css';
 <script>
   const carousel = document.querySelector('.localizacao__carousel');
 
-  if (carousel) {
+  if (carousel && window.matchMedia('(min-width: 768px)').matches) {
     const photos = Array.from(carousel.querySelectorAll('.localizacao__photo'));
     const dots = Array.from(carousel.querySelectorAll('.localizacao__dot'));
     const prevBtn = carousel.querySelector('.localizacao__nav--prev');

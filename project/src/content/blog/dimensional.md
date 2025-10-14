@@ -7,8 +7,8 @@ tags:
   - psiquiatria
   - saúde-mental
   - inteligência-artificial
-image: 'https://lh3.googleusercontent.com/d/1IWt05kWuat9HzIp7cfMu1iHGlgDS5RNP'
-imageAlt: 'Representação abstrata de redes cerebrais conectadas'
+image: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&h=720&q=80'
+imageAlt: 'Ilustração de neurônios conectados com tons de azul e roxo'
 ---
 
 A psiquiatria tradicional, guiada por manuais como o DSM-5 e o CID-11, baseia-se em categorias diagnósticas: "transtorno de ansiedade generalizada", "depressão maior", "TDAH". Esses rótulos foram cruciais para a comunicação clínica e a pesquisa, mas carregam uma limitação intrínseca: eles simplificam a complexa e única experiência humana em caixas pré-definidas.

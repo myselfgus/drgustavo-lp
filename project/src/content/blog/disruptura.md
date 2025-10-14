@@ -7,8 +7,8 @@ tags:
   - terapia
   - saúde-mental
   - tecnologia
-image: 'https://lh3.googleusercontent.com/d/1pjfRjZQgu-IWWRZpLmYDlnCTCFPkMWKK'
-imageAlt: 'Pessoa reorganizando formas geométricas que simbolizam padrões mentais'
+image: 'https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=1200&h=720&q=80'
+imageAlt: 'Pessoa reorganizando post-its coloridos em uma parede branca'
 ---
 
 Nossa mente é uma máquina de criar padrões. Esses padrões, ou "arquiteturas mentais", governam nossas reações automáticas, nossas crenças mais profundas e a forma como interpretamos o mundo. Quando esses padrões são saudáveis e flexíveis, eles nos servem bem. Mas quando se tornam rígidos e negativos, eles formam a base de transtornos como ansiedade, depressão e estresse crônico.

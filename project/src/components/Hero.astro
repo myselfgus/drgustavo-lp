@@ -22,6 +22,12 @@ const heroQuotesData = [
 ];
 
 const [initialHeroQuote] = heroQuotesData;
+
+const heroPortraitBase = 'https://imagedelivery.net/ZSVIzNe6GQZrE_DQQqHAyw/bcfa1ef0-4dcd-4338-7372-95f086aa7900/public';
+const heroPortraitSrcset = [320, 480, 640, 820, 1024]
+  .map(size => `${heroPortraitBase}?width=${size}&height=${size}&fit=cover&gravity=face&quality=85 ${size}w`)
+  .join(', ');
+const heroPortraitSizes = '(min-width: 1024px) 320px, 60vw';
 ---
 
 <section id="hero" class="hero" aria-labelledby="hero-title">
@@ -42,7 +48,7 @@ const [initialHeroQuote] = heroQuotesData;
         </h1>
 
         <div class="hero__identity" data-animate="fade-right">
-          <span class="hero__name">Dr. Gustavo Mendes</span>
+          <span class="hero__name">Dr. Gustavo Mendes e Silva</span>
           <span class="hero__context">Psiquiatria · São José do Rio Preto</span>
         </div>
 
@@ -72,7 +78,16 @@ const [initialHeroQuote] = heroQuotesData;
 
       <aside class="hero__media" aria-hidden="true">
         <div class="hero__frame" data-animate="fade-left">
-          <div class="hero__portrait"></div>
+          <div class="hero__portrait">
+            <img
+              src={`${heroPortraitBase}?width=640&height=640&fit=cover&gravity=face&quality=90`}
+              srcset={heroPortraitSrcset}
+              sizes={heroPortraitSizes}
+              alt="Retrato do Dr. Gustavo Mendes e Silva"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
           <span class="hero__ring hero__ring--outer"></span>
           <span class="hero__ring hero__ring--inner"></span>
         </div>
@@ -98,50 +113,52 @@ const [initialHeroQuote] = heroQuotesData;
 </section>
 
 <script define:vars={{ heroQuotes: heroQuotesData }} is:inline>
-  const heroSection = document.getElementById('hero');
+  if (window.matchMedia('(min-width: 768px)').matches) {
+    const heroSection = document.getElementById('hero');
 
-  if (heroSection) {
-    const scrollButton = heroSection.querySelector('[data-scroll-target]');
-    const quoteFigure = heroSection.querySelector('.hero__quote');
-    const quoteText = heroSection.querySelector('[data-hero-quote]');
-    const quoteAuthor = heroSection.querySelector('[data-hero-author]');
+    if (heroSection) {
+      const scrollButton = heroSection.querySelector('[data-scroll-target]');
+      const quoteFigure = heroSection.querySelector('.hero__quote');
+      const quoteText = heroSection.querySelector('[data-hero-quote]');
+      const quoteAuthor = heroSection.querySelector('[data-hero-author]');
 
-    if (quoteFigure && quoteText && quoteAuthor && heroQuotes.length > 1) {
-      let quoteIndex = 0;
-      const swapDuration = 260;
-      const swapInterval = 8000;
+      if (quoteFigure && quoteText && quoteAuthor && heroQuotes.length > 1) {
+        let quoteIndex = 0;
+        const swapDuration = 260;
+        const swapInterval = 8000;
 
-      window.setInterval(() => {
-        quoteFigure.classList.add('is-swapping');
+        window.setInterval(() => {
+          quoteFigure.classList.add('is-swapping');
 
-        window.setTimeout(() => {
-          quoteIndex = (quoteIndex + 1) % heroQuotes.length;
-          const nextQuote = heroQuotes[quoteIndex];
-          quoteText.textContent = nextQuote.text;
-          quoteAuthor.textContent = nextQuote.author;
-          quoteFigure.classList.remove('is-swapping');
-        }, swapDuration);
-      }, swapInterval);
-    }
+          window.setTimeout(() => {
+            quoteIndex = (quoteIndex + 1) % heroQuotes.length;
+            const nextQuote = heroQuotes[quoteIndex];
+            quoteText.textContent = nextQuote.text;
+            quoteAuthor.textContent = nextQuote.author;
+            quoteFigure.classList.remove('is-swapping');
+          }, swapDuration);
+        }, swapInterval);
+      }
 
-    if (scrollButton) {
-      const targetId = scrollButton.getAttribute('data-scroll-target');
-      scrollButton.addEventListener('click', () => {
-        if (!targetId) return;
-        const nextSection = document.getElementById(targetId);
-        if (nextSection) {
-          nextSection.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
+      if (scrollButton) {
+        const targetId = scrollButton.getAttribute('data-scroll-target');
+        scrollButton.addEventListener('click', () => {
+          if (!targetId) return;
+          const nextSection = document.getElementById(targetId);
+          if (nextSection) {
+            nextSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
 
-      let hasHidden = false;
-      window.addEventListener('scroll', () => {
-        if (hasHidden) return;
-        if (window.scrollY > 80) {
-          hasHidden = true;
-          scrollButton.classList.add('hero__scroll--hidden');
-        }
-      });
+        let hasHidden = false;
+        window.addEventListener('scroll', () => {
+          if (hasHidden) return;
+          if (window.scrollY > 80) {
+            hasHidden = true;
+            scrollButton.classList.add('hero__scroll--hidden');
+          }
+        });
+      }
     }
   }
 </script>

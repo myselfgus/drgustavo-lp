@@ -1,156 +1,61 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import BlogCard from '../../components/BlogCard.astro';
 import { getCollection } from 'astro:content';
+import '../../styles/pages/blog.css';
 
 const entries = await getCollection('blog', ({ data }) => !data.draft);
 const posts = entries
   .slice()
   .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('pt-BR', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric'
+  }).format(date);
 ---
 
 <BaseLayout
-  title="Blog - Dr. Gustavo Mendes | Artigos sobre Saúde Mental"
+  title="Blog - Dr. Gustavo Mendes e Silva | Artigos sobre Saúde Mental"
   description="Artigos sobre psiquiatria, neurodiversidade, tecnologia clínica e uso ético de IA para re-humanizar o cuidado."
   showDots={false}
 >
-  <main class="blog-page">
-    <div class="blog-page__halo blog-page__halo--one" aria-hidden="true"></div>
-    <div class="blog-page__halo blog-page__halo--two" aria-hidden="true"></div>
+  <main class="blog">
+    <header class="blog__header blog__wrap">
+      <h1>Blog</h1>
+      <p>Artigos e reflexões para quem vive e cuida da saúde mental.</p>
+    </header>
 
-    <div class="blog-container">
-      <header class="blog-header" data-animate="fade-up">
-        <span class="blog-eyebrow">Cadernos de leitura</span>
-        <h1 class="blog-title">Blog</h1>
-        <p class="blog-subtitle">
-          Artigos e reflexões sobre psiquiatria dimensional, neurodiversidade e tecnologia aplicada ao cuidado.
-        </p>
-      </header>
+    <section class="blog__wrap" aria-labelledby="lista-artigos">
+      <h2 id="lista-artigos" class="blog__section-title">
+        Todos os artigos
+      </h2>
 
-      <section class="blog-grid" aria-label="Artigos do blog">
-        {posts.map(({ slug, data }) => (
-          <BlogCard
-            href={`/blog/${slug}`}
-            title={data.title}
-            excerpt={data.excerpt}
-            image={data.image}
-            imageAlt={data.imageAlt}
-            publishedAt={data.publishedAt}
-            tags={data.tags}
-          />
-        ))}
-      </section>
-    </div>
+      {posts.length > 0 ? (
+        <ul class="post-feed" role="list">
+          {posts.map(post => (
+            <li class="post-feed__item">
+              <a class="post-feed__link" href={`/blog/${post.slug}`}>
+                <time datetime={post.data.publishedAt.toISOString()}>
+                  {formatDate(post.data.publishedAt)}
+                </time>
+                <h3>{post.data.title}</h3>
+                <p>{post.data.excerpt}</p>
+                {post.data.tags?.length > 0 && (
+                  <ul class="post-feed__tags">
+                    {post.data.tags.slice(0, 3).map(tag => (
+                      <li>#{tag}</li>
+                    ))}
+                  </ul>
+                )}
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Novos artigos em edição. Volte em breve para mais leituras.</p>
+      )}
+    </section>
   </main>
 </BaseLayout>
-
-<style>
-  .blog-page {
-    position: relative;
-    min-height: 100vh;
-    padding: 140px 0 100px;
-    background: radial-gradient(circle at top left, rgba(125, 168, 123, 0.08), transparent 45%),
-      linear-gradient(180deg, #fafaf8 0%, #ffffff 100%);
-    overflow: hidden;
-  }
-
-  .blog-page__halo {
-    position: absolute;
-    filter: blur(96px);
-    opacity: 0.32;
-    border-radius: 50%;
-    pointer-events: none;
-    animation: float-halo 22s ease-in-out infinite alternate;
-  }
-
-  .blog-page__halo--one {
-    top: -12%;
-    left: -8%;
-    width: clamp(320px, 38vw, 460px);
-    height: clamp(320px, 38vw, 460px);
-    background: radial-gradient(circle, rgba(125, 168, 123, 0.38), transparent 65%);
-  }
-
-  .blog-page__halo--two {
-    bottom: -18%;
-    right: -10%;
-    width: clamp(280px, 32vw, 420px);
-    height: clamp(280px, 32vw, 420px);
-    background: radial-gradient(circle, rgba(31, 62, 70, 0.28), transparent 70%);
-    animation-delay: 6s;
-  }
-
-  @keyframes float-halo {
-    from {
-      transform: translate3d(0, 0, 0) scale(1);
-    }
-    to {
-      transform: translate3d(3%, -4%, 0) scale(1.08);
-    }
-  }
-
-  .blog-container {
-    position: relative;
-    z-index: 1;
-    max-width: 1220px;
-    margin: 0 auto;
-    padding: 0 clamp(24px, 5vw, 48px);
-  }
-
-  .blog-header {
-    text-align: center;
-    margin-bottom: clamp(56px, 10vh, 80px);
-    display: grid;
-    gap: 18px;
-  }
-
-  .blog-eyebrow {
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.22em;
-    color: rgba(31, 62, 70, 0.6);
-    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
-  }
-
-  .blog-title {
-    margin: 0;
-    font-size: clamp(2.6rem, 5vw, 3.8rem);
-    font-weight: 400;
-    letter-spacing: -0.02em;
-    color: var(--text-primary, #1A1A1A);
-  }
-
-  .blog-subtitle {
-    margin: 0 auto;
-    max-width: 720px;
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: var(--text-secondary, #5c615c);
-  }
-
-  .blog-grid {
-    display: grid;
-    gap: clamp(28px, 4vw, 40px);
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  }
-
-  @media (max-width: 900px) {
-    .blog-page {
-      padding: 110px 0 80px;
-    }
-
-    .blog-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .blog-page__halo {
-      animation: none;
-    }
-
-    .blog-card {
-      transition: none;
-    }
-  }
-</style>

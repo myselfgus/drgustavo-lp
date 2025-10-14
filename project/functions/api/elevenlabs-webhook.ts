@@ -110,7 +110,7 @@ export async function onRequestPost(
     const paymentLink = await createPaymentLink(env, {
       reservationId,
       amount: priceCents,
-      description: `Consulta - Dr. Gustavo Mendes - ${data.patient_name}`,
+      description: `Consulta - Dr. Gustavo Mendes e Silva - ${data.patient_name}`,
       customerInfo: {
         name: data.patient_name,
         phone: data.patient_phone,

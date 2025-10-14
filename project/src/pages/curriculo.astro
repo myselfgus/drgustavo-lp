@@ -1,689 +1,677 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const portraitBase = 'https://imagedelivery.net/ZSVIzNe6GQZrE_DQQqHAyw/bcfa1ef0-4dcd-4338-7372-95f086aa7900/public';
+const portraitSrcset = [320, 420, 560, 720, 900]
+  .map(size => `${portraitBase}?width=${size}&height=${size}&fit=cover&gravity=face&quality=88 ${size}w`)
+  .join(', ');
+const portraitSizes = '(min-width: 1024px) 320px, (min-width: 768px) 260px, 80vw';
+
+const academicTimeline = [
+  {
+    year: '2020',
+    title: 'Graduação em Medicina',
+    institution: 'Faculdade Estadual de Medicina de Marília (FAMEMA)',
+    details: 'Nota 5 no ENADE. Metodologias ativas e integração ensino-serviço com forte atuação em saúde mental comunitária.'
+  },
+  {
+    year: '2024',
+    title: 'MBA em Gestão, Inovação e Serviços em Saúde',
+    institution: 'PUC-RS',
+    details: 'Gestão estratégica de serviços de saúde mental, modelos assistenciais e políticas públicas.'
+  },
+  {
+    year: 'Cursando',
+    title: 'MBA em Health Tech',
+    institution: 'FIAP'
+  }
+];
+
+const certifications = [
+  {
+    title: 'Especialização em Psiquiatria',
+    institution: 'FGMED · 492 horas · 2024',
+    description: 'Psicofarmacologia avançada, diagnóstico e tratamento de transtornos mentais e psicopatologia aplicada.'
+  },
+  {
+    title: 'Especialização em Psiquiatria',
+    institution: 'Sanar/Cetrus · 432 horas · 2024',
+    description: 'Semiologia, raciocínio clínico e abordagens terapêuticas contemporâneas em saúde mental.'
+  },
+  {
+    title: 'Clinical Cannabinoid Medicine Specialist',
+    institution: 'Society of Cannabis Clinicians (SCC) · 2024',
+    description: 'Certificação internacional em prescrição e manejo de cannabis medicinal para transtornos neuropsiquiátricos.'
+  },
+  {
+    title: 'Medicina Canabinoide',
+    institution: 'EEPHCFMUSP · 2024',
+    description: 'Sistema endocanabinoide, farmacocinética e aplicações clínicas em psiquiatria.'
+  }
+];
+
+const extensionCourses = [
+  'Medical Neuroscience — Duke University (2024)',
+  'Dependência Química — Artmed360 (180h) (2024)',
+  'Transtornos do Sono — CENBRAP (2024)',
+  'Terapia de Aceitação e Compromisso (ACT) — IBAC (2024)',
+  'Autismo, Psicanálise e Conexões — PUC Minas (2024-2025)',
+  'Aplicações Psiquiátricas dos Canabinoides — TMCI Global (2024)'
+];
+
+const clinicalExperience = [
+  'Saúde Mental Comunitária (CAPS II, CAPS IJ e CAPS AD): manejo de transtornos graves, construção de Planos Terapêuticos Singulares e articulação de rede.',
+  'Emergências Psiquiátricas (UPA e Hospital): atendimento 24h com foco em crises agudas, risco suicida e manejo de agitação psicomotora.',
+  'Enfermaria Psiquiátrica: acompanhamento diário, ajuste de psicofármacos e planejamento de alta segura.'
+];
+
+const skills = {
+  diagnosis: [
+    'Avaliação psiquiátrica estruturada',
+    'Diagnóstico diferencial em psiquiatria',
+    'Aplicação de escalas e instrumentos',
+    'Avaliação de risco suicida e heteroagressivo',
+    'Avaliação neuropsiquiátrica'
+  ],
+  treatment: [
+    'Psicofarmacologia avançada',
+    'Manejo de psicoses e transtornos do humor',
+    'Tratamento de transtornos de ansiedade',
+    'Abordagem de dependência química',
+    'Intervenção em crises',
+    'Prescrição de cannabis medicinal'
+  ],
+  specializations: [
+    'Psiquiatria do adulto',
+    'Psiquiatria infantojuvenil',
+    'Dependência química',
+    'Emergências psiquiátricas',
+    'Medicina do sono',
+    'Sistema endocanabinoide'
+  ]
+};
+
+const affiliations = [
+  'Membro da Society of Cannabis Clinicians (SCC)',
+  'Membro da International AIDS Society (2020-2023) com atuação em saúde mental de pacientes vivendo com HIV/AIDS'
+];
+
+const languages = [
+  { name: 'Inglês', detail: 'Fluente · TOEFL iBT 108/120' },
+  { name: 'Espanhol', detail: 'Intermediário' },
+  { name: 'Francês', detail: 'Básico' }
+];
 ---
 
 <BaseLayout
-  title="Currículo - Dr. Gustavo Mendes | Médico Psiquiatra CRM-SP 218133"
+  title="Currículo - Dr. Gustavo Mendes e Silva | Médico Psiquiatra CRM-SP 218133"
   description="Formação acadêmica, certificações e experiência profissional do Dr. Gustavo Mendes e Silva, médico psiquiatra especializado em saúde mental comunitária, emergências psiquiátricas e medicina canabinoide."
   showDots={false}
 >
   <main class="curriculo-page">
-    <div class="curriculo__backdrop" aria-hidden="true">
-      <span class="curriculo__halo curriculo__halo--one"></span>
-      <span class="curriculo__halo curriculo__halo--two"></span>
-    </div>
-
-    <div class="curriculo-container">
-      <header class="cv-header" data-animate="fade-up">
-        <div class="cv-heading">
-          <h1 class="cv-title">Currículo</h1>
-          <div class="cv-identity">
-            <p class="cv-name">Dr. Gustavo Mendes e Silva</p>
-            <p class="cv-specialty">Médico Psiquiatra</p>
-            <a
-              href="https://www.cremesp.org.br/?siteAcao=BuscaMedicos&crm=218133"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="cv-crm"
-            >
-              CRM-SP: 218133
-            </a>
-          </div>
-          <ul class="cv-highlights">
-            <li>CAPS adulto, infantojuvenil e álcool/drogas</li>
-            <li>Emergências e enfermaria psiquiátrica 24h</li>
-            <li>Medicina canabinoide e IA em consultas clínicas</li>
-          </ul>
-          <div class="cv-social">
-            <a
-              href="https://linkedin.com/in/drgustavomendes"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="https://github.com/myselfgus"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              GitHub
-            </a>
-            <a href="mailto:contato@drgustavomendes.com">contato@drgustavomendes.com</a>
-          </div>
-        </div>
-        <div class="cv-summary-block">
-          <p>
-            Psiquiatra com atuação contínua em saúde mental pública e privada, unindo psicofarmacologia avançada, manejo de crises e construção de planos terapêuticos singulares para diferentes perfis de pacientes.
-          </p>
-          <p>
-            Integra medicina canabinoide, transtornos do sono e tecnologias de inteligência artificial para registrar cada consulta com precisão, envolver equipes e manter acompanhamento vivo e colaborativo.
-          </p>
-          <a href="/pdfs/curriculo.pdf" download class="download-btn">
-            Baixar PDF
+    <section class="cv-hero cv-wrap" data-animate="fade-up">
+      <div class="cv-hero__content">
+        <span class="cv-hero__eyebrow">Currículo</span>
+        <h1 class="cv-hero__title">Dr. Gustavo Mendes e Silva</h1>
+        <p class="cv-hero__role">
+          Médico Psiquiatra ·
+          <a
+            href="https://www.cremesp.org.br/?siteAcao=BuscaMedicos&crm=218133"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            CRM-SP 218133
           </a>
-        </div>
-      </header>
-
-      <section class="cv-section" data-animate="fade-up">
-        <h2 class="section-title">Formação Acadêmica</h2>
-        <div class="timeline">
-          <div class="timeline-item">
-            <span class="year">2020</span>
-            <div class="content">
-              <h3>Graduação em Medicina</h3>
-              <p>Faculdade Estadual de Medicina de Marília (FAMEMA)</p>
-              <p class="item-detail">
-                Nota 5 no ENADE. Formação com ênfase em metodologias ativas e integração ensino-serviço.
-              </p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <span class="year">2024</span>
-            <div class="content">
-              <h3>MBA em Gestão, Inovação e Serviços em Saúde</h3>
-              <p>PUC-RS</p>
-              <p class="item-detail">
-                Gestão estratégica de serviços de saúde mental, modelos assistenciais e políticas públicas em saúde mental.
-              </p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <span class="year">Cursando</span>
-            <div class="content">
-              <h3>MBA em Health Tech</h3>
-              <p>FIAP</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="cv-section" data-animate="fade-up">
-        <h2 class="section-title">Especializações e Certificações</h2>
-        <ul class="certifications">
-          <li>
-            <strong>Especialização em Psiquiatria</strong>
-            <span>FGMED · 492 horas · 2024</span>
-            <p class="cert-description">
-              Psicofarmacologia avançada, diagnóstico e tratamento de transtornos mentais, psicopatologia e intervenções terapêuticas baseadas em evidências.
-            </p>
-          </li>
-          <li>
-            <strong>Especialização em Psiquiatria</strong>
-            <span>Sanar/Cetrus · 432 horas · 2024</span>
-            <p class="cert-description">
-              Semiologia psiquiátrica, raciocínio clínico em saúde mental, diagnóstico diferencial e abordagens terapêuticas contemporâneas.
-            </p>
-          </li>
-          <li>
-            <strong>Clinical Cannabinoid Medicine Specialist</strong>
-            <span>Society of Cannabis Clinicians (SCC) · 2024</span>
-            <p class="cert-description">
-              Certificação internacional em prescrição e manejo de cannabis medicinal para transtornos neuropsiquiátricos, incluindo ansiedade, insônia, TEPT e dor crônica.
-            </p>
-          </li>
-          <li>
-            <strong>Medicina Canabinoide</strong>
-            <span>EEPHCFMUSP · 2024</span>
-            <p class="cert-description">
-              Sistema endocanabinoide, farmacocinética e farmacodinâmica dos canabinoides, aplicações clínicas em transtornos psiquiátricos.
-            </p>
-          </li>
+        </p>
+        <ul class="cv-hero__highlights">
+          <li>CAPS adulto, infantojuvenil e álcool/drogas</li>
+          <li>Emergências e enfermaria psiquiátrica 24h</li>
+          <li>Medicina canabinoide guiada por dados</li>
         </ul>
-      </section>
+        <p class="cv-hero__summary">
+          Atua em saúde mental pública e privada unindo psicofarmacologia avançada, manejo de crises e inteligência artificial para registrar cada consulta com precisão e manter planos terapêuticos vivos, colaborativos e baseados em evidências.
+        </p>
+        <div class="cv-hero__actions">
+          <a href="mailto:contato@drgustavomendes.com">contato@drgustavomendes.com</a>
+          <a href="https://linkedin.com/in/drgustavomendes" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="/pdfs/curriculo.pdf" class="cv-hero__download" download>Baixar PDF</a>
+        </div>
+      </div>
+      <figure class="cv-hero__portrait">
+        <img
+          src={`${portraitBase}?width=720&height=720&fit=cover&gravity=face&quality=92`}
+          srcset={portraitSrcset}
+          sizes={portraitSizes}
+          alt="Retrato do Dr. Gustavo Mendes e Silva"
+          loading="eager"
+          decoding="async"
+        />
+      </figure>
+    </section>
 
-      <section class="cv-section" data-animate="fade-up">
-        <h2 class="section-title">Formação Complementar</h2>
-        <div class="section-block">
-          <h3 class="subsection-title">Cursos e Aprofundamentos</h3>
-          <p class="item-year">Educação Médica Continuada · 2024-2025</p>
-          <ul class="item-list">
-            <li><strong>Medical Neuroscience</strong> — Duke University (2024)</li>
-            <li><strong>Dependência Química</strong> — Artmed360 (180h) (2024)</li>
-            <li><strong>Transtornos do Sono</strong> — CENBRAP (2024)</li>
-            <li><strong>Terapia de Aceitação e Compromisso (ACT)</strong> — IBAC (2024)</li>
-            <li><strong>Autismo, Psicanálise e Conexões</strong> — PUC Minas (2024-2025)</li>
-            <li><strong>Aplicações Psiquiátricas dos Canabinoides</strong> — The Medical Cannabis Institute (TMCI Global) (2024)</li>
+    <section class="cv-section cv-wrap" data-animate="fade-up">
+      <header class="cv-section__header">
+        <h2>Formação Acadêmica</h2>
+        <p>Graduação e pós-graduações que sustentam a prática clínica integrada com tecnologia e políticas públicas.</p>
+      </header>
+      <ul class="cv-timeline">
+        {academicTimeline.map(item => (
+          <li class="cv-timeline__item">
+            <span class="cv-timeline__year">{item.year}</span>
+            <div class="cv-timeline__content">
+              <h3>{item.title}</h3>
+              <p>{item.institution}</p>
+              {item.details && <p class="cv-timeline__details">{item.details}</p>}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="cv-section cv-wrap" data-animate="fade-up">
+      <header class="cv-section__header">
+        <h2>Especializações e Certificações</h2>
+        <p>Programas formais e certificações que aprofundam o cuidado farmacológico e canabinoide.</p>
+      </header>
+      <ul class="cv-cards">
+        {certifications.map(item => (
+          <li class="cv-card">
+            <h3>{item.title}</h3>
+            <span class="cv-card__meta">{item.institution}</span>
+            <p>{item.description}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="cv-section cv-wrap" data-animate="fade-up">
+      <header class="cv-section__header">
+        <h2>Formação Complementar</h2>
+        <p>Educação médica continuada com foco em neurociência, dependência química e terapias emergentes.</p>
+      </header>
+      <ul class="cv-list">
+        {extensionCourses.map(course => (
+          <li>{course}</li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="cv-section cv-wrap" data-animate="fade-up">
+      <header class="cv-section__header">
+        <h2>Atuação Clínica</h2>
+        <p>Experiência transversal em rede pública e privada com foco em crise, continuidade de cuidado e integração de equipes.</p>
+      </header>
+      <ul class="cv-list">
+        {clinicalExperience.map(item => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="cv-section cv-wrap" data-animate="fade-up">
+      <header class="cv-section__header">
+        <h2>Competências e Perfil</h2>
+        <p>Conjunto de habilidades clínicas e focos de especialização que sustentam os planos terapêuticos.</p>
+      </header>
+      <div class="cv-grid">
+        <div class="cv-grid__column">
+          <h3>Diagnóstico e Avaliação</h3>
+          <ul>
+            {skills.diagnosis.map(skill => (
+              <li>{skill}</li>
+            ))}
           </ul>
         </div>
-      </section>
-
-      <section class="cv-section" data-animate="fade-up">
-        <h2 class="section-title">Atuação Clínica</h2>
-        <div class="section-block">
-          <h3 class="subsection-title">Experiência Clínica Diversificada</h3>
-          <p class="item-year">Saúde Mental Pública e Privada · 2021 - Atual</p>
-          <ul class="item-list">
-            <li><strong>Saúde Mental Comunitária (CAPS):</strong> Atuação em CAPS II (adulto), CAPS IJ (infantojuvenil) e CAPS AD (álcool e outras drogas), com manejo de transtornos graves e persistentes, desenvolvimento de Planos Terapêuticos Singulares (PTS) e articulação com a rede de atenção psicossocial.</li>
-            <li><strong>Emergências Psiquiátricas (UPA e Hospital):</strong> Atendimento em regime de plantão 24h, com manejo de crises agudas, surtos psicóticos, agitação psicomotora, risco de suicídio e intoxicações.</li>
-            <li><strong>Enfermaria Psiquiátrica:</strong> Acompanhamento diário de pacientes internados, manejo de quadros agudos, prescrição e ajuste de psicofármacos, e planejamento de alta hospitalar segura.</li>
+        <div class="cv-grid__column">
+          <h3>Tratamento</h3>
+          <ul>
+            {skills.treatment.map(skill => (
+              <li>{skill}</li>
+            ))}
           </ul>
         </div>
-      </section>
-
-      <section class="cv-section" data-animate="fade-up">
-        <h2 class="section-title">Competências e Perfil</h2>
-        <div class="section-grid">
-          <div class="section-block">
-            <h3 class="subsection-title">Diagnóstico e Avaliação</h3>
-            <ul class="item-list">
-              <li>Avaliação psiquiátrica estruturada</li>
-              <li>Diagnóstico diferencial em psiquiatria</li>
-              <li>Aplicação de escalas e instrumentos</li>
-              <li>Avaliação de risco suicida e heteroagressivo</li>
-              <li>Avaliação neuropsiquiátrica</li>
-            </ul>
-          </div>
-          <div class="section-block">
-            <h3 class="subsection-title">Tratamento</h3>
-            <ul class="item-list">
-              <li>Psicofarmacologia avançada</li>
-              <li>Manejo de psicoses e transtornos do humor</li>
-              <li>Tratamento de transtornos de ansiedade</li>
-              <li>Abordagem de dependência química</li>
-              <li>Intervenção em crises</li>
-              <li>Prescrição de cannabis medicinal</li>
-            </ul>
-          </div>
-        </div>
-        <div class="section-block">
-          <h3 class="subsection-title">Áreas de Especialização</h3>
-          <ul class="areas-list">
-            <li>Psiquiatria do adulto</li>
-            <li>Psiquiatria infantojuvenil</li>
-            <li>Dependência química</li>
-            <li>Emergências psiquiátricas</li>
-            <li>Medicina do sono</li>
-            <li>Sistema endocanabinoide</li>
+        <div class="cv-grid__column">
+          <h3>Áreas de Especialização</h3>
+          <ul>
+            {skills.specializations.map(area => (
+              <li>{area}</li>
+            ))}
           </ul>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="cv-section" data-animate="fade-up">
-        <h2 class="section-title">Afiliações e Idiomas</h2>
-        <div class="section-content">
-          <div class="section-block">
-            <h3 class="subsection-title">Afiliações Profissionais e Perfil Internacional</h3>
-            <ul class="item-list">
-              <li>Membro da Society of Cannabis Clinicians (SCC).</li>
-              <li>Membro da International AIDS Society (2020-2023) – Trabalho com saúde mental em pacientes com HIV/AIDS.</li>
-            </ul>
-          </div>
-          <div class="section-block">
-            <h3 class="subsection-title">Idiomas</h3>
-            <ul class="item-list">
-              <li><strong>Inglês:</strong> Fluente (TOEFL iBT 108/120)</li>
-              <li><strong>Espanhol:</strong> Intermediário</li>
-              <li><strong>Francês:</strong> Básico</li>
-            </ul>
-          </div>
+    <section class="cv-section cv-wrap" data-animate="fade-up">
+      <header class="cv-section__header">
+        <h2>Afiliações e Idiomas</h2>
+        <p>Inserção em comunidades científicas e comunicação em diferentes contextos culturais.</p>
+      </header>
+      <div class="cv-grid cv-grid--dual">
+        <div class="cv-grid__column">
+          <h3>Afiliações Profissionais</h3>
+          <ul>
+            {affiliations.map(item => (
+              <li>{item}</li>
+            ))}
+          </ul>
         </div>
-      </section>
-    </div>
+        <div class="cv-grid__column">
+          <h3>Idiomas</h3>
+          <ul>
+            {languages.map(language => (
+              <li>
+                <strong>{language.name}:</strong> {language.detail}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
   </main>
 </BaseLayout>
 
 <style>
   .curriculo-page {
-    position: relative;
-    min-height: 100vh;
-    padding: 120px 0 80px;
-    background: linear-gradient(180deg, #fafaf8 0%, #ffffff 100%);
-    overflow: hidden;
-  }
-
-  .curriculo__backdrop {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .curriculo__halo {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.35;
-    animation: curriculo-halo 20s ease-in-out infinite alternate;
-  }
-
-  .curriculo__halo--one {
-    width: clamp(380px, 32vw, 480px);
-    height: clamp(380px, 32vw, 480px);
-    top: -8%;
-    right: -5%;
-    background: radial-gradient(circle at 50% 50%, rgba(125, 168, 123, 0.3), rgba(125, 168, 123, 0));
-  }
-
-  .curriculo__halo--two {
-    width: clamp(320px, 28vw, 420px);
-    height: clamp(320px, 28vw, 420px);
-    bottom: -10%;
-    left: -3%;
-    background: radial-gradient(circle at 50% 50%, rgba(31, 62, 70, 0.25), rgba(31, 62, 70, 0));
-    animation-delay: 4s;
-  }
-
-  @keyframes curriculo-halo {
-    from {
-      transform: translate3d(0, 0, 0) scale(1);
-    }
-    to {
-      transform: translate3d(3%, -3%, 0) scale(1.06);
-    }
-  }
-
-  .curriculo-container {
-    position: relative;
-    z-index: 1;
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 0 clamp(24px, 4vw, 48px);
-  }
-
-  .cv-header {
-    display: grid;
-    grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
-    gap: clamp(24px, 4vw, 40px);
-    margin-bottom: clamp(48px, 8vh, 72px);
-    padding: clamp(28px, 5vw, 40px);
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid rgba(31, 62, 70, 0.08);
-    border-radius: var(--radius-lg, 12px);
-    backdrop-filter: blur(8px);
-    box-shadow: 0 4px 16px rgba(18, 19, 16, 0.04);
-  }
-
-  .cv-title {
-    font-family: var(--font-serif);
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: var(--font-light, 300);
-    color: var(--text-primary, #1A1A1A);
-    margin: 0 0 clamp(20px, 4vh, 32px);
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-  }
-
-  .cv-heading {
-    display: grid;
-    gap: var(--space-sm, 16px);
-    align-content: start;
-  }
-
-  .cv-identity {
-    display: grid;
-    gap: 6px;
-  }
-
-  .cv-name {
-    font-size: 24px;
-    font-weight: 500;
-    color: var(--text-primary, #2C2C2C);
-    margin: 0;
-  }
-
-  .cv-specialty {
-    font-size: 18px;
-    color: var(--text-secondary, #666666);
-    margin: 0;
-  }
-
-  .cv-crm {
-    color: var(--text-secondary, #666666);
-    text-decoration: none;
-    font-size: 16px;
-    transition: all 0.2s ease;
-  }
-
-  .cv-crm:hover {
-    color: var(--text-primary, #2C2C2C);
-  }
-
-  .cv-highlights {
-    list-style: none;
-    margin: 16px 0 0;
-    padding: 0;
-    display: grid;
-    gap: 8px;
-    font-size: 15px;
-    color: var(--text-secondary, #555555);
-  }
-
-  .cv-highlights li {
     display: flex;
+    flex-direction: column;
+    gap: clamp(48px, 10vh, 80px);
+    padding-block: clamp(60px, 12vh, 120px);
+    background: linear-gradient(180deg, #f8f6f1 0%, #ffffff 65%, #f5f9f8 100%);
+  }
+
+  .cv-wrap {
+    width: min(1080px, calc(100% - 32px));
+    margin-inline: auto;
+  }
+
+  .cv-hero {
+    display: grid;
     align-items: center;
+    gap: clamp(32px, 6vw, 56px);
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid rgba(31, 62, 70, 0.08);
+    border-radius: var(--radius-xl);
+    padding: clamp(32px, 6vw, 48px);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 42px 80px rgba(18, 19, 16, 0.12);
+  }
+
+  .cv-hero__content {
+    display: grid;
+    gap: clamp(16px, 3vh, 28px);
+  }
+
+  .cv-hero__eyebrow {
+    font-family: var(--font-mono);
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    font-size: var(--text-xs);
+    color: var(--text-tertiary);
+  }
+
+  .cv-hero__title {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: clamp(2.4rem, 6vw, 3.4rem);
+    font-weight: var(--font-light);
+    line-height: 1.1;
+    color: var(--text-primary);
+  }
+
+  .cv-hero__role {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    display: flex;
     gap: 8px;
+    flex-wrap: wrap;
   }
 
-  .cv-highlights li::before {
-    content: '•';
-    color: var(--brand-primary, #1f3e46);
-    font-size: 18px;
+  .cv-hero__role a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(31, 62, 70, 0.2);
+    transition: border-color var(--transition-fast);
   }
 
-  .cv-social {
+  .cv-hero__role a:hover {
+    border-color: rgba(31, 62, 70, 0.4);
+  }
+
+  .cv-hero__highlights {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 10px;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+  }
+
+  .cv-hero__highlights li {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .cv-hero__highlights li::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--brand-primary);
+    opacity: 0.35;
+  }
+
+  .cv-hero__summary {
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  .cv-hero__actions {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    margin-top: 20px;
   }
 
-  .cv-social a {
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--text-primary, #2C2C2C);
-    text-decoration: none;
-    padding: 8px 18px;
-    border-radius: 999px;
-    border: 1px solid rgba(31, 62, 70, 0.18);
-    background: rgba(255, 255, 255, 0.65);
+  .cv-hero__actions a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
-  }
-
-  .cv-social a:hover {
-    transform: translateY(-1px);
-    border-color: rgba(31, 62, 70, 0.28);
-    background: rgba(125, 168, 123, 0.16);
-  }
-
-  .cv-summary-block {
-    display: grid;
-    gap: var(--space-sm, 16px);
-    font-size: 18px;
-    line-height: 1.7;
-    color: var(--text-secondary, #4A4A4A);
-  }
-
-  .download-btn {
-    display: inline-block;
-    padding: 12px 32px;
-    background: var(--text-primary, #2C2C2C);
-    color: white;
+    padding: 10px 20px;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(31, 62, 70, 0.18);
+    color: var(--text-primary);
     text-decoration: none;
-    border-radius: 4px;
-    font-weight: 500;
-    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.72);
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
   }
 
-  .download-btn:hover {
+  .cv-hero__actions a:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    border-color: rgba(31, 62, 70, 0.32);
+  }
+
+  .cv-hero__download {
+    background: var(--brand-primary);
+    color: white;
+    border-color: transparent;
+  }
+
+  .cv-hero__portrait {
+    position: relative;
+    margin: 0;
+    width: 100%;
+    max-width: 360px;
+    justify-self: center;
+    border-radius: 32% 68% 58% 42% / 38% 52% 48% 62%;
+    background: radial-gradient(circle at 30% 20%, rgba(125, 168, 123, 0.22), transparent 70%),
+      linear-gradient(150deg, rgba(255, 255, 255, 0.85), rgba(210, 168, 87, 0.22));
+    overflow: hidden;
+    box-shadow: 0 42px 80px rgba(18, 19, 16, 0.18);
+    animation: cv-portrait-drift 22s ease-in-out infinite;
+  }
+
+  .cv-hero__portrait img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 42%;
+    filter: saturate(112%);
   }
 
   .cv-section {
-    margin-bottom: clamp(32px, 6vh, 56px);
-    padding: clamp(24px, 4vw, 32px);
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.82);
     border: 1px solid rgba(31, 62, 70, 0.08);
-    border-radius: var(--radius-lg, 12px);
+    border-radius: var(--radius-xl);
+    padding: clamp(28px, 5vw, 40px);
+    display: grid;
+    gap: clamp(20px, 4vh, 32px);
     backdrop-filter: blur(8px);
-    box-shadow: 0 4px 16px rgba(18, 19, 16, 0.04);
-    transition: transform var(--transition-base), box-shadow var(--transition-base);
+    box-shadow: 0 28px 60px rgba(18, 19, 16, 0.09);
   }
 
-  .cv-section:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 32px rgba(18, 19, 16, 0.08);
-  }
-
-  .section-title {
-    font-family: var(--font-serif);
-    font-size: clamp(1.3rem, 3vw, 1.5rem);
-    font-weight: var(--font-semibold, 600);
-    color: var(--text-primary, #1A1A1A);
-    margin: 0 0 clamp(20px, 3vh, 28px);
-    padding-bottom: 12px;
-    border-bottom: 1px solid rgba(31, 62, 70, 0.1);
-    letter-spacing: 0.02em;
-  }
-
-  .timeline {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-  }
-
-  .timeline-item {
-    display: flex;
-    gap: 32px;
-  }
-
-  .year {
-    font-size: 14px;
-    color: var(--text-tertiary, #999999);
-    min-width: 100px;
-    padding-top: 2px;
-  }
-
-  .timeline-item h3 {
-    font-size: 18px;
-    font-weight: 500;
-    color: var(--text-primary, #2C2C2C);
-    margin: 0 0 8px;
-  }
-
-  .timeline-item p {
-    color: var(--text-secondary, #666666);
+  .cv-section__header h2 {
     margin: 0;
+    font-family: var(--font-serif);
+    font-size: clamp(1.6rem, 4vw, 2rem);
+    color: var(--text-primary);
   }
 
-  .item-detail {
+  .cv-section__header p {
+    margin: 8px 0 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .cv-timeline {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 20px;
+  }
+
+  .cv-timeline__item {
+    display: grid;
+    grid-template-columns: minmax(90px, auto) 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  .cv-timeline__year {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    padding-top: 6px;
+  }
+
+  .cv-timeline__content h3 {
+    margin: 0 0 6px;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+  }
+
+  .cv-timeline__content p {
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .cv-timeline__details {
     margin-top: 8px;
-    line-height: 1.6;
   }
 
-  .certifications {
+  .cv-cards {
     list-style: none;
+    margin: 0;
     padding: 0;
-    margin: 0;
-  }
-
-  .certifications li {
-    margin-bottom: 20px;
-    padding: 16px 0;
-    border-bottom: 1px solid rgba(31, 62, 70, 0.06);
-  }
-
-  .certifications li:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-  }
-
-  .certifications strong {
-    display: block;
-    font-family: var(--font-serif);
-    font-size: var(--text-body, 1rem);
-    font-weight: var(--font-semibold, 600);
-    color: var(--text-primary, #2C2C2C);
-    margin-bottom: 6px;
-  }
-
-  .certifications span {
-    display: block;
-    color: var(--text-secondary, #666666);
-    font-size: var(--text-xs, 0.875rem);
-    margin-bottom: 8px;
-  }
-
-  .cert-description {
-    margin: 0;
-    color: var(--text-secondary, #666666);
-    font-size: var(--text-sm, 0.9375rem);
-    line-height: 1.6;
-  }
-
-  .section-block {
-    margin-bottom: 32px;
-  }
-
-  .section-block:last-child {
-    margin-bottom: 0;
-  }
-
-  .subsection-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--text-primary, #1A1A1A);
-    margin: 0;
-  }
-
-  .section-grid {
     display: grid;
-    gap: 32px;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    margin-bottom: 32px;
+    gap: clamp(16px, 3vw, 24px);
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
 
-  .section-content {
+  .cv-card {
+    padding: 20px;
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(31, 62, 70, 0.08);
     display: grid;
-    gap: 32px;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
   }
 
-  @media (max-width: 900px) {
-    .cv-header {
-      grid-template-columns: 1fr;
-    }
-
-    .cv-summary-block {
-      order: 2;
-    }
+  .cv-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 36px rgba(18, 19, 16, 0.12);
   }
 
-  @media (max-width: 768px) {
-    .curriculo-container {
-      padding: 0 24px;
-    }
-
-    .cv-social {
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    .cv-social a {
-      width: 100%;
-    }
-
-    .section-title {
-      font-size: 20px;
-    }
-
-    .timeline-item {
-      flex-direction: column;
-      gap: 8px;
-    }
-  }
-  .item-year {
-    margin: 8px 0 0 0;
-    font-family: var(--font-sans);
-    font-size: 14px;
-    font-weight: var(--font-regular);
-    color: #999999;
-    line-height: 1.6;
-  }
-
-  /* Lists */
-  .item-list {
-    list-style: none;
-    padding: 0;
-    margin: 8px 0 0 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .item-list li {
-    font-family: var(--font-sans);
-    font-size: 16px;
-    font-weight: var(--font-regular);
-    color: #666666;
-    line-height: 1.6;
-    padding-left: 20px;
-    position: relative;
-  }
-
-  .item-list li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    color: #999999;
-  }
-
-  .item-list li strong {
-    font-weight: var(--font-semibold);
-    color: #1A1A1A;
-  }
-
-  /* Áreas List */
-  .areas-list {
-    list-style: none;
-    padding: 0;
+  .cv-card h3 {
     margin: 0;
-    display: flex;
-    flex-direction: column;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+  }
+
+  .cv-card__meta {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-tertiary);
+  }
+
+  .cv-card p {
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .cv-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
     gap: 12px;
   }
 
-  .areas-list li {
-    font-family: var(--font-sans);
-    font-size: 16px;
-    font-weight: var(--font-regular);
-    color: #2C2C2C;
+  .cv-list li {
+    position: relative;
+    padding-left: 20px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .cv-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--brand-primary);
+    opacity: 0.4;
+  }
+
+  .cv-grid {
+    display: grid;
+    gap: clamp(20px, 4vw, 32px);
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .cv-grid__column h3 {
+    margin: 0 0 12px;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+  }
+
+  .cv-grid__column ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+  }
+
+  .cv-grid__column li {
+    color: var(--text-secondary);
     line-height: 1.6;
-    padding-left: 24px;
+    padding-left: 18px;
     position: relative;
   }
 
-  .areas-list li::before {
-    content: '→';
+  .cv-grid__column li::before {
+    content: '';
     position: absolute;
-    left: 0;
-    color: #999999;
+    left: 4px;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(31, 62, 70, 0.25);
   }
 
-  /* Responsive - Mobile */
-  @media (max-width: 767px) {
-    .curriculo-page {
-      padding-top: 100px;
-      padding-bottom: 60px;
+  .cv-grid--dual {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+
+  @keyframes cv-portrait-drift {
+    0%, 100% {
+      transform: rotate(0deg) scale(1);
+    }
+    33% {
+      transform: rotate(1.4deg) scale(1.02);
+    }
+    66% {
+      transform: rotate(-1.2deg) scale(1.01);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .cv-hero {
+      text-align: center;
     }
 
-    .curriculo-container {
-      padding: 0 24px;
+    .cv-hero__role {
+      justify-content: center;
     }
 
-    .cv-header {
+    .cv-hero__actions {
+      justify-content: center;
+    }
+
+    .cv-hero__portrait {
+      max-width: clamp(240px, 60vw, 320px);
+    }
+
+    .cv-timeline__item {
       grid-template-columns: 1fr;
-      padding: clamp(20px, 5vw, 24px);
-    }
-
-    .cv-section {
-      margin-bottom: clamp(24px, 5vh, 32px);
-      padding: clamp(18px, 4vw, 22px);
-    }
-
-    .cv-summary-block {
-      font-size: 16px;
       gap: 12px;
     }
 
-    .section-grid,
-    .section-content {
-      gap: 24px;
+    .cv-timeline__year {
+      padding-top: 0;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .curriculo-page {
+      padding-block: 48px;
+      gap: 36px;
+    }
+
+    .cv-wrap {
+      width: min(100%, calc(100% - 24px));
+    }
+
+    .cv-hero {
+      padding: clamp(24px, 8vw, 32px);
+    }
+
+    .cv-hero__summary {
+      font-size: 1rem;
+    }
+
+    .cv-hero__actions {
+      flex-direction: column;
+    }
+
+    .cv-section {
+      padding: clamp(22px, 6vw, 28px);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .curriculo__halo {
-      animation: none !important;
+    .cv-hero,
+    .cv-section,
+    .cv-card,
+    .cv-hero__actions a {
+      transition: none !important;
     }
 
-    .cv-section,
-    .download-btn {
-      transition: none !important;
+    .cv-hero__portrait {
+      animation: none !important;
     }
   }
 </style>

@@ -1,4 +1,4 @@
-# CLAUDE.md - Dr. Gustavo Mendes Site
+# CLAUDE.md - Dr. Gustavo Mendes e Silva Site
 
 ## INFORMAÇÕES ESSENCIAIS DO PROJETO
 
@@ -91,7 +91,7 @@
 #### Seção 1 - Hero
 - "Você não precisa de mais diagnósticos."
 - "Você precisa se entender."
-- Dr. Gustavo Mendes
+- Dr. Gustavo Mendes e Silva
 - Psiquiatria · São José do Rio Preto
 
 #### Seção 2 - Manifesto
@@ -137,10 +137,8 @@
 - WhatsApp: (17) 2110-1228 ou (11) 94545-1146
 
 ### Páginas Separadas
-- `/blog` - Artigos conceituais
+- `/blog` - Artigos, projetos de pesquisa e obras editoriais
 - `/curriculo` - CV completo + PDF download
-- `/publicacoes` - Papers e trabalhos acadêmicos
-- `/recursos` - Guias e materiais (opcional)
 
 ---
 
@@ -177,7 +175,7 @@
 ## NAVEGAÇÃO
 
 ### Top Bar
-- Logo à esquerda: "Dr. Gustavo Mendes" (clicável, volta ao topo)
+- Logo à esquerda: "Dr. Gustavo Mendes e Silva" (clicável, volta ao topo)
 - Botão à direita: "Agendar" (sempre visível)
 - Estado inicial: transparente
 - Após scroll: backdrop-blur com background semi-transparente

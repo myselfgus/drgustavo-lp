@@ -5,26 +5,12 @@ const programs = [
   {
     id: 'professionals',
     label: 'Profissionais da saúde',
-    headline: 'Plantões pesados não podem ser tratados com planos genéricos.',
-    description:
-      'Consultas de 120 minutos com documentação narrativa pronta para dividir com equipe, sigilo absoluto e planos vivos que acompanham escalas, viagens e turnos irregulares.',
-    bullets: [
-      'Narrativa clínica organizada automaticamente após cada encontro',
-      'Integração com rede pública/privada e acompanhamento longitudinal',
-      'Valores diferenciados contínuos para colegas da saúde'
-    ]
+    headline: 'Cuidado para quem cuida.',
   },
   {
     id: 'students',
     label: 'Estudantes e residentes',
-    headline: 'A formação exige clareza emocional para seguir aprendendo.',
-    description:
-      'Suporte psiquiátrico longitudinal para conciliar provas, estágios e vida pessoal — com manejo medicamentoso criterioso, hábitos ajustados e tabelas acessíveis até o fim da graduação.',
-    bullets: [
-      'Monitoramento das oscilações durante ciclo de provas e plantões',
-      'Plano terapêutico integrado com estratégias de estudo e higiene do sono',
-      'Valores fixos durante todo o período acadêmico'
-    ]
+    headline: 'Apoio para a jornada acadêmica.',
   }
 ];
 ---
@@ -61,12 +47,6 @@ const programs = [
                 <span class="programas__slide-label">{program.label}</span>
                 <h3>{program.headline}</h3>
               </header>
-              <p>{program.description}</p>
-              <ul>
-                {program.bullets.map(item => (
-                  <li>{item}</li>
-                ))}
-              </ul>
               <button class="programas__cta" type="button" data-open-cal>
                 Solicitar agenda com condições especiais
               </button>
