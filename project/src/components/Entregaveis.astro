@@ -1,0 +1,59 @@
+---
+import '../styles/sections/entregaveis.css';
+
+const entregaveis = [
+  {
+    numero: '01',
+    titulo: 'Narrativa Fenomenológica',
+    descricao: 'Sua história contada em formato literário, com análise existencial profunda. Não é prontuário técnico — é você visto com clareza, sem julgamento. Pacientes relatam insights acelerados ao se reconhecerem no texto.',
+    link: {
+      texto: 'Ver exemplo de narrativa →',
+      url: '/narrativa-fenomenologica'
+    }
+  },
+  {
+    numero: '02',
+    titulo: 'Manual Personalizado',
+    descricao: 'Instruções de cada medicação adaptadas ao seu perfil: como usar, quando usar, o que observar de melhora e de efeitos colaterais. Com espaços para você marcar e acompanhar sua evolução.',
+    link: null
+  },
+  {
+    numero: '03',
+    titulo: 'Mapa de Alta',
+    descricao: 'Metas concretas construídas juntos desde a primeira consulta. Você saberá exatamente quando estará pronto para seguir sozinho. Eu costumo dizer: serei o último psiquiatra que você precisará.',
+    link: null
+  },
+  {
+    numero: '04',
+    titulo: 'Acompanhamento Intensivo',
+    descricao: 'Contato semanal nos primeiros meses para monitorar efeitos e fazer ajustes em tempo real. Retornos a cada 15-20 dias. Você não fica abandonado entre consultas.',
+    link: null
+  }
+];
+---
+
+<section id="entregaveis" class="entregaveis" aria-labelledby="entregaveis-title">
+  <div class="entregaveis__content container">
+    <header class="entregaveis__header">
+      <span class="entregaveis__eyebrow" data-animate="fade-right">O que você leva</span>
+      <h2 id="entregaveis-title" class="entregaveis__title" data-animate="fade-right">
+        Não é só a consulta. São ferramentas concretas para você construir autonomia.
+      </h2>
+    </header>
+
+    <div class="entregaveis__grid" data-stagger>
+      {entregaveis.map(item => (
+        <article class="entregavel">
+          <span class="entregavel__numero">{item.numero}</span>
+          <h3 class="entregavel__titulo">{item.titulo}</h3>
+          <p class="entregavel__descricao">{item.descricao}</p>
+          {item.link && (
+            <a href={item.link.url} class="entregavel__link">
+              {item.link.texto}
+            </a>
+          )}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
