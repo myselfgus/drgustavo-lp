@@ -143,6 +143,54 @@
   transform: none;
 }
 
+.para-quem__valor-titulo {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  line-height: 1.3;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0 0 0.5rem 0;
+}
+
+.para-quem__especificos {
+  max-width: 720px;
+  padding: clamp(24px, 4vw, 32px);
+  border-radius: var(--radius-xl);
+  background: rgba(14, 23, 21, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.para-quem__especificos h3 {
+  margin: 0 0 1.25rem 0;
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.para-quem__especificos ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.875rem;
+}
+
+.para-quem__especificos li {
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: var(--text-body);
+  line-height: var(--leading-relaxed);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.para-quem__especificos li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--brand-highlight);
+  font-weight: 600;
+}
+
 .para-quem__footnote {
   display: flex;
   flex-wrap: wrap;

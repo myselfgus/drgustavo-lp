@@ -87,6 +87,29 @@
   margin-inline: auto;
 }
 
+.credenciais__bio {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: clamp(24px, 4vw, 32px);
+  background: rgba(125, 168, 123, 0.04);
+  border: 1px solid rgba(125, 168, 123, 0.12);
+  border-radius: var(--radius-lg);
+  text-align: left;
+}
+
+.credenciais__bio p {
+  margin: 0 0 1rem 0;
+  font-size: var(--text-body);
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.credenciais__bio p:last-child {
+  margin-bottom: 0;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
 .credenciais__grid {
   display: grid;
   gap: clamp(16px, 3vw, 24px);

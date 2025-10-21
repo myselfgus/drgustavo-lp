@@ -43,13 +43,21 @@ const schema = {
       "@type": "Physician",
       "@id": "https://drgustavomendes.com/#physician",
       "name": "Dr. Gustavo Mendes e Silva",
-      "jobTitle": "Médico Psiquiatra",
-      "medicalSpecialty": "Psychiatry",
-      "hasCredential": {
-        "@type": "EducationalOccupationalCredential",
-        "credentialCategory": "Medical License",
-        "identifier": "CRM-SP 218133"
-      },
+      "jobTitle": "Médico Psiquiatra e Psicoterapeuta ACT",
+      "description": "Psiquiatra autista especializado em alta planejada, narrativa fenomenológica e ACT. Ex-CAPS com foco em autonomia do paciente.",
+      "medicalSpecialty": ["Psychiatry", "Acceptance and Commitment Therapy"],
+      "hasCredential": [
+        {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "Medical License",
+          "identifier": "CRM-SP 218133"
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          "credentialCategory": "Lived Experience",
+          "name": "Autista - experiência vivida que informa prática clínica"
+        }
+      ],
       "memberOf": [
         {
           "@type": "Organization",
@@ -60,17 +68,71 @@ const schema = {
           "name": "International Association for Cannabinoid Medicines"
         }
       ],
+      "availableService": [
+        {
+          "@type": "MedicalProcedure",
+          "name": "Primeira Consulta Psiquiátrica",
+          "description": "Consulta de 2 horas incluindo avaliação completa, narrativa fenomenológica da história do paciente, manual personalizado de medicações e mapa de alta planejada",
+          "procedureType": "Psychiatric Consultation",
+          "offers": {
+            "@type": "Offer",
+            "price": "900",
+            "priceCurrency": "BRL",
+            "availability": "https://schema.org/InStock"
+          }
+        },
+        {
+          "@type": "MedicalProcedure",
+          "name": "Consulta de Retorno",
+          "description": "Consulta de 60 minutos com acompanhamento quinzenal nos primeiros meses e contato semanal para ajustes",
+          "procedureType": "Follow-up Consultation",
+          "offers": {
+            "@type": "Offer",
+            "price": "500",
+            "priceCurrency": "BRL",
+            "availability": "https://schema.org/InStock"
+          }
+        },
+        {
+          "@type": "MedicalTherapy",
+          "name": "Psicoterapia ACT (12 sessões)",
+          "description": "Terapia de Aceitação e Compromisso com prazo definido de 12 semanas, focada em valores e ação comprometida",
+          "therapyType": "Acceptance and Commitment Therapy",
+          "offers": {
+            "@type": "Offer",
+            "price": "3000",
+            "priceCurrency": "BRL",
+            "availability": "https://schema.org/LimitedAvailability"
+          }
+        },
+        {
+          "@type": "MedicalProcedure",
+          "name": "Atendimento Domiciliar",
+          "description": "Atendimento em domicílio para crianças neurodivergentes, idosos e vítimas de violência. Binômio criança-cuidador.",
+          "procedureType": "Home Visit",
+          "offers": {
+            "@type": "Offer",
+            "price": "1000",
+            "priceCurrency": "BRL",
+            "availability": "https://schema.org/LimitedAvailability"
+          }
+        }
+      ],
       "knowsAbout": [
-        "Psychiatry",
+        "Phenomenological Narrative Therapy",
+        "Acceptance and Commitment Therapy (ACT)",
+        "Planned Discharge Psychiatry",
+        "Autism Spectrum Disorder (lived experience)",
         "ADHD",
-        "Autism Spectrum Disorder",
         "Anxiety Disorders",
         "Depression",
+        "Treatment-Resistant Depression",
         "Medical Cannabis",
-        "Palliative Care",
-        "Trauma",
-        "Grief",
-        "Insomnia"
+        "Home-based Psychiatric Care",
+        "Trauma-informed Care",
+        "Values-based Therapy",
+        "Neurodiversity",
+        "Palliative Care"
       ]
     },
     {
