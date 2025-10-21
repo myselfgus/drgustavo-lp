@@ -11,16 +11,16 @@
     "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^11.1.1",
-    "@astrojs/mdx": "^3.1.9",
-    "@astrojs/sitemap": "^3.2.1",
-    "astro": "^4.16.18"
+    "@astrojs/cloudflare": "^12.6.10",
+    "@astrojs/mdx": "^4.3.7",
+    "@astrojs/sitemap": "^3.6.0",
+    "astro": "^5.14.7"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.4",
-    "@cloudflare/workers-types": "^4.20241220.0",
-    "@types/node": "^22.10.2",
+    "@astrojs/check": "^0.9.5",
+    "@cloudflare/workers-types": "^4.20251014.0",
+    "@types/node": "^22.18.12",
     "typescript": "^5.9.3",
-    "wrangler": "^4.42.1"
+    "wrangler": "^4.43.0"
   }
 }

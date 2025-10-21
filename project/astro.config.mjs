@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://drgustavomendes.com',
-  output: 'hybrid',
+  output: 'server',
   adapter: cloudflare({
     platformProxy: {
       enabled: true,
