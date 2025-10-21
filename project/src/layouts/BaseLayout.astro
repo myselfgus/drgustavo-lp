@@ -4,9 +4,12 @@ import StructuredData from '../components/StructuredData.astro';
 import Header from '../components/Header.astro';
 import SideDots from '../components/SideDots.astro';
 import CalEmbed from '../components/CalEmbed.astro';
+import ChatWidget from '../components/ChatWidget.astro';
 import '../styles/global.css';
 import '../styles/variables.css';
 import '../styles/animations.css';
+import '../styles/micro-interactions.css';
+import '../styles/mobile-optimizations.css';
 
 export interface Props {
   title?: string;
@@ -62,6 +65,7 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
 
     <elevenlabs-convai agent-id="agent_4301k53hd1fke37983rze0nvdct4"></elevenlabs-convai>
     <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+    <ChatWidget />
     <CalEmbed />
 
     <script is:inline>
@@ -169,6 +173,70 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
       if (prefersReducedMotion.matches) {
         document.documentElement.classList.add('reduced-motion');
+      }
+    </script>
+
+    <script>
+      // Parallax sutil e lazy loading de imagens
+      if (typeof window !== 'undefined' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        // Parallax em backgrounds
+        let ticking = false;
+        const parallaxElements = document.querySelectorAll('.hero__background, .manifesto__backdrop');
+
+        function updateParallax() {
+          const scrolled = window.scrollY;
+          parallaxElements.forEach((el) => {
+            const speed = 0.5; // Velocidade do parallax (menor = mais sutil)
+            const offset = scrolled * speed;
+            (el as HTMLElement).style.transform = `translateY(${offset}px)`;
+          });
+          ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+          if (!ticking) {
+            window.requestAnimationFrame(updateParallax);
+            ticking = true;
+          }
+        }, { passive: true });
+
+        // Lazy loading de imagens
+        const imageObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const img = entry.target;
+                img.classList.add('loaded');
+                imageObserver.unobserve(img);
+              }
+            });
+          },
+          { rootMargin: '50px' }
+        );
+
+        document.querySelectorAll('img[loading="lazy"]').forEach((img) => {
+          imageObserver.observe(img);
+        });
+
+        // Reading progress bar (apenas em blog posts)
+        if (document.querySelector('article.blog-post')) {
+          const progressBar = document.createElement('div');
+          progressBar.className = 'reading-progress';
+          document.body.appendChild(progressBar);
+
+          window.addEventListener('scroll', () => {
+            const article = document.querySelector('article.blog-post') as HTMLElement;
+            if (!article) return;
+
+            const articleTop = article.offsetTop;
+            const articleHeight = article.offsetHeight;
+            const windowHeight = window.innerHeight;
+            const scrolled = window.scrollY - articleTop + windowHeight;
+            const progress = Math.min(Math.max(scrolled / articleHeight, 0), 1);
+
+            progressBar.style.transform = `scaleX(${progress})`;
+          }, { passive: true });
+        }
       }
     </script>
 
