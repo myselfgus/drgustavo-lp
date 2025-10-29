@@ -43,7 +43,6 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           workingDirectory: ./project
           command: deploy
-          wranglerVersion: '4.42.1'
 
       - name: Deployment summary
         run: |
