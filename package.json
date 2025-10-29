@@ -1,0 +1,11 @@
+{
+  "name": "drgustavo-lp-root",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "cd project && npm install && npm run build",
+    "dev": "cd project && npm run dev",
+    "deploy": "cd project && npm run deploy"
+  },
+  "description": "Root package.json that delegates to project/ directory"
+}
