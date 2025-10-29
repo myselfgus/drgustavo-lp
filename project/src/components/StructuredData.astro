@@ -24,7 +24,7 @@ const schema = {
         "longitude": "-49.3823"
       },
       "medicalSpecialty": "Psychiatry",
-      "telephone": ["+55-17-2110-1228", "+55-11-94545-1146"],
+      "telephone": "+55-17-2110-1228",
       "priceRange": "$$",
       "location": {
         "@type": "Place",
@@ -44,7 +44,7 @@ const schema = {
       "@id": "https://drgustavomendes.com/#physician",
       "name": "Dr. Gustavo Mendes e Silva",
       "jobTitle": "Médico Psiquiatra e Psicoterapeuta ACT",
-      "description": "Psiquiatra autista especializado em alta planejada, narrativa fenomenológica e ACT. Ex-CAPS com foco em autonomia do paciente.",
+      "description": "Psiquiatra com vivência autista especializado em alta planejada, narrativa fenomenológica e ACT. Ex-CAPS com foco em autonomia do paciente.",
       "medicalSpecialty": ["Psychiatry", "Acceptance and Commitment Therapy"],
       "hasCredential": [
         {
@@ -55,7 +55,7 @@ const schema = {
         {
           "@type": "EducationalOccupationalCredential",
           "credentialCategory": "Lived Experience",
-          "name": "Autista - experiência vivida que informa prática clínica"
+          "name": "Vivência autista - experiência vivida que informa prática clínica"
         }
       ],
       "memberOf": [
@@ -72,57 +72,33 @@ const schema = {
         {
           "@type": "MedicalProcedure",
           "name": "Primeira Consulta Psiquiátrica",
-          "description": "Consulta de 2 horas incluindo avaliação completa, narrativa fenomenológica da história do paciente, manual personalizado de medicações e mapa de alta planejada",
-          "procedureType": "Psychiatric Consultation",
-          "offers": {
-            "@type": "Offer",
-            "price": "900",
-            "priceCurrency": "BRL",
-            "availability": "https://schema.org/InStock"
-          }
+          "description": "Consulta de 2 horas incluindo avaliação completa, narrativa fenomenológica da história do paciente construída em formato literário, manual personalizado de medicações e mapa de alta planejada com metas concretas",
+          "procedureType": "Psychiatric Consultation"
         },
         {
           "@type": "MedicalProcedure",
           "name": "Consulta de Retorno",
-          "description": "Consulta de 60 minutos com acompanhamento quinzenal nos primeiros meses e contato semanal para ajustes",
-          "procedureType": "Follow-up Consultation",
-          "offers": {
-            "@type": "Offer",
-            "price": "500",
-            "priceCurrency": "BRL",
-            "availability": "https://schema.org/InStock"
-          }
+          "description": "Consulta de 60 minutos com acompanhamento quinzenal nos primeiros meses e contato semanal para ajustes e acompanhamento do plano terapêutico",
+          "procedureType": "Follow-up Consultation"
         },
         {
           "@type": "MedicalTherapy",
-          "name": "Psicoterapia ACT (12 sessões)",
-          "description": "Terapia de Aceitação e Compromisso com prazo definido de 12 semanas, focada em valores e ação comprometida",
-          "therapyType": "Acceptance and Commitment Therapy",
-          "offers": {
-            "@type": "Offer",
-            "price": "3000",
-            "priceCurrency": "BRL",
-            "availability": "https://schema.org/LimitedAvailability"
-          }
+          "name": "Psicoterapia Narrativa ACT",
+          "description": "Psicoterapia de Aceitação e Compromisso com abordagem narrativa, prazo definido de 12 semanas, focada em valores, ação comprometida e construção da narrativa da sua história",
+          "therapyType": "Acceptance and Commitment Therapy"
         },
         {
           "@type": "MedicalProcedure",
           "name": "Atendimento Domiciliar",
-          "description": "Atendimento em domicílio para crianças neurodivergentes, idosos e vítimas de violência. Binômio criança-cuidador.",
-          "procedureType": "Home Visit",
-          "offers": {
-            "@type": "Offer",
-            "price": "1000",
-            "priceCurrency": "BRL",
-            "availability": "https://schema.org/LimitedAvailability"
-          }
+          "description": "Atendimento em domicílio para crianças neurodivergentes, idosos e vítimas de violência. Abordagem do binômio criança-cuidador com foco em autonomia",
+          "procedureType": "Home Visit"
         }
       ],
       "knowsAbout": [
         "Phenomenological Narrative Therapy",
         "Acceptance and Commitment Therapy (ACT)",
         "Planned Discharge Psychiatry",
-        "Autism Spectrum Disorder (lived experience)",
+        "Neurodiversity (lived autistic experience)",
         "ADHD",
         "Anxiety Disorders",
         "Depression",

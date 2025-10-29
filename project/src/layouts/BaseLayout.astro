@@ -2,7 +2,6 @@
 import SEO from '../components/SEO.astro';
 import StructuredData from '../components/StructuredData.astro';
 import MetaPixel from '../components/MetaPixel.astro';
-import CalEmbed from '../components/CalEmbed.astro';
 import Header from '../components/Header.astro';
 import SideDots from '../components/SideDots.astro';
 import '../styles/global.css';
@@ -18,7 +17,7 @@ export interface Props {
 
 const {
   title = 'Dr. Gustavo Mendes e Silva | Psiquiatria com desfecho planejado',
-  description = 'Psiquiatra autista em São José do Rio Preto. Consultas de 2h com narrativa fenomenológica da sua história, manual personalizado e alta planejada. ACT focada em valores. Atendimento domiciliar para crianças neurodivergentes. Você não precisará mais de mim.',
+  description = 'Psiquiatra com perspectiva neurodivergente em São José do Rio Preto. Consultas de 2h com narrativa fenomenológica da sua história, manual personalizado e alta planejada. ACT focada em valores. Atendimento domiciliar para crianças neurodivergentes. Você não precisará mais de mim.',
   ogImage = '/images/og-default.jpg',
   showDots = true
 } = Astro.props;
@@ -67,9 +66,6 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
     <!-- Smart Analytics - Agente IA -->
     <script src="/src/scripts/smart-analytics.js"></script>
 
-    <elevenlabs-convai agent-id="agent_4301k53hd1fke37983rze0nvdct4"></elevenlabs-convai>
-    <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
-    <CalEmbed />
     <script is:inline>
       const observers = [];
 

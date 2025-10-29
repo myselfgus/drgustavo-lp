@@ -110,9 +110,7 @@ REGRAS:
 5. Seja criterioso - não polua o banco com clicks acidentais
 
 VALORES DE CONVERSÃO:
-- Agendamento (Schedule): R$ 800
-- Contato WhatsApp (Contact): R$ 400
-- Lead genérico: R$ 300
+Use valores estimados baseados no tipo de conversão, sem especificar preços públicos.
 
 Decida autonomamente as ações necessárias.`
             },
@@ -231,7 +229,7 @@ Score 0-10 (apenas número):`
                   },
                   custom_data: {
                     currency: 'BRL',
-                    value: args.value || 500,
+                    value: args.value || 0,
                     lead_quality_score: args.lead_score || 7
                   }
                 }],
