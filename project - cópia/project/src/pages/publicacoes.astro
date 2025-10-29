@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Publicações Científicas - Dr. Gustavo Mendes | Psiquiatria"
+  description="Artigos científicos, capítulos de livros e apresentações em congressos do Dr. Gustavo Mendes sobre psiquiatria, neurodiversidade e canabidiol medicinal."
+>
+  <main class="publicacoes-page">
+    <div class="publicacoes-container">
+      <h1 class="page-title">Publicações Científicas</h1>
+
+      <!-- Estado: Sem publicações ainda (placeholder elegante) -->
+      <div class="placeholder-content">
+        <p class="placeholder-text">Trabalhos em desenvolvimento.</p>
+        <p class="placeholder-description">
+          Atualmente estou focado em compartilhar conhecimento através do blog,
+          onde publico artigos sobre psiquiatria, neurodiversidade e abordagens
+          inovadoras em saúde mental.
+        </p>
+        <a href="/blog" class="blog-link">Ler artigos do blog →</a>
+        <p class="placeholder-note">
+          Esta página será atualizada conforme novos trabalhos científicos forem publicados.
+        </p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .publicacoes-page {
+    min-height: 100vh;
+    background-color: #FFFFFF;
+    padding-top: 120px;
+    padding-bottom: 80px;
+  }
+
+  .publicacoes-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .page-title {
+    margin: 0 0 64px 0;
+    font-family: var(--font-sans);
+    font-size: clamp(28px, 3vw, 36px);
+    font-weight: var(--font-light);
+    color: #1A1A1A;
+    line-height: 1.2;
+  }
+
+  /* Placeholder State */
+  .placeholder-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px 0;
+  }
+
+  .placeholder-text {
+    margin: 0 0 24px 0;
+    font-family: var(--font-sans);
+    font-size: 20px;
+    font-weight: var(--font-medium);
+    color: #1A1A1A;
+    line-height: 1.5;
+  }
+
+  .placeholder-description {
+    margin: 0 0 32px 0;
+    font-family: var(--font-sans);
+    font-size: 17px;
+    font-weight: var(--font-regular);
+    color: #666666;
+    line-height: 1.7;
+  }
+
+  .blog-link {
+    display: inline-block;
+    margin-bottom: 32px;
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: var(--font-medium);
+    color: #1A1A1A;
+    text-decoration: none;
+    padding: 12px 32px;
+    border: 1px solid #1A1A1A;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+
+  .blog-link:hover {
+    background: #1A1A1A;
+    color: #FFFFFF;
+  }
+
+  .placeholder-note {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: var(--font-regular);
+    color: #999999;
+    line-height: 1.6;
+  }
+
+  /* Responsive - Mobile */
+  @media (max-width: 767px) {
+    .publicacoes-page {
+      padding-top: 100px;
+      padding-bottom: 60px;
+    }
+
+    .publicacoes-container {
+      padding: 0 24px;
+    }
+
+    .placeholder-content {
+      padding: 20px 0;
+    }
+  }
+</style>

@@ -84,7 +84,39 @@ const isActive = (href: string) => {
     const nav = header.querySelector<HTMLElement>('.site-header__nav');
     const navToggle = header.querySelector<HTMLButtonElement>('[data-nav-toggle]');
     const navLinks = Array.from(header.querySelectorAll('.site-header__nav-link')) as HTMLAnchorElement[];
+    const scheduleButton = header.querySelector<HTMLButtonElement>('.site-header__cta');
     const SCROLL_OFFSET = 140;
+
+    // Track schedule button click - Agente IA decide
+    if (scheduleButton) {
+      scheduleButton.addEventListener('click', async () => {
+        // @ts-ignore - fbq is loaded by Meta Pixel
+        if (typeof window.fbq === 'function') {
+          window.fbq('track', 'Lead', {
+            content_name: 'Schedule Appointment - Header',
+            content_category: 'appointment'
+          });
+        }
+
+        // Agente server-side (LLM decide qualidade)
+        try {
+          await fetch('/api/conversion', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              event_type: 'schedule_click',
+              event_data: {
+                location: 'header',
+                button_text: 'Agendar',
+                session_id: sessionStorage.getItem('session_id') || 'unknown'
+              }
+            })
+          });
+        } catch (e) {
+          console.log('Conversion tracking failed:', e);
+        }
+      });
+    }
     let lastScrollY = window.scrollY;
     let ticking = false;
 

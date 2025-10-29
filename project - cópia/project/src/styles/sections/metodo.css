@@ -1,0 +1,224 @@
+.metodo {
+  background: linear-gradient(160deg, #f6f2ea 0%, #ffffff 52%, #eef4f2 100%);
+  overflow: hidden;
+}
+
+.metodo__content {
+  position: relative;
+  display: grid;
+  gap: clamp(28px, 6vh, 48px);
+  align-content: center;
+  min-height: 100%;
+  padding-block: clamp(64px, 18vh, 112px);
+}
+
+.metodo__header {
+  display: grid;
+  gap: clamp(16px, 3vh, 28px);
+  max-width: 720px;
+}
+
+.metodo__eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.metodo__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: var(--text-title-lg);
+  line-height: 1.18;
+  text-wrap: balance;
+}
+
+.metodo__lead {
+  margin: 0;
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  max-width: 58ch;
+}
+
+.metodo__timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(18px, 3vw, 28px);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.metodo__step {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-sm);
+  align-items: start;
+  padding: clamp(20px, 3vw, 26px);
+  border-radius: var(--radius-xl);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(31, 62, 70, 0.08);
+  box-shadow: 0 20px 40px rgba(18, 19, 16, 0.08);
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity var(--duration-slow) var(--ease-smooth),
+    transform var(--duration-slow) var(--ease-smooth),
+    box-shadow var(--transition-fast);
+  transition-delay: var(--stagger-delay, 0ms);
+}
+
+.metodo__step.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.metodo__step::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+}
+
+.metodo__marker {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, rgba(31, 62, 70, 0.9), rgba(31, 62, 70, 0.65));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  box-shadow: 0 18px 32px rgba(31, 62, 70, 0.25);
+}
+
+.metodo__marker::after {
+  content: '';
+  position: absolute;
+  inset: -18px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(31, 62, 70, 0.18);
+  opacity: 0.4;
+}
+
+.metodo__body {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.metodo__body h3 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: var(--text-title-md);
+  color: var(--text-primary);
+}
+
+.metodo__body p {
+  margin: 0;
+  font-size: var(--text-body);
+  line-height: var(--leading-relaxed);
+  color: var(--text-secondary);
+}
+
+.metodo__badge {
+  justify-self: flex-start;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brand-primary);
+  background: rgba(125, 168, 123, 0.16);
+  border: 1px solid rgba(125, 168, 123, 0.24);
+}
+
+.metodo__step:hover {
+  box-shadow: 0 26px 54px rgba(18, 19, 16, 0.12);
+  transform: translateY(-4px);
+}
+
+@media (max-width: 767px) {
+  .metodo__content {
+    padding-block: clamp(48px, 16vh, 84px);
+    gap: clamp(20px, 5vh, 40px);
+  }
+
+  .metodo__header {
+    gap: clamp(12px, 2.5vh, 24px);
+  }
+
+  .metodo__eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+  }
+
+  .metodo__title {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+
+  .metodo__lead {
+    font-size: clamp(0.9rem, 2vw, 1.05rem);
+  }
+
+  .metodo__timeline {
+    grid-template-columns: 1fr;
+    gap: clamp(14px, 3vh, 24px);
+  }
+
+  .metodo__step {
+    padding: clamp(16px, 4vw, 22px);
+    gap: clamp(12px, 2.5vw, 16px);
+  }
+
+  .metodo__marker {
+    width: 42px;
+    height: 42px;
+    font-size: 0.7rem;
+    letter-spacing: 0.24em;
+  }
+
+  .metodo__marker::after {
+    inset: -14px;
+  }
+
+  .metodo__body {
+    gap: clamp(8px, 1.5vw, 10px);
+  }
+
+  .metodo__body h3 {
+    font-size: clamp(1.2rem, 3.5vw, 1.6rem);
+  }
+
+  .metodo__body p {
+    font-size: clamp(0.9rem, 2vw, 1.05rem);
+    line-height: 1.5;
+  }
+
+  .metodo__badge {
+    padding: 5px 12px;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+  }
+
+  .metodo__step:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .metodo__step {
+    transition: none;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

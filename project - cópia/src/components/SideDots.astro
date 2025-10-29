@@ -1,0 +1,71 @@
+---
+import '../styles/components/side-dots.css';
+
+const sections = [
+  { id: 'hero', label: 'Início' },
+  { id: 'manifesto', label: 'Manifesto' },
+  { id: 'depoimentos', label: 'Depoimentos' },
+  { id: 'para-quem', label: 'Para Quem' },
+  { id: 'metodo', label: 'Método' },
+  { id: 'credenciais', label: 'Credenciais' },
+  { id: 'contato', label: 'Contato' }
+];
+---
+
+<nav class="side-dots" aria-label="Navegação entre seções">
+  {sections.map((section) => (
+    <button class="side-dots__item" data-section={section.id} aria-label={`Ir para ${section.label}`}>
+      <span class="side-dots__bullet"></span>
+      <span class="side-dots__label">{section.label}</span>
+    </button>
+  ))}
+</nav>
+
+<div class="side-progress" aria-hidden="true">
+  <div class="side-progress__bar"></div>
+</div>
+
+<script>
+  const navDots = document.querySelectorAll<HTMLButtonElement>('.side-dots__item');
+  const sectionsEls = Array.from(document.querySelectorAll<HTMLElement>('section[id]'));
+  const progressBar = document.querySelector<HTMLElement>('.side-progress__bar');
+
+  navDots.forEach((dot) => {
+    dot.addEventListener('click', () => {
+      const targetId = dot.dataset.section;
+      if (!targetId) return;
+      const target = document.getElementById(targetId);
+      target?.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const { id } = entry.target as HTMLElement;
+        navDots.forEach((dot) => {
+          dot.classList.toggle('side-dots__item--active', dot.dataset.section === id);
+        });
+      });
+    },
+    {
+      threshold: 0.5,
+      rootMargin: '0px 0px -40% 0px'
+    }
+  );
+
+  sectionsEls.forEach((section) => observer.observe(section));
+
+  const updateProgress = () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const ratio = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+    if (progressBar) {
+      progressBar.style.setProperty('--progress', `${ratio}`);
+    }
+  };
+
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+</script>

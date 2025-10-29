@@ -1,0 +1,15 @@
+---
+// Artigo individual
+import BlogLayout from '../../layouts/BlogLayout.astro';
+
+export async function getStaticPaths() {
+  return [];
+}
+
+const { slug } = Astro.params;
+---
+
+<BlogLayout>
+  <h1>{slug}</h1>
+  <!-- Artigo será implementado -->
+</BlogLayout>

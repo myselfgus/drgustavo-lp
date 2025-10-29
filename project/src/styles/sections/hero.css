@@ -13,6 +13,34 @@
   z-index: -1;
 }
 
+/* Subtle photo layers in background */
+.hero__photo-ambient {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  animation: hero-photo-breathe 16s ease-in-out infinite;
+}
+
+.hero__photo-ambient--1 {
+  background:
+    linear-gradient(160deg, rgba(245, 242, 235, 0.92), rgba(238, 245, 243, 0.65)),
+    url('/images/clinic/interior-02.jpg');
+  background-size: cover;
+  background-position: center 40%;
+  filter: blur(60px) saturate(0.7);
+  animation-delay: 0s;
+}
+
+.hero__photo-ambient--2 {
+  background:
+    linear-gradient(200deg, rgba(238, 245, 243, 0.88), rgba(255, 255, 255, 0.75)),
+    url('/images/clinic/interior-01.jpg');
+  background-size: cover;
+  background-position: center 60%;
+  filter: blur(70px) saturate(0.6);
+  animation-delay: 8s;
+}
+
 .hero__halo {
   position: absolute;
   border-radius: 50%;
@@ -231,7 +259,7 @@
   display: block;
   object-fit: cover;
   object-position: 50% 42%;
-  filter: saturate(110%);
+  filter: saturate(100%);
 }
 
 .hero__ring {
@@ -405,6 +433,7 @@
 
   .hero__grid {
     display: grid;
+    grid-template-columns: 1fr;
     gap: clamp(20px, 6vh, 36px);
   }
 
@@ -473,12 +502,25 @@
   }
 }
 
+/* ===== KEYFRAMES ===== */
+@keyframes hero-photo-breathe {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.18;
+    transform: scale(1.02);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero__halo,
   .hero__mesh,
   .hero__frame,
   .hero__portrait,
-  .hero__ring {
+  .hero__ring,
+  .hero__photo-ambient {
     animation: none !important;
   }
 

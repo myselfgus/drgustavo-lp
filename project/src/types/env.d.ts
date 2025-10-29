@@ -54,3 +54,9 @@ declare module 'astro:content' {
     }>;
   }
 }
+
+// Meta Pixel (Facebook Pixel) Types
+interface Window {
+  fbq: (command: string, ...args: any[]) => void;
+  _fbq: any;
+}

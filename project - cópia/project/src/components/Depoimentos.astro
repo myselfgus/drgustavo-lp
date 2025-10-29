@@ -1,0 +1,58 @@
+---
+import '../styles/sections/depoimentos.css';
+
+const depoimentos = [
+  {
+    texto: '“Ele traduziu meu padrão de pensamento em um plano que finalmente fez sentido para mim e para minha família.”',
+    autor: 'Paciente acompanhado desde 2023'
+  },
+  {
+    texto: '“Consultas longas, informes claros e ajustes em tempo real. Senti pela primeira vez que eu comandava o processo.”',
+    autor: 'Profissional de tecnologia, 34 anos'
+  },
+  {
+    texto: '“Tive acompanhamento responsável com canabidiol, com ciência e sem promessas fáceis.”',
+    autor: 'Paciente com dor crônica, 52 anos'
+  }
+];
+---
+
+<section id="depoimentos" class="depoimentos" aria-labelledby="depoimentos-title">
+  <div class="depoimentos__content container">
+    <span class="depoimentos__eyebrow" data-animate="fade-right">Quem vive o processo</span>
+    <h2 id="depoimentos-title" class="depoimentos__title" data-animate="fade-right">Depoimentos selecionados</h2>
+
+    <div class="depoimentos__grid" data-stagger>
+      {depoimentos.map((item) => (
+        <figure class="depoimentos__card">
+          <blockquote>{item.texto}</blockquote>
+          <figcaption>{item.autor}</figcaption>
+        </figure>
+      ))}
+    </div>
+
+    <button
+      class="depoimentos__next"
+      type="button"
+      data-scroll-target="para-quem"
+      aria-label="Ir para a próxima seção"
+      data-animate="fade-up"
+    >
+      Para quem desenhamos este cuidado ↓
+    </button>
+  </div>
+</section>
+
+<script>
+  const depoimentosSection = document.getElementById('depoimentos');
+  if (depoimentosSection) {
+    const nextButton = depoimentosSection.querySelector('[data-scroll-target]');
+    if (nextButton) {
+      const targetId = nextButton.getAttribute('data-scroll-target');
+      nextButton.addEventListener('click', () => {
+        if (!targetId) return;
+        document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+  }
+</script>

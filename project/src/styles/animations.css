@@ -302,3 +302,113 @@
 .link-underline:hover::after {
   width: 100%;
 }
+
+/* ===== ENHANCED IMAGE EFFECTS ===== */
+
+/* Smooth image reveal on load */
+img {
+  transition: opacity var(--duration-normal) var(--ease-smooth);
+}
+
+/* Images are visible by default - browser handles lazy loading */
+img[loading="lazy"] {
+  opacity: 1;
+}
+
+/* Enhanced hover effects for cards and figures */
+.card-hover,
+figure {
+  transition:
+    transform var(--duration-normal) var(--ease-smooth),
+    box-shadow var(--duration-normal) var(--ease-smooth);
+}
+
+.card-hover:hover,
+figure:hover {
+  transform: translateY(-2px);
+}
+
+/* Smooth backdrop blur transitions */
+.backdrop-blur-animate {
+  transition: backdrop-filter var(--duration-normal) var(--ease-smooth);
+}
+
+/* Ambient background animations */
+@keyframes ambient-float {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(2%, -3%, 0) rotate(1deg);
+  }
+  66% {
+    transform: translate3d(-3%, 2%, 0) rotate(-1deg);
+  }
+}
+
+@keyframes ambient-pulse {
+  0%, 100% {
+    opacity: 0.08;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.15;
+    transform: scale(1.05);
+  }
+}
+
+/* Smooth scroll snap */
+@supports (scroll-behavior: smooth) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Enhanced focus states */
+*:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 3px;
+  transition: outline-offset var(--duration-fast) ease;
+}
+
+/* Micro-interactions for buttons */
+button,
+[role="button"] {
+  transition:
+    transform var(--duration-fast) ease,
+    background-color var(--duration-fast) ease,
+    color var(--duration-fast) ease,
+    box-shadow var(--duration-fast) ease;
+}
+
+button:active,
+[role="button"]:active {
+  transform: scale(0.98);
+}
+
+/* Stagger animation utility (use with JS) */
+.stagger-item {
+  animation: fadeInUp var(--duration-slow) var(--ease-smooth) both;
+}
+
+.stagger-item:nth-child(1) { animation-delay: 0ms; }
+.stagger-item:nth-child(2) { animation-delay: 100ms; }
+.stagger-item:nth-child(3) { animation-delay: 200ms; }
+.stagger-item:nth-child(4) { animation-delay: 300ms; }
+.stagger-item:nth-child(5) { animation-delay: 400ms; }
+.stagger-item:nth-child(6) { animation-delay: 500ms; }
+.stagger-item:nth-child(7) { animation-delay: 600ms; }
+.stagger-item:nth-child(8) { animation-delay: 700ms; }
+
+/* Performance optimizations */
+.gpu-accelerated {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Remove will-change after animation */
+[data-animate].is-visible,
+[data-stagger] > *.is-visible {
+  will-change: auto;
+}

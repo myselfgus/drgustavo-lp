@@ -1,0 +1,65 @@
+---
+import '../styles/sections/credenciais.css';
+---
+
+<section id="credenciais" class="credenciais" aria-labelledby="credenciais-title">
+  <div class="credenciais__content container">
+    <div class="credenciais__header">
+      <h2 id="credenciais-title" class="credenciais__title">Dr. Gustavo Mendes · CRM-SP 218133</h2>
+      <p class="credenciais__subtitle">Psiquiatra com atuação em CAPS, emergências psiquiátricas e casos complexos ligados à neurodiversidade.</p>
+      <div class="credenciais__links">
+        <a href="https://www.cremesp.org.br/?siteAcao=BuscaMedicos&crm=218133" target="_blank" rel="noopener">Validar CRM →</a>
+        <a href="/curriculo">Ver currículo completo →</a>
+        <a href="/publicacoes">Publicações científicas →</a>
+      </div>
+    </div>
+
+    <div class="credenciais__columns">
+      <div class="credenciais__column">
+        <h3>Médico psiquiatra</h3>
+        <a
+          class="credenciais__crm"
+          href="https://www.cremesp.org.br/?siteAcao=BuscaMedicos&crm=218133"
+          target="_blank"
+          rel="noopener"
+        >
+          CRM-SP 218133
+        </a>
+
+        <h4>Certificações</h4>
+        <ul>
+          <li>Society of Cannabis Clinicians (SCC)</li>
+          <li>International Association for Cannabinoid Medicines (IACM)</li>
+        </ul>
+      </div>
+
+      <div class="credenciais__column">
+        <h4>Experiência</h4>
+        <p>CAPS, emergências psiquiátricas, casos complexos.</p>
+
+        <h4>Áreas de atuação</h4>
+        <p class="credenciais__areas">
+          TDAH · Autismo (TEA) · Ansiedade · Depressão · Canabidiol medicinal · Cuidados paliativos · Traumas · Luto · Insônia
+        </p>
+      </div>
+    </div>
+
+    <button class="credenciais__next" type="button" data-scroll-target="contato" aria-label="Ir para a próxima seção">
+      Agendar consulta ↓
+    </button>
+  </div>
+</section>
+
+<script>
+  const credenciaisSection = document.getElementById('credenciais');
+  if (credenciaisSection) {
+    const nextButton = credenciaisSection.querySelector<HTMLButtonElement>('[data-scroll-target]');
+    if (nextButton) {
+      const targetId = nextButton.dataset.scrollTarget;
+      nextButton.addEventListener('click', () => {
+        if (!targetId) return;
+        document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+  }
+</script>

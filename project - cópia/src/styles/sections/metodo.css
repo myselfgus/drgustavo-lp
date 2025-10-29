@@ -1,0 +1,104 @@
+.metodo {
+  background: linear-gradient(160deg, #f6f2ea 0%, #ffffff 48%, #eef4f2 100%);
+  overflow: hidden;
+}
+
+.metodo__content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 5vh, 32px);
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 100%;
+  padding-block: clamp(48px, 16vh, 88px);
+}
+
+.metodo__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: var(--text-title-lg);
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.metodo__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(16px, 2.8vw, 24px);
+  max-width: 72ch;
+}
+
+.metodo__item {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: flex-start;
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  padding: clamp(16px, 2vw, 22px);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(31, 62, 70, 0.08);
+  box-shadow: 0 16px 28px rgba(18, 19, 16, 0.05);
+  transition: transform var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.metodo__item strong {
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+}
+
+.metodo__arrow {
+  font-size: 1.1rem;
+  color: var(--brand-primary);
+  margin-top: 2px;
+  transition: transform var(--transition-fast);
+}
+
+.metodo__item:hover {
+  color: var(--text-primary);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 36px rgba(18, 19, 16, 0.08);
+}
+
+.metodo__item:hover .metodo__arrow {
+  transform: translateX(4px);
+}
+
+@supports (animation-timeline: view()) {
+  .metodo__item[data-item] {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: metodo-fade 1ms ease;
+    animation-timeline: view(block);
+    animation-range: entry 5% cover 40%;
+    animation-fill-mode: forwards;
+  }
+}
+
+@keyframes metodo-fade {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .metodo__item[data-item] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+@media (min-width: 900px) {
+  .metodo__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

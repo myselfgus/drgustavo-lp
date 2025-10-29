@@ -1,0 +1,154 @@
+.contato {
+  background: var(--bg-secondary);
+}
+
+.contato__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-stack-md);
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  min-height: 100%;
+}
+
+.contato__content h2 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: var(--text-title-lg);
+  line-height: 1.2;
+}
+
+.contato__details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(16px, 4vw, 32px);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+.contato__location {
+  margin: 0;
+  font-weight: var(--font-medium);
+  color: var(--text-primary);
+}
+
+.contato__info,
+.contato__duration {
+  margin: 4px 0 0;
+}
+
+.contato__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+.contato__cta {
+  appearance: none;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(31, 62, 70, 0.18);
+  background: rgba(255, 255, 255, 0.85);
+  padding: 14px 32px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: transform var(--transition-fast), background var(--transition-fast);
+}
+
+.contato__cta:hover {
+  transform: translateY(-1px);
+  background: rgba(31, 62, 70, 0.08);
+}
+
+.contato__whatsapp {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.contato__whatsapp:hover {
+  color: var(--text-primary);
+}
+
+.contato__footer {
+  margin-top: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  color: var(--text-tertiary);
+  font-size: var(--text-xs);
+}
+
+.contato__footer nav {
+  display: flex;
+  gap: var(--space-xs);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.contato__footer a {
+  color: inherit;
+}
+
+@media (max-width: 767px) {
+  .contato__content {
+    gap: clamp(20px, 5vh, 36px);
+    padding-inline: var(--padding-mobile);
+  }
+
+  .contato__content h2 {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+
+  .contato__details {
+    gap: clamp(12px, 3vw, 24px);
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    flex-direction: column;
+  }
+
+  .contato__location {
+    font-size: clamp(0.9rem, 2vw, 1.05rem);
+  }
+
+  .contato__info,
+  .contato__duration {
+    font-size: clamp(0.85rem, 2vw, 1rem);
+  }
+
+  .contato__actions {
+    gap: clamp(12px, 3vw, 16px);
+    width: 100%;
+  }
+
+  .contato__cta {
+    width: 100%;
+    max-width: 100%;
+    padding: 12px 28px;
+    font-size: clamp(0.9rem, 2vw, 1.05rem);
+  }
+
+  .contato__whatsapp {
+    font-size: clamp(0.85rem, 2vw, 1rem);
+  }
+
+  .contato__footer {
+    margin-top: clamp(24px, 5vh, 40px);
+    gap: var(--space-sm);
+    font-size: 0.7rem;
+  }
+
+  .contato__footer nav {
+    gap: var(--space-sm);
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contato__cta {
+    transition: none;
+  }
+}

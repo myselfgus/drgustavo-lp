@@ -1,9 +1,58 @@
 .programas {
-  background: linear-gradient(160deg, #f6f2ea 0%, #eef4f2 45%, #ffffff 100%);
+  position: relative;
+  background:
+    linear-gradient(160deg, rgba(246, 242, 234, 0.95) 0%, rgba(238, 244, 242, 0.92) 45%, rgba(255, 255, 255, 0.95) 100%),
+    url('/images/hero-programas.jpg') center/cover no-repeat;
   color: var(--text-primary);
+  overflow: hidden;
+  min-height: 100vh;
+  max-height: 100vh;
+  height: 100vh;
+}
+
+.programas__backdrop {
+  position: absolute;
+  inset: -14% -12% -20% -8%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.programas__glow {
+  position: absolute;
+  inset: clamp(4rem, 12vh, 8rem) clamp(8rem, 14vw, 12rem) clamp(-6rem, -10vh, -2rem) clamp(-6rem, -10vw, -2rem);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(125, 168, 123, 0.25), transparent 65%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.75), rgba(232, 239, 236, 0.1)),
+    url('/images/bg-programas.jpg');
+  background-size: 120% auto;
+  background-position: 48% 52%;
+  filter: saturate(0.7);
+  opacity: 0.28;
+  border-radius: 46% 54% 60% 40% / 60% 38% 62% 40%;
+  animation: programas-glow-float 32s ease-in-out infinite alternate;
+}
+
+.programas__grid {
+  position: absolute;
+  width: clamp(22rem, 44vw, 32rem);
+  height: clamp(22rem, 44vw, 32rem);
+  top: clamp(-8rem, -12vh, -3rem);
+  right: clamp(-10rem, -14vw, -4rem);
+  opacity: 0.45;
+}
+
+.programas__grid-lines {
+  stroke-dasharray: 6 18;
+  animation: programas-grid-shift 28s ease-in-out infinite alternate;
+}
+
+.programas__grid-nodes circle {
+  animation: programas-node-pulse 5.6s ease-in-out infinite;
 }
 
 .programas__content {
+  position: relative;
+  z-index: 1;
   display: grid;
   gap: clamp(28px, 6vh, 48px);
   align-content: center;
@@ -175,16 +224,65 @@
 .programas__slide:nth-of-type(1) {
   background-image:
     linear-gradient(160deg, rgba(18, 19, 16, 0.6), rgba(31, 62, 70, 0.4)),
-    url('https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=crop&w=1500&q=70');
+    url('/images/bg-programas.jpg');
 }
 
 .programas__slide:nth-of-type(2) {
   background-image:
     linear-gradient(150deg, rgba(18, 19, 16, 0.6), rgba(125, 168, 123, 0.4)),
-    url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1500&q=70');
+    url('/images/bg-metodo.jpg');
+}
+
+@keyframes programas-glow-float {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(-2deg) scale(1.02);
+    background-position: 48% 50%;
+  }
+  50% {
+    transform: translate3d(-2%, -3%, 0) rotate(1.6deg) scale(1.08);
+    background-position: 54% 46%;
+  }
+  100% {
+    transform: translate3d(1%, 2%, 0) rotate(-1deg) scale(1.05);
+    background-position: 46% 52%;
+  }
+}
+
+@keyframes programas-grid-shift {
+  0% {
+    transform: rotate(-4deg) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: rotate(3deg) translate3d(-3%, 4%, 0);
+  }
+  100% {
+    transform: rotate(-2deg) translate3d(2%, -3%, 0);
+  }
+}
+
+@keyframes programas-node-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
 }
 
 @media (max-width: 767px) {
+  .programas {
+    background: var(--bg-primary);
+    min-height: auto;
+    max-height: none;
+    height: auto;
+  }
+
+  .programas__backdrop {
+    display: none;
+  }
+
   .programas__content {
     gap: 2.5rem;
     justify-content: center;
@@ -270,5 +368,13 @@
     color: white;
     border: none;
     z-index: 2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .programas__glow,
+  .programas__grid-lines,
+  .programas__grid-nodes circle {
+    animation: none !important;
   }
 }

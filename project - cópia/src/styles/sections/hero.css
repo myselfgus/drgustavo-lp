@@ -1,0 +1,201 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  background: radial-gradient(circle at 20% 20%, rgba(125, 168, 123, 0.18), transparent 45%),
+              radial-gradient(circle at 80% 15%, rgba(31, 62, 70, 0.12), transparent 50%),
+              var(--bg-secondary);
+  overflow: hidden;
+}
+
+.hero__background {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(31, 62, 70, 0.08) 0%, rgba(255, 255, 255, 0) 60%);
+  mask-image: radial-gradient(circle at 40% 0%, rgba(0, 0, 0, 0.25), transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.hero__content {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-block: clamp(32px, 12vh, 64px);
+  gap: clamp(28px, 6vh, 48px);
+}
+
+.hero__copy {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 6vh, 48px);
+  align-items: center;
+  text-align: center;
+}
+
+.hero__title {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  font-family: var(--font-serif);
+  font-size: var(--text-hero-xl);
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.hero__line {
+  display: block;
+}
+
+.hero__line--light {
+  font-weight: 300;
+  color: var(--text-secondary);
+}
+
+.hero__line--bold {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.hero__identity {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  color: var(--text-primary);
+}
+
+.hero__name {
+  font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  font-weight: 500;
+}
+
+.hero__context {
+  font-size: var(--text-sm);
+  color: var(--text-tertiary);
+}
+
+.hero__cta {
+  appearance: none;
+  border: 1px solid rgba(31, 62, 70, 0.18);
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--text-primary);
+  border-radius: var(--radius-full);
+  padding: 12px 28px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: transform var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
+  backdrop-filter: blur(8px);
+}
+
+.hero__cta:hover {
+  background: rgba(31, 62, 70, 0.08);
+  transform: translateY(-1px);
+}
+
+
+.hero__cta:focus-visible {
+  outline: 2px solid rgba(31, 62, 70, 0.4);
+  outline-offset: 2px;
+}
+
+.hero__scroll {
+  position: absolute;
+  bottom: clamp(40px, 6vw, 72px);
+  left: 50%;
+  transform: translateX(-50%);
+  border: none;
+  background: transparent;
+  color: var(--brand-primary);
+  font-size: var(--text-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: opacity var(--transition-base), transform var(--transition-base);
+}
+
+.hero__scroll-icon {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(31, 62, 70, 0.22);
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+}
+
+.hero__scroll-text {
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  font-size: 0.75rem;
+}
+
+.hero__scroll:hover {
+  transform: translate(-50%, -4px);
+}
+
+.hero__scroll--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Scroll-driven animation support */
+@supports (animation-timeline: view()) {
+  .hero-card[data-animate] {
+    opacity: 0;
+    transform: translateY(32px);
+    animation-name: hero-card-enter;
+    animation-duration: 1ms;
+    animation-timeline: view(block);
+    animation-range: entry 15% cover 45%;
+    animation-fill-mode: forwards;
+  }
+}
+
+@keyframes hero-card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 767px) {
+  .hero__content {
+    padding-block: clamp(24px, 16vh, 48px);
+  }
+
+  .hero__copy {
+    gap: var(--space-md);
+  }
+
+  .hero__title {
+    gap: var(--space-md);
+  }
+
+  .hero__cta {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .hero__scroll {
+    bottom: 32px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__cta,
+  .hero__scroll {
+    transition: none;
+  }
+}

@@ -1,0 +1,54 @@
+---
+import '../styles/sections/contato.css';
+---
+
+<section id="contato" class="contato" aria-labelledby="contato-title">
+  <div class="contato__content container">
+    <h2 id="contato-title">Agende sua consulta</h2>
+
+    <div class="contato__details">
+      <div>
+        <p class="contato__location">São José do Rio Preto</p>
+        <p class="contato__info">Atendimento presencial e online</p>
+      </div>
+      <div>
+        <p class="contato__duration">Primeira consulta: <strong>2 horas</strong></p>
+        <p class="contato__duration">Retornos: <strong>1 hora</strong></p>
+      </div>
+    </div>
+
+    <div class="contato__actions">
+      <button class="contato__cta" data-open-cal aria-label="Abrir agendamento">
+        Agendar consulta
+      </button>
+      <a class="contato__whatsapp" href="https://wa.me/5517211011228?text=Olá,%20vim%20do%20site" target="_blank" rel="noopener">
+        Dúvidas? Fale pelo WhatsApp
+      </a>
+    </div>
+
+    <footer class="contato__footer">
+      <nav aria-label="Links do rodapé">
+        <a href="/blog">Blog</a>
+        <span aria-hidden="true">·</span>
+        <a href="/curriculo">Currículo</a>
+        <span aria-hidden="true">·</span>
+        <a href="/publicacoes">Publicações</a>
+      </nav>
+      <p>© 2025 Dr. Gustavo Mendes e Silva · CRM-SP 218133</p>
+    </footer>
+  </div>
+</section>
+
+<script>
+  const contatoSection = document.getElementById('contato');
+
+  if (contatoSection) {
+    const calButton = contatoSection.querySelector<HTMLButtonElement>('[data-open-cal]');
+
+    if (calButton) {
+      calButton.addEventListener('click', () => {
+        window.dispatchEvent(new CustomEvent('open-cal-modal'));
+      });
+    }
+  }
+</script>

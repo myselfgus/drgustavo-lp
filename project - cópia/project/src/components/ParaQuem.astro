@@ -1,0 +1,52 @@
+---
+import '../styles/sections/para-quem.css';
+
+const personas = [
+  'Para quem já colecionou diagnósticos e segue buscando contexto.',
+  'Para consultas que precisam de tempo para cruzar histórias, dados e rotina.',
+  'Para neurodivergentes que querem traduzir a própria mente para família e equipe.',
+  'Para quem avalia canabinoides com método, não modismo.',
+  'Para quem prefere acompanhamento contínuo a ajustes de última hora.'
+];
+
+const tags = [
+  'Neurodiversidade',
+  'TDAH e TEA',
+  'Canabidiol criterioso',
+  'Cuidado contínuo'
+];
+---
+
+<section id="para-quem" class="para-quem" aria-labelledby="para-quem-title">
+  <div class="para-quem__overlay" aria-hidden="true"></div>
+
+  <div class="para-quem__content container">
+    <div class="para-quem__header">
+      <span class="para-quem__eyebrow" data-animate="fade-right">Para quem é</span>
+      <h2 id="para-quem-title" class="para-quem__title" data-animate="fade-right">Se você reconhece uma dessas intenções, este espaço é seu.</h2>
+      <p class="para-quem__lead" data-animate="fade-right">
+        Cada acompanhamento parte de uma escuta longa, dados bem organizados e acordos transparentes com quem busca autonomia sobre o próprio processo.
+      </p>
+
+      <div class="para-quem__tags" data-stagger>
+        {tags.map(tag => (
+          <span class="para-quem__tag">{tag}</span>
+        ))}
+      </div>
+    </div>
+
+    <div class="para-quem__list" data-stagger>
+      {personas.map((phrase, index) => (
+        <article class="para-quem__item">
+          <span class="para-quem__index">{String(index + 1).padStart(2, '0')}</span>
+          <p class="para-quem__phrase">{phrase}</p>
+        </article>
+      ))}
+    </div>
+
+    <div class="para-quem__footnote" data-animate="fade-up">
+      <span>Atendimento presencial em São José do Rio Preto e online em todo o Brasil</span>
+      <span>Tempo médio de acompanhamento: 6 a 12 meses</span>
+    </div>
+  </div>
+</section>

@@ -50,6 +50,35 @@ const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(mes
         }, 600);
       }
     });
+
+    // Track WhatsApp click - Agente IA decide
+    btn.addEventListener('click', async () => {
+      // @ts-ignore - fbq is loaded by Meta Pixel
+      if (typeof window.fbq === 'function') {
+        window.fbq('track', 'Contact', {
+          content_name: 'WhatsApp Button',
+          content_category: 'contact'
+        });
+      }
+
+      // Agente server-side (LLM decide qualidade)
+      try {
+        await fetch('/api/conversion', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            event_type: 'whatsapp_click',
+            event_data: {
+              location: 'floating_button',
+              destination: 'whatsapp',
+              session_id: sessionStorage.getItem('session_id') || 'unknown'
+            }
+          })
+        });
+      } catch (e) {
+        console.log('Conversion tracking failed:', e);
+      }
+    });
   }
 
   if (document.readyState === 'loading') {

@@ -1,0 +1,102 @@
+.side-dots {
+  position: fixed;
+  top: 50%;
+  right: clamp(16px, 3vw, 40px);
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  z-index: var(--z-dots);
+}
+
+.side-dots__item {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.side-dots__bullet {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-tertiary);
+  transition: transform var(--transition-base), background var(--transition-base);
+}
+
+.side-dots__item--active .side-dots__bullet {
+  background: var(--brand-primary);
+  transform: scale(1.4);
+}
+
+.side-dots__label {
+  position: absolute;
+  right: 28px;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--text-primary);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateX(8px);
+  pointer-events: none;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.side-dots__item:hover .side-dots__label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.side-progress {
+  position: fixed;
+  inset: auto 0 24px 0;
+  padding-inline: clamp(24px, 6vw, 48px);
+  z-index: var(--z-dots);
+  display: none;
+}
+
+.side-progress__bar {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background: rgba(31, 62, 70, 0.12);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.side-progress__bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform-origin: left;
+  transform: scaleX(var(--progress, 0));
+  background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+  transition: transform var(--transition-fast);
+}
+
+@media (max-width: 840px) {
+  .side-dots {
+    display: none;
+  }
+
+  .side-progress {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .side-dots__bullet,
+  .side-progress__bar::after {
+    transition: none;
+  }
+}

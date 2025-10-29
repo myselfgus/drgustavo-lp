@@ -3,7 +3,18 @@ import '../styles/sections/manifesto.css';
 ---
 
 <section id="manifesto" class="manifesto" aria-labelledby="manifesto-title">
+  <!-- Hero Image -->
+  <figure class="manifesto__hero-image" data-animate="fade-in">
+    <img
+      src="/images/bg-manifesto.jpg"
+      alt="Ambiente de consulta humanizada"
+      loading="eager"
+    />
+    <div class="manifesto__hero-overlay"></div>
+  </figure>
+
   <div class="manifesto__backdrop" aria-hidden="true">
+    <div class="manifesto__photo" role="presentation"></div>
     <!-- Opção 1: Grid geométrico (ativo por padrão) -->
     <svg class="manifesto__pattern" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -19,6 +30,20 @@ import '../styles/sections/manifesto.css';
 
       <rect class="manifesto__pattern-grid" width="100%" height="100%" fill="url(#grid-pattern)"/>
       <rect class="manifesto__pattern-fade" width="100%" height="100%" fill="url(#fade-edges)"/>
+    </svg>
+
+    <svg class="manifesto__orbits" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+      <g class="manifesto__orbit manifesto__orbit--one" fill="none" stroke="rgba(31,62,70,0.28)" stroke-width="1.2">
+        <circle cx="400" cy="400" r="240" />
+      </g>
+      <g class="manifesto__orbit manifesto__orbit--two" fill="none" stroke="rgba(125,168,123,0.24)" stroke-width="1.6">
+        <circle cx="400" cy="400" r="310" />
+      </g>
+      <g class="manifesto__nodes" fill="rgba(31,62,70,0.55)">
+        <circle cx="640" cy="280" r="5" />
+        <circle cx="530" cy="580" r="4" />
+        <circle cx="320" cy="180" r="3" />
+      </g>
     </svg>
 
     <!-- Opção 2: Vídeo (comentado - descomente para usar) -->

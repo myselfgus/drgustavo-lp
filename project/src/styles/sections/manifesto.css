@@ -5,12 +5,88 @@
   overflow: hidden;
 }
 
+/* Hero Image */
+.manifesto__hero-image {
+  margin: 0;
+  width: 100%;
+  max-height: 60vh;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0 0 32px 32px;
+  box-shadow: 0 32px 64px rgba(18, 19, 16, 0.18);
+}
+
+.manifesto__hero-image img {
+  width: 100%;
+  height: 100%;
+  max-height: 60vh;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.manifesto__hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(250, 250, 248, 0) 0%,
+    rgba(250, 250, 248, 0.3) 60%,
+    rgba(250, 250, 248, 0.95) 100%
+  );
+  pointer-events: none;
+}
+
 .manifesto__backdrop {
   position: absolute;
   inset: 0;
   pointer-events: none;
   overflow: hidden;
   z-index: 0;
+}
+
+.manifesto__photo {
+  position: absolute;
+  bottom: clamp(-6rem, -8vh, -2rem);
+  left: clamp(-8rem, -12vw, -2rem);
+  width: clamp(20rem, 32vw, 26rem);
+  aspect-ratio: 3 / 4;
+  background:
+    linear-gradient(185deg, rgba(248, 245, 239, 0.76), rgba(240, 247, 244, 0.16)),
+    url('/images/bg-manifesto.jpg');
+  background-size: cover;
+  background-position: 48% 52%;
+  filter: saturate(0.6);
+  opacity: 0.32;
+  clip-path: polygon(0% 12%, 88% 0%, 100% 72%, 74% 100%, 10% 88%, 0% 38%);
+  mix-blend-mode: multiply;
+  animation: manifesto-photo-shift 38s ease-in-out infinite alternate;
+}
+
+.manifesto__orbits {
+  position: absolute;
+  width: clamp(24rem, 48vw, 36rem);
+  height: clamp(24rem, 48vw, 36rem);
+  bottom: clamp(-8rem, -12vh, -2rem);
+  right: clamp(-10rem, -14vw, -4rem);
+  opacity: 0.55;
+  transform-origin: center;
+}
+
+.manifesto__orbit {
+  transform-origin: 50% 50%;
+}
+
+.manifesto__orbit--one {
+  animation: manifesto-orbit-spin 48s linear infinite;
+}
+
+.manifesto__orbit--two {
+  animation: manifesto-orbit-spin 64s linear infinite reverse;
+}
+
+.manifesto__nodes circle {
+  animation: manifesto-node-pulse 6s ease-in-out infinite;
 }
 
 .manifesto__pattern {
@@ -180,7 +256,46 @@
   }
 }
 
+@keyframes manifesto-photo-shift {
+  0% {
+    transform: rotate(-2deg) scale(1.02) translate3d(0, 0, 0);
+    background-position: 52% 44%;
+  }
+  50% {
+    transform: rotate(1deg) scale(1.1) translate3d(2%, -1%, 0);
+    background-position: 48% 52%;
+  }
+  100% {
+    transform: rotate(-1deg) scale(1.06) translate3d(-1%, 1%, 0);
+    background-position: 55% 46%;
+  }
+}
+
+@keyframes manifesto-orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes manifesto-node-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 1;
+  }
+}
+
 @media (max-width: 767px) {
+  .manifesto__hero-image {
+    display: none;
+  }
+
   .manifesto__backdrop {
     display: none;
   }
@@ -244,19 +359,19 @@
   }
 
   .manifesto__row:nth-of-type(1) {
-    background-image: url('https://images.unsplash.com/photo-1589988848004-c497c354a327?q=80&w=800&auto=format&fit=crop');
+    background-image: url('/images/bg-manifesto.jpg');
     animation-delay: 100ms;
   }
   .manifesto__row:nth-of-type(2) {
-    background-image: url('https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=800&auto=format&fit=crop');
+    background-image: url('/images/bg-metodo.jpg');
     animation-delay: 200ms;
   }
   .manifesto__row:nth-of-type(3) {
-    background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop');
+    background-image: url('/images/bg-programas.jpg');
     animation-delay: 300ms;
   }
   .manifesto__row:nth-of-type(4) {
-    background-image: url('https://images.unsplash.com/photo-1454942901704-3c942757b203?q=80&w=800&auto=format&fit=crop');
+    background-image: url('/images/bg-depoimentos.jpg');
     animation-delay: 400ms;
   }
 
@@ -308,6 +423,13 @@
   }
 
   .manifesto__pattern-grid {
+    animation: none !important;
+  }
+
+  .manifesto__photo,
+  .manifesto__orbit,
+  .manifesto__nodes circle,
+  .manifesto__orbits {
     animation: none !important;
   }
 

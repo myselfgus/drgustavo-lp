@@ -1,0 +1,73 @@
+---
+import '../styles/components/header.css';
+---
+
+<header id="main-header" class="site-header">
+  <div class="site-header__inner">
+    <a href="/#hero" class="site-header__brand" aria-label="Voltar ao topo">
+      <span>Dr. Gustavo Mendes</span>
+    </a>
+
+    <div class="site-header__actions">
+      <span class="site-header__badge">Consultas 120 min</span>
+      <button class="site-header__cta" data-open-cal aria-label="Agendar consulta">
+        Agendar
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('main-header');
+
+  if (header) {
+    const ctaButton = header.querySelector<HTMLButtonElement>('[data-open-cal]');
+    const brandLink = header.querySelector<HTMLAnchorElement>('.site-header__brand');
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      const current = window.scrollY;
+
+      if (current > 40) {
+        header.classList.add('site-header--scrolled');
+      } else {
+        header.classList.remove('site-header--scrolled');
+      }
+
+      if (current > lastScrollY && current > 140) {
+        header.classList.add('site-header--hidden');
+      } else {
+        header.classList.remove('site-header--hidden');
+      }
+
+      const darkSection = document.getElementById('para-quem');
+      if (darkSection) {
+        const { top, bottom } = darkSection.getBoundingClientRect();
+        const headerHeight = header.offsetHeight;
+        if (top < headerHeight && bottom > headerHeight) {
+          header.classList.add('site-header--contrast');
+        } else {
+          header.classList.remove('site-header--contrast');
+        }
+      }
+
+      lastScrollY = current;
+    });
+
+    if (ctaButton) {
+      ctaButton.addEventListener('click', () => {
+        window.dispatchEvent(new CustomEvent('open-cal-modal'));
+      });
+    }
+
+    if (brandLink) {
+      brandLink.addEventListener('click', (event) => {
+        const href = brandLink.getAttribute('href');
+        if (href?.startsWith('/#')) {
+          event.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+    }
+  }
+</script>

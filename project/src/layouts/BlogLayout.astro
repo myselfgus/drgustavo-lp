@@ -35,6 +35,12 @@ const formattedDate = new Intl.DateTimeFormat('pt-BR', {
   showDots={false}
 >
   <article class="blog-article">
+    {image && (
+      <figure class="blog-article__hero-image" data-animate="fade-up">
+        <img src={image} alt={imageAlt ?? title} loading="eager" />
+      </figure>
+    )}
+
     <header class="blog-article__header" data-animate="fade-up">
       <div class="blog-article__meta">
         <time datetime={publishedAt.toISOString()}>{formattedDate}</time>
@@ -53,12 +59,6 @@ const formattedDate = new Intl.DateTimeFormat('pt-BR', {
       )}
     </header>
 
-    {image && (
-      <figure class="blog-article__figure" data-animate="fade-up">
-        <img src={image} alt={imageAlt ?? title} loading="lazy" />
-      </figure>
-    )}
-
     <div class="blog-article__content" data-animate="fade-up">
       <slot />
     </div>
@@ -68,15 +68,34 @@ const formattedDate = new Intl.DateTimeFormat('pt-BR', {
 <style>
   .blog-article {
     position: relative;
-    max-width: 840px;
-    margin: 0 auto;
-    padding: 160px clamp(20px, 5vw, 48px) 120px;
+    display: grid;
+    gap: clamp(32px, 6vh, 48px);
+  }
+
+  .blog-article__hero-image {
+    margin: 0;
+    width: 100%;
+    max-height: 65vh;
+    border-radius: 0 0 24px 24px;
+    overflow: hidden;
+    box-shadow: 0 24px 52px rgba(18, 19, 16, 0.14);
+  }
+
+  .blog-article__hero-image img {
+    width: 100%;
+    height: 100%;
+    max-height: 65vh;
+    display: block;
+    object-fit: cover;
+    object-position: center;
   }
 
   .blog-article__header {
+    max-width: 840px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 5vw, 48px);
     display: grid;
     gap: 18px;
-    margin-bottom: clamp(40px, 7vw, 64px);
     text-align: left;
   }
 
@@ -126,21 +145,10 @@ const formattedDate = new Intl.DateTimeFormat('pt-BR', {
     text-transform: lowercase;
   }
 
-  .blog-article__figure {
-    margin: 0;
-    border-radius: 18px;
-    overflow: hidden;
-    border: 1px solid rgba(31, 62, 70, 0.14);
-    box-shadow: 0 12px 38px rgba(18, 19, 16, 0.1);
-  }
-
-  .blog-article__figure img {
-    width: 100%;
-    display: block;
-    object-fit: cover;
-  }
-
   .blog-article__content {
+    max-width: 840px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 5vw, 48px) 120px;
     font-size: 1.05rem;
     line-height: 1.8;
     color: var(--text-primary, #1A1A1A);
@@ -183,8 +191,17 @@ const formattedDate = new Intl.DateTimeFormat('pt-BR', {
   }
 
   @media (max-width: 720px) {
-    .blog-article {
-      padding: 120px 20px 80px;
+    .blog-article__hero-image {
+      max-height: 50vh;
+      border-radius: 0 0 16px 16px;
+    }
+
+    .blog-article__hero-image img {
+      max-height: 50vh;
+    }
+
+    .blog-article__header {
+      padding: 0 20px;
     }
 
     .blog-article__title {
@@ -193,6 +210,10 @@ const formattedDate = new Intl.DateTimeFormat('pt-BR', {
 
     .blog-article__description {
       font-size: 1rem;
+    }
+
+    .blog-article__content {
+      padding: 0 20px 80px;
     }
   }
 </style>

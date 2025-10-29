@@ -1,11 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const portraitBase = 'https://imagedelivery.net/ZSVIzNe6GQZrE_DQQqHAyw/bcfa1ef0-4dcd-4338-7372-95f086aa7900/public';
-const portraitSrcset = [320, 420, 560, 720, 900]
-  .map(size => `${portraitBase}?width=${size}&height=${size}&fit=cover&gravity=face&quality=88 ${size}w`)
+const portraitBase = '/images/dr-gustavo-portrait';
+const portraitSrcset = [320, 420, 480, 560, 640, 720, 820, 900, 1024]
+  .map(size => `${portraitBase}-${size}.jpg ${size}w`)
   .join(', ');
 const portraitSizes = '(min-width: 1024px) 320px, (min-width: 768px) 260px, 80vw';
+const portraitFallback = `${portraitBase}-720.jpg`;
 
 const academicTimeline = [
   {
@@ -139,7 +140,7 @@ const languages = [
       </div>
       <figure class="cv-hero__portrait">
         <img
-          src={`${portraitBase}?width=720&height=720&fit=cover&gravity=face&quality=92`}
+          src={portraitFallback}
           srcset={portraitSrcset}
           sizes={portraitSizes}
           alt="Retrato do Dr. Gustavo Mendes e Silva"
@@ -274,8 +275,8 @@ const languages = [
   .curriculo-page {
     display: flex;
     flex-direction: column;
-    gap: clamp(48px, 10vh, 80px);
-    padding-block: clamp(60px, 12vh, 120px);
+    gap: clamp(32px, 6vh, 48px);
+    padding-block: clamp(48px, 8vh, 80px);
     background: linear-gradient(180deg, #f8f6f1 0%, #ffffff 65%, #f5f9f8 100%);
   }
 
@@ -287,19 +288,19 @@ const languages = [
   .cv-hero {
     display: grid;
     align-items: center;
-    gap: clamp(32px, 6vw, 56px);
+    gap: clamp(24px, 4vw, 40px);
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     background: rgba(255, 255, 255, 0.78);
     border: 1px solid rgba(31, 62, 70, 0.08);
     border-radius: var(--radius-xl);
-    padding: clamp(32px, 6vw, 48px);
+    padding: clamp(24px, 4vw, 36px);
     backdrop-filter: blur(10px);
     box-shadow: 0 42px 80px rgba(18, 19, 16, 0.12);
   }
 
   .cv-hero__content {
     display: grid;
-    gap: clamp(16px, 3vh, 28px);
+    gap: clamp(12px, 2vh, 20px);
   }
 
   .cv-hero__eyebrow {
@@ -313,7 +314,7 @@ const languages = [
   .cv-hero__title {
     margin: 0;
     font-family: var(--font-serif);
-    font-size: clamp(2.4rem, 6vw, 3.4rem);
+    font-size: clamp(2rem, 5vw, 2.8rem);
     font-weight: var(--font-light);
     line-height: 1.1;
     color: var(--text-primary);
@@ -321,7 +322,7 @@ const languages = [
 
   .cv-hero__role {
     margin: 0;
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: var(--text-secondary);
     display: flex;
     gap: 8px;
@@ -366,8 +367,8 @@ const languages = [
 
   .cv-hero__summary {
     margin: 0;
-    font-size: 1.05rem;
-    line-height: 1.7;
+    font-size: 1rem;
+    line-height: 1.65;
     color: var(--text-secondary);
   }
 
@@ -421,16 +422,16 @@ const languages = [
     height: 100%;
     object-fit: cover;
     object-position: 50% 42%;
-    filter: saturate(112%);
+    filter: saturate(100%);
   }
 
   .cv-section {
     background: rgba(255, 255, 255, 0.82);
     border: 1px solid rgba(31, 62, 70, 0.08);
     border-radius: var(--radius-xl);
-    padding: clamp(28px, 5vw, 40px);
+    padding: clamp(20px, 3.5vw, 32px);
     display: grid;
-    gap: clamp(20px, 4vh, 32px);
+    gap: clamp(16px, 3vh, 24px);
     backdrop-filter: blur(8px);
     box-shadow: 0 28px 60px rgba(18, 19, 16, 0.09);
   }
@@ -438,12 +439,13 @@ const languages = [
   .cv-section__header h2 {
     margin: 0;
     font-family: var(--font-serif);
-    font-size: clamp(1.6rem, 4vw, 2rem);
+    font-size: clamp(1.4rem, 3.5vw, 1.75rem);
     color: var(--text-primary);
   }
 
   .cv-section__header p {
-    margin: 8px 0 0;
+    margin: 6px 0 0;
+    font-size: 0.95rem;
     color: var(--text-secondary);
     line-height: 1.6;
   }
@@ -453,13 +455,13 @@ const languages = [
     padding: 0;
     margin: 0;
     display: grid;
-    gap: 20px;
+    gap: 16px;
   }
 
   .cv-timeline__item {
     display: grid;
     grid-template-columns: minmax(90px, auto) 1fr;
-    gap: 24px;
+    gap: 20px;
     align-items: start;
   }
 
@@ -493,17 +495,17 @@ const languages = [
     margin: 0;
     padding: 0;
     display: grid;
-    gap: clamp(16px, 3vw, 24px);
+    gap: clamp(12px, 2.5vw, 18px);
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
 
   .cv-card {
-    padding: 20px;
+    padding: 16px;
     border-radius: var(--radius-lg);
     background: rgba(255, 255, 255, 0.9);
     border: 1px solid rgba(31, 62, 70, 0.08);
     display: grid;
-    gap: 12px;
+    gap: 10px;
     transition: transform var(--transition-fast), box-shadow var(--transition-fast);
   }
 

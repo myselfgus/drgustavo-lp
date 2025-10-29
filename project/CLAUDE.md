@@ -1,4 +1,6 @@
-# CLAUDE.md - Dr. Gustavo Mendes e Silva Site
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## INFORMAÇÕES ESSENCIAIS DO PROJETO
 
@@ -63,24 +65,51 @@
 ## STACK TÉCNICO
 
 ### Framework e Infraestrutura
-- **Framework:** Astro 4.x
+- **Framework:** Astro 4.x with `hybrid` output mode
 - **Deployment:** Cloudflare Workers (Workers-first, não Pages)
 - **Config:** wrangler.jsonc (NÃO wrangler.toml)
 - **Compatibility:** compatibility_date = "2025-03-07"
+- **Site URL:** https://drgustavomendes.com
+- **Adapter:** `@astrojs/cloudflare` with platformProxy enabled
 
-### Cloudflare Services
-- **D1 Database:** `1189d5ea-8769-4d66-adb8-d4cbc04a3af4`
-- **R2 Bucket:** `drgustavomendes-assets`
-- **KV Namespace:** `ee0f09bcb97149ecb64f09d4276d0332`
-- **AI Gateway:** `voither` (observability + cache)
-- **Workers AI:** DeepSeek R1 (`@cf/deepseek-ai/deepseek-r1-distill-qwen-32b`)
+### Cloudflare Services Bindings
+All bindings are configured in `wrangler.jsonc`:
+
+- **D1 Database:**
+  - Binding: `DB`
+  - Database Name: `drgustavomendes-db`
+  - Database ID: `1189d5ea-8769-4d66-adb8-d4cbc04a3af4`
+
+- **R2 Bucket:**
+  - Binding: `R2_ASSETS`
+  - Bucket Name: `drgustavomendes-assets`
+
+- **KV Namespace:**
+  - Binding: `SITE_CACHE`
+  - ID: `ee0f09bcb97149ecb64f09d4276d0332`
+
+- **Workers AI:**
+  - Binding: `AI`
+  - Gateway ID: `voither` (observability + cache, 1h TTL)
+  - Model: DeepSeek R1 (`@cf/deepseek-ai/deepseek-r1-distill-qwen-32b`)
   - Max tokens: 4096
   - Temperature: 0.5-0.7
+
+- **Assets:**
+  - Binding: `ASSETS`
+  - Directory: `./dist/`
+  - HTML Handling: `auto-trailing-slash`
+  - Not Found: `single-page-application` mode
 
 ### AI Integration
 - **DeepSeek R1 acessível via:** `./ask-deepseek.sh "sua pergunta"`
 - **Uso:** Consultar ANTES de implementar qualquer código
 - **Endpoint:** Via AI Gateway para observability
+
+### Third-Party Integrations
+- **ElevenLabs ConvAI:** Voice agent (agent ID: `agent_4301k53hd1fke37983rze0nvdct4`)
+- **Cal.com:** Appointment scheduling modal
+- **Cloudflare Web Analytics:** Optional beacon via `PUBLIC_CF_BEACON_TOKEN` env var
 
 ---
 
@@ -138,37 +167,104 @@
 
 ### Páginas Separadas
 - `/blog` - Artigos, projetos de pesquisa e obras editoriais
+- `/blog/[slug]` - Dynamic blog post pages
 - `/curriculo` - CV completo + PDF download
+- `/publicacoes` - Publications page
 
 ---
 
 ## DESIGN SYSTEM
 
-### Cores
-- **Texto primário:** `#1A1A1A`, `#2C2C2C`
-- **Texto secundário:** `#666666`
-- **Texto terciário:** `#999999`
-- **Background primário:** `#FFFFFF`
-- **Background secundário:** `#FAFAF8`
-- **Border:** `#E5E5E5`
+All design tokens are defined in `src/styles/variables.css` using CSS custom properties.
+
+### Cores (CSS Variables)
+**Neutral Scale:**
+- `--gray-50` to `--gray-900` (f8f9f7 → 151613)
+- `--text-primary`: var(--gray-900) (#151613)
+- `--text-secondary`: var(--gray-600) (#5d615b)
+- `--text-tertiary`: var(--gray-500) (#7f837c)
+- `--text-inverse`: #ffffff
+- `--bg-primary`: #ffffff
+- `--bg-secondary`: var(--gray-50) (#f8f9f7)
+- `--bg-tertiary`: var(--gray-100) (#f0f1ec)
+- `--bg-dark`: #121310
+
+**Accent Palette:**
+- `--accent-sage`: #7da87b
+- `--accent-petrol`: #1f3e46
+- `--accent-gold`: #d2a857
+
+**Brand Tokens:**
+- `--brand-primary`: var(--accent-petrol)
+- `--brand-secondary`: var(--accent-sage)
+- `--brand-highlight`: var(--accent-gold)
+
+**Borders:**
+- `--border-subtle`: var(--gray-200)
+- `--border-soft`: rgba(21, 22, 19, 0.08)
+- `--border-strong`: rgba(21, 22, 19, 0.12)
 
 ### Tipografia
-- **Font:** System fonts (-apple-system, BlinkMacSystemFont, "Segoe UI")
-- **Pesos:** 300 (Light), 400 (Regular), 500 (Medium), 600 (Semibold)
-- **Tamanhos Desktop:** 14px a 56px
-- **Tamanhos Mobile:** 15px a 32px
-- **Line-height:** 1.2 a 1.8
+**Font Families:**
+- `--font-sans`: 'Inter Tight', 'Inter', system-ui
+- `--font-serif`: 'Fraunces', 'Times New Roman', serif
+- `--font-mono`: 'IBM Plex Mono', monospace
+
+**Font Weights:**
+- `--font-light`: 300
+- `--font-regular`: 400
+- `--font-medium`: 500
+- `--font-semibold`: 600
+- `--font-bold`: 700
+
+**Fluid Type Scale (clamp):**
+- `--text-hero-xl`: clamp(1.65rem, 4.5vw, 3rem)
+- `--text-hero-display`: clamp(1.5rem, 3.75vw, 2.63rem)
+- `--text-title-lg`: clamp(1.31rem, 3vw, 1.95rem)
+- `--text-title-md`: clamp(1.01rem, 2.25vw, 1.5rem)
+- `--text-body`: clamp(0.71rem, 0.98vw, 0.86rem)
+
+**Line Heights:**
+- `--leading-tight`: 1.2
+- `--leading-normal`: 1.4
+- `--leading-relaxed`: 1.6
+- `--leading-loose`: 1.8
 
 ### Animações
-- **Easing:** `cubic-bezier(0.16, 1, 0.3, 1)`
-- **Duração:** 200ms (rápido) a 800ms (lento)
-- **GPU-accelerated:** apenas `transform` e `opacity`
-- **Acessibilidade:** `prefers-reduced-motion` suportado
+**Timing:**
+- `--transition-fast`: 0.18s ease
+- `--transition-base`: 0.28s cubic-bezier(0.16, 1, 0.3, 1)
+- `--transition-slow`: 0.6s cubic-bezier(0.16, 1, 0.3, 1)
+- `--ease-smooth`: cubic-bezier(0.16, 1, 0.3, 1)
+
+**Durations:**
+- `--duration-fast`: 160ms
+- `--duration-normal`: 360ms
+- `--duration-slow`: 640ms
+
+**Implementation:**
+- All animations use IntersectionObserver for scroll-triggered reveals
+- Animations defined with `[data-animate]` and `[data-stagger]` attributes
+- GPU-accelerated: apenas `transform` e `opacity`
+- Respects `prefers-reduced-motion` (all durations set to 0ms)
+- Global animation setup in BaseLayout.astro
 
 ### Espaçamento
-- 70% espaço em branco no Hero
-- Seções fullscreen (100vh)
-- Padding: 24px mobile, 40-80px desktop
+**Base Scale:**
+- `--space-2xs`: 4px → `--space-3xl`: 128px
+- `--padding-mobile`: 20px
+- `--padding-tablet`: 40px
+- `--padding-desktop`: 80px
+
+**Section Gaps (Fluid):**
+- `--gap-section`: clamp(48px, 12vw, 160px)
+- `--gap-stack-lg`: clamp(32px, 6vw, 96px)
+- `--gap-stack-md`: clamp(20px, 4vw, 64px)
+
+### Other Tokens
+**Shadows:** `--shadow-sm`, `--shadow-md`, `--shadow-lg`
+**Border Radius:** `--radius-sm` (6px) → `--radius-full` (9999px)
+**Z-Index:** `--z-header` (1000), `--z-dots` (900), `--z-whatsapp` (950), `--z-modal` (1100)
 
 ---
 
@@ -225,55 +321,186 @@
 3. Implementar seguindo specs + sugestão do modelo
 4. Verificar conformidade com especificações
 
-### Estrutura de arquivos (stack-tecnica.md)
+### Arquitetura do Código
+
+**Estrutura de componentes implementada:**
 ```
 src/
-├── components/
-│   ├── Hero.astro, Manifesto.astro, ParaQuem.astro
-│   ├── Metodo.astro, Credenciais.astro, Contato.astro
-│   ├── Header.astro, Footer.astro
-│   ├── BlogCard.astro, CalEmbed.astro
-│   ├── SEO.astro, StructuredData.astro
+├── components/              # Componentes Astro
+│   ├── Hero.astro          # Seção 1
+│   ├── Manifesto.astro     # Seção 2
+│   ├── Credenciais.astro   # Seção 3 (implementado)
+│   ├── ParaQuem.astro      # Seção 4
+│   ├── Metodo.astro        # Seção 5
+│   ├── Programas.astro     # Seção adicional
+│   ├── Depoimentos.astro   # Testimonials section
+│   ├── Localizacao.astro   # Location section
+│   ├── Contato.astro       # Seção final
+│   ├── Header.astro        # Top navigation bar
+│   ├── Footer.astro        # Footer component
+│   ├── SideDots.astro      # Section navigation dots
+│   ├── WhatsAppButton.astro # Floating WhatsApp button
+│   ├── CalEmbed.astro      # Cal.com modal integration
+│   ├── ElevenLabsAgent.astro # Voice agent widget
+│   ├── BlogCard.astro      # Blog post card
+│   ├── SEO.astro           # SEO meta tags
+│   └── StructuredData.astro # Schema.org JSON-LD
 ├── layouts/
-│   ├── BaseLayout.astro, BlogLayout.astro, PageLayout.astro
+│   ├── BaseLayout.astro    # Main layout with Header, SideDots, animations
+│   ├── BlogLayout.astro    # Blog post layout
+│   └── PageLayout.astro    # Static page layout
 ├── pages/
-│   ├── index.astro (6 seções)
-│   ├── blog/, curriculo.astro, publicacoes.astro
+│   ├── index.astro         # Homepage (9 sections currently)
+│   ├── blog/
+│   │   ├── index.astro     # Blog listing
+│   │   └── [slug].astro    # Dynamic blog post
+│   ├── curriculo.astro     # CV page
+│   └── publicacoes.astro   # Publications page
+├── styles/
+│   ├── global.css          # Global reset and base styles
+│   ├── variables.css       # Design tokens (colors, typography, spacing)
+│   ├── animations.css      # Animation definitions
+│   ├── components/
+│   │   ├── header.css
+│   │   └── side-dots.css
+│   ├── sections/           # Section-specific styles
+│   │   ├── hero.css
+│   │   ├── manifesto.css
+│   │   ├── credenciais.css
+│   │   ├── para-quem.css
+│   │   ├── metodo.css
+│   │   ├── programas.css
+│   │   ├── depoimentos.css
+│   │   ├── localizacao.css
+│   │   └── contato.css
+│   └── pages/
+│       └── blog.css
+├── lib/
+│   └── utils.ts            # Utility functions
+└── types/
+    └── env.d.ts            # TypeScript environment types
+functions/
+└── _middleware.ts          # Cloudflare Workers middleware
 ```
+
+**Page Structure - Homepage (`index.astro`):**
+The homepage currently has **9 sections** (not 6 as originally planned):
+1. Hero
+2. Manifesto
+3. Credenciais
+4. ParaQuem
+5. Metodo
+6. Programas (adicional)
+7. Depoimentos (adicional)
+8. Localizacao (adicional)
+9. Contato
+
+**Key Architecture Patterns:**
+
+1. **Component-Based Sections:** Each major section is a self-contained Astro component with its own CSS file
+2. **Shared Layouts:** `BaseLayout.astro` provides global structure (Header, SideDots, animation setup, Cal.com embed)
+3. **Animation System:** Centralized IntersectionObserver-based reveal animations in BaseLayout
+4. **Design Tokens:** All design values in CSS custom properties (`variables.css`)
+5. **Hybrid Rendering:** Uses Astro's `hybrid` mode - static by default, opt-in to SSR with `export const prerender = false`
+6. **Edge Middleware:** Cloudflare Workers middleware in `functions/_middleware.ts` for request processing
 
 ---
 
-## COMANDOS ÚTEIS
+## COMANDOS DE DESENVOLVIMENTO
+
+### Comandos npm (executar na pasta `project/`)
 
 ```bash
-# Desenvolvimento
+# Instalar dependências
+npm install
+
+# Desenvolvimento local (porta 4321)
 npm run dev
 
-# Build
+# Build para produção
 npm run build
+# Output: dist/ com _worker.js para Cloudflare Workers
 
-# Deploy
+# Preview do build
+npm run preview
+
+# Type checking
+npm run astro check
+
+# Deploy completo (build + wrangler deploy)
 npm run deploy
-
-# Consultar DeepSeek R1
-./ask-deepseek.sh "sua pergunta aqui"
-
-# Wrangler
-wrangler pages deploy dist
-wrangler d1 execute drgustavomendes-db --command "SELECT * FROM blog_posts"
 ```
 
+### Comandos Wrangler
+
+```bash
+# Login no Cloudflare
+wrangler login
+
+# Deploy manual do Worker
+wrangler deploy
+# ou especificando config:
+wrangler deploy --config wrangler.jsonc
+
+# Dev local como Worker (após build)
+wrangler dev dist/_worker.js/index.js
+
+# Executar query no D1
+wrangler d1 execute drgustavomendes-db --command "SELECT * FROM blog_posts"
+
+# Listar databases D1
+wrangler d1 list
+
+# Listar R2 buckets
+wrangler r2 bucket list
+
+# Listar KV namespaces
+wrangler kv namespace list
+
+# Ver logs do Worker
+wrangler tail
+
+# Consultar DeepSeek R1 (se script disponível)
+../ask-deepseek.sh "sua pergunta aqui"
+```
+
+### Build Output
+
+O build Astro com adapter Cloudflare gera:
+- `dist/_worker.js/` - Worker entry point
+- `dist/` - Static assets servidos pelo binding ASSETS
+- Worker combina SSR + static file serving
+
 ---
 
-## PRÓXIMOS PASSOS
+## IMPORTANTE: STATUS ATUAL DO PROJETO
 
-1. Implementar Hero.astro seguindo `/Users/gustavo/drg-page/secao-01-hero.md`
-2. Implementar demais seções (2-6)
-3. Criar páginas separadas (blog, currículo, publicações)
-4. Testar responsividade
-5. Deploy para produção
+**Este projeto está em PRODUÇÃO ativa, não é mais planejamento.**
+
+✅ **Implementado:**
+- Todas as 9 seções da homepage
+- Design system completo com CSS variables
+- Sistema de animações com IntersectionObserver
+- Header com auto-hide
+- Side navigation dots
+- WhatsApp button
+- Cal.com integration
+- ElevenLabs voice agent
+- SEO e structured data
+- Blog infrastructure (pages + layouts)
+- Cloudflare Workers deployment config
+- All Cloudflare bindings (D1, R2, KV, AI, Assets)
+
+🚧 **Próximos passos:**
+- Popular blog posts em D1 ou content collections
+- Adicionar conteúdo real em curriculo.astro e publicacoes.astro
+- Otimizar imagens e assets
+- Configurar analytics (PUBLIC_CF_BEACON_TOKEN)
+- Testar responsividade em mais dispositivos
 
 ---
 
-**Última atualização:** 2025-10-09
-**Desenvolvido com:** Astro + Cloudflare Workers + DeepSeek R1
+---
+
+**Última atualização:** 2025-10-16
+**Desenvolvido com:** Astro 4.x + Cloudflare Workers + DeepSeek R1 AI

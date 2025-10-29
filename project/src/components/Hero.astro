@@ -28,15 +28,18 @@ const heroQuotesData = [
 
 const [initialHeroQuote] = heroQuotesData;
 
-const heroPortraitBase = 'https://imagedelivery.net/ZSVIzNe6GQZrE_DQQqHAyw/bcfa1ef0-4dcd-4338-7372-95f086aa7900/public';
-const heroPortraitSrcset = [320, 480, 640, 820, 1024]
-  .map(size => `${heroPortraitBase}?width=${size}&height=${size}&fit=cover&gravity=face&quality=85 ${size}w`)
+const heroPortraitBase = '/images/dr-gustavo-portrait';
+const heroPortraitSrcset = [320, 480, 640, 820, 1024, 1280, 1600]
+  .map(size => `${heroPortraitBase}-${size}.jpg ${size}w`)
   .join(', ');
 const heroPortraitSizes = '(min-width: 1024px) 320px, 60vw';
+const heroPortraitFallback = `${heroPortraitBase}-640.jpg`;
 ---
 
 <section id="hero" class="hero" aria-labelledby="hero-title">
   <div class="hero__background" aria-hidden="true">
+    <div class="hero__photo-ambient hero__photo-ambient--1"></div>
+    <div class="hero__photo-ambient hero__photo-ambient--2"></div>
     <span class="hero__halo hero__halo--one"></span>
     <span class="hero__halo hero__halo--two"></span>
     <span class="hero__mesh"></span>
@@ -85,7 +88,7 @@ const heroPortraitSizes = '(min-width: 1024px) 320px, 60vw';
         <div class="hero__frame" data-animate="fade-left">
           <div class="hero__portrait">
             <img
-              src={`${heroPortraitBase}?width=640&height=640&fit=cover&gravity=face&quality=90`}
+              src={heroPortraitFallback}
               srcset={heroPortraitSrcset}
               sizes={heroPortraitSizes}
               alt="Retrato do Dr. Gustavo Mendes e Silva"
@@ -126,6 +129,38 @@ const heroPortraitSizes = '(min-width: 1024px) 320px, 60vw';
       const quoteFigure = heroSection.querySelector('.hero__quote');
       const quoteText = heroSection.querySelector('[data-hero-quote]');
       const quoteAuthor = heroSection.querySelector('[data-hero-author]');
+      const scheduleButton = heroSection.querySelector('.hero__cta');
+
+      // Track schedule button click - Agente IA decide
+      if (scheduleButton) {
+        scheduleButton.addEventListener('click', async () => {
+          // Pixel client-side (fallback)
+          if (typeof window.fbq === 'function') {
+            window.fbq('track', 'Lead', {
+              content_name: 'Schedule Appointment - Hero',
+              content_category: 'appointment'
+            });
+          }
+
+          // Agente server-side (LLM decide qualidade)
+          try {
+            await fetch('/api/conversion', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                event_type: 'schedule_click',
+                event_data: {
+                  location: 'hero',
+                  button_text: 'Agendar consulta',
+                  session_id: sessionStorage.getItem('session_id') || 'unknown'
+                }
+              })
+            });
+          } catch (e) {
+            console.log('Conversion tracking failed:', e);
+          }
+        });
+      }
 
       if (quoteFigure && quoteText && quoteAuthor && heroQuotes.length > 1) {
         let quoteIndex = 0;

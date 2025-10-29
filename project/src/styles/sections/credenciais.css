@@ -11,6 +11,32 @@
   z-index: 0;
 }
 
+.credenciais__portrait {
+  position: absolute;
+  top: clamp(6rem, 12vh, 9rem);
+  right: clamp(-6rem, -8vw, -2rem);
+  width: clamp(18rem, 36vw, 30rem);
+  aspect-ratio: 3 / 4;
+  background-image:
+    linear-gradient(185deg, rgba(250, 248, 244, 0.65), rgba(237, 244, 241, 0.2)),
+    url('/images/dr-gustavo-background-1800.jpg');
+  background-size: cover;
+  background-position: 48% 22%;
+  opacity: 0.45;
+  filter: saturate(100%);
+  clip-path: polygon(12% 0%, 100% 0%, 88% 85%, 52% 100%, 0% 82%, 0% 32%);
+  box-shadow: 0 30px 60px rgba(18, 19, 16, 0.16);
+  animation: credenciais-portrait-drift 24s ease-in-out infinite alternate;
+}
+
+.credenciais__portrait::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.24), transparent 65%);
+  mix-blend-mode: screen;
+}
+
 .credenciais__halo {
   position: absolute;
   border-radius: 50%;
@@ -294,6 +320,21 @@
   }
 }
 
+@keyframes credenciais-portrait-drift {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(-2deg) scale(1.02);
+    clip-path: polygon(12% 0%, 100% 0%, 88% 85%, 52% 100%, 0% 82%, 0% 32%);
+  }
+  50% {
+    transform: translate3d(-1%, -1%, 0) rotate(1.5deg) scale(1.13);
+    clip-path: polygon(8% 2%, 98% 0%, 92% 82%, 58% 100%, 4% 86%, 0% 36%);
+  }
+  100% {
+    transform: translate3d(1%, 2%, 0) rotate(-1deg) scale(1.07);
+    clip-path: polygon(15% 0%, 100% 0%, 84% 88%, 48% 100%, 0% 78%, 0% 28%);
+  }
+}
+
 @media (max-width: 767px) {
   .credenciais__backdrop {
     display: none;
@@ -398,8 +439,20 @@
   }
 }
 
+@media (max-width: 1023px) and (min-width: 768px) {
+  .credenciais__portrait {
+    top: clamp(4rem, 14vh, 6rem);
+    right: clamp(-4rem, -6vw, -1rem);
+    width: clamp(15.5rem, 40vw, 23rem);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .credenciais__halo {
+    animation: none !important;
+  }
+
+  .credenciais__portrait {
     animation: none !important;
   }
 

@@ -1,0 +1,118 @@
+---
+import '../styles/sections/hero.css';
+
+const heroHighlights = [
+  'Consultas de 120 minutos',
+  'Plano terapêutico co-criado',
+  'Canabidiol com rigor científico'
+];
+
+const heroQuote = {
+  text: '“Ele traduziu meu padrão de pensamento em um plano que finalmente fez sentido para mim e para minha família.”',
+  author: 'Paciente acompanhado desde 2023'
+};
+---
+
+<section id="hero" class="hero" aria-labelledby="hero-title">
+  <div class="hero__background" aria-hidden="true">
+    <span class="hero__halo hero__halo--one"></span>
+    <span class="hero__halo hero__halo--two"></span>
+    <span class="hero__mesh"></span>
+  </div>
+
+  <div class="hero__content container">
+    <div class="hero__grid">
+      <div class="hero__copy">
+        <span class="hero__eyebrow" data-animate="fade-right">Psiquiatria humanizada guiada por dados</span>
+
+        <h1 id="hero-title" class="hero__title" data-animate="fade-right">
+          <span class="hero__line hero__line--light">Você não precisa de mais diagnósticos.</span>
+          <span class="hero__line hero__line--bold">Você precisa se entender.</span>
+        </h1>
+
+        <div class="hero__identity" data-animate="fade-right">
+          <span class="hero__name">Dr. Gustavo Mendes</span>
+          <span class="hero__context">Psiquiatria · São José do Rio Preto</span>
+        </div>
+
+        <p class="hero__lead" data-animate="fade-right">
+          Consultas longas, tecnologia como apoio discreto e planos vivos construídos em colaboração — para que cada paciente compreenda o porquê, não só o que fazer.
+        </p>
+
+        <div class="hero__highlights" data-stagger>
+          {heroHighlights.map(item => (
+            <span class="hero__highlight">{item}</span>
+          ))}
+        </div>
+
+        <div class="hero__actions">
+          <button class="hero__cta" data-open-cal data-animate="fade-right" aria-label="Agendar consulta">
+            Agendar consulta
+          </button>
+          <p class="hero__availability" data-animate="fade-right">
+            Agenda aberta duas vezes por mês · Atendimento presencial e online
+          </p>
+        </div>
+      </div>
+
+      <aside class="hero__media" aria-hidden="true">
+        <div class="hero__frame" data-animate="fade-left">
+          <div class="hero__portrait"></div>
+          <span class="hero__ring hero__ring--outer"></span>
+          <span class="hero__ring hero__ring--inner"></span>
+        </div>
+
+        <figure class="hero__quote" data-animate="fade-left">
+          <blockquote>{heroQuote.text}</blockquote>
+          <figcaption>{heroQuote.author}</figcaption>
+        </figure>
+      </aside>
+    </div>
+  </div>
+
+  <button
+    class="hero__scroll"
+    type="button"
+    data-scroll-target="manifesto"
+    aria-label="Ir para o manifesto"
+    data-animate="fade-up"
+  >
+    <span class="hero__scroll-icon" aria-hidden="true">⌄</span>
+    <span class="hero__scroll-text">ver manifesto</span>
+  </button>
+</section>
+
+<script>
+  const heroSection = document.getElementById('hero');
+
+  if (heroSection) {
+    const scrollButton = heroSection.querySelector('[data-scroll-target]');
+    const calButton = heroSection.querySelector('[data-open-cal]');
+
+    if (calButton) {
+      calButton.addEventListener('click', () => {
+        window.dispatchEvent(new CustomEvent('open-cal-modal'));
+      });
+    }
+
+    if (scrollButton) {
+      const targetId = scrollButton.getAttribute('data-scroll-target');
+      scrollButton.addEventListener('click', () => {
+        if (!targetId) return;
+        const nextSection = document.getElementById(targetId);
+        if (nextSection) {
+          nextSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+
+      let hasHidden = false;
+      window.addEventListener('scroll', () => {
+        if (hasHidden) return;
+        if (window.scrollY > 80) {
+          hasHidden = true;
+          scrollButton.classList.add('hero__scroll--hidden');
+        }
+      });
+    }
+  }
+</script>

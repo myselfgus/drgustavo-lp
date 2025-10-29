@@ -3,160 +3,178 @@ import '../styles/sections/localizacao.css';
 ---
 
 <section id="localizacao" class="localizacao" aria-labelledby="localizacao-title">
-  <div class="localizacao__backdrop" aria-hidden="true">
-    <span class="localizacao__halo localizacao__halo--one"></span>
-    <span class="localizacao__halo localizacao__halo--two"></span>
+  <!-- Ambient Background -->
+  <div class="localizacao__ambient" aria-hidden="true">
+    <div class="localizacao__gradient"></div>
+    <div class="localizacao__photo-layer localizacao__photo-layer--1"></div>
+    <div class="localizacao__photo-layer localizacao__photo-layer--2"></div>
+    <span class="localizacao__halo localizacao__halo--sage"></span>
+    <span class="localizacao__halo localizacao__halo--petrol"></span>
   </div>
 
   <div class="localizacao__content container">
+    <!-- Header -->
     <header class="localizacao__header" data-animate="fade-up">
       <span class="localizacao__eyebrow">Onde atendo</span>
-      <h2 id="localizacao-title" class="localizacao__title">C&W Offices, Unidade Amadeu</h2>
-      <p class="localizacao__subtitle">
-        Rua Amadeu Segundo Cherubini, 504 · Jd. Panorama · São José do Rio Preto/SP
+      <h2 id="localizacao-title" class="localizacao__title">
+        C&W Offices<br/>
+        <span class="localizacao__title-accent">Unidade Amadeu</span>
+      </h2>
+      <p class="localizacao__address">
+        Rua Amadeu Segundo Cherubini, 504<br/>
+        Jd. Panorama · São José do Rio Preto/SP
       </p>
     </header>
 
-    <div class="localizacao__grid" data-stagger>
-      <div class="localizacao__map-wrapper">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1892404.2055858364!2d-47.91200355!3d-22.12208775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa933428a82cbb4c9%3A0x2ae1ba9fdcd83661!2sDr.%20Gustavo%20Mendes%20e%20Silva%20-%20M%C3%A9dico%20Psiquiatra%20e%20Psicoterapeuta!5e0!3m2!1spt-BR!2sbr!4v1760337711412!5m2!1spt-BR!2sbr"
-          width="100%"
-          height="280"
-          style="border:0;"
-          allowfullscreen
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-        ></iframe>
+    <!-- Main Content Grid -->
+    <div class="localizacao__main">
+      <!-- Gallery with Parallax Effect -->
+      <div class="localizacao__gallery" data-animate="fade-up" data-delay="100ms">
+        <div class="localizacao__gallery-grid">
+          <figure class="localizacao__figure localizacao__figure--large">
+            <img
+              src="/images/coworking-ParteII-98.jpg"
+              alt="Espaço de atendimento acolhedor"
+              loading="lazy"
+              class="localizacao__image"
+              data-parallax="slow"
+            />
+          </figure>
+          <figure class="localizacao__figure localizacao__figure--small">
+            <img
+              src="/images/Bruno-Rossete-Fotografia-CoWorking-48.jpg"
+              alt="Sala privativa moderna"
+              loading="lazy"
+              class="localizacao__image"
+              data-parallax="medium"
+            />
+          </figure>
+          <figure class="localizacao__figure localizacao__figure--small">
+            <img
+              src="/images/coworking-ParteII-9.jpg"
+              alt="Ambiente profissional e tranquilo"
+              loading="lazy"
+              class="localizacao__image"
+              data-parallax="fast"
+            />
+          </figure>
+        </div>
       </div>
 
-      <div class="localizacao__carousel">
-        <div class="localizacao__photos">
-          <img
-            src="https://coandwork.com.br/wp-content/uploads/2025/04/coworking-ParteII-101.jpg"
-            alt="Entrada C&W Offices Unidade Amadeu"
+      <!-- Info Card with Map -->
+      <div class="localizacao__info-card" data-animate="fade-up" data-delay="200ms">
+        <div class="localizacao__map">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1892404.2055858364!2d-47.91200355!3d-22.12208775!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xa933428a82cbb4c9%3A0x2ae1ba9fdcd83661!2sDr.%20Gustavo%20Mendes%20e%20Silva%20-%20M%C3%A9dico%20Psiquiatra%20e%20Psicoterapeuta!5e0!3m2!1spt-BR!2sbr!4v1760337711412!5m2!1spt-BR!2sbr"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen
             loading="lazy"
-            class="localizacao__photo"
-            data-active="true"
-          />
-          <img
-            src="https://coandwork.com.br/wp-content/uploads/2022/10/coworking-ParteII-90.jpg"
-            alt="Recepção C&W Offices"
-            loading="lazy"
-            class="localizacao__photo"
-          />
-          <img
-            src="https://coandwork.com.br/wp-content/uploads/2022/10/Bruno-Rossete-Fotografia-CoWorking-57.jpg"
-            alt="Sala de atendimento para 2 pessoas"
-            loading="lazy"
-            class="localizacao__photo"
-          />
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Mapa de localização do consultório"
+          ></iframe>
         </div>
 
-        <button class="localizacao__nav localizacao__nav--prev" aria-label="Foto anterior">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-        </button>
+        <div class="localizacao__details">
+          <h3 class="localizacao__details-title">Acesso e comodidades</h3>
+          <ul class="localizacao__features">
+            <li class="localizacao__feature">
+              <svg class="localizacao__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 6v6l4 2"></path>
+              </svg>
+              <span>Atendimento com hora marcada</span>
+            </li>
+            <li class="localizacao__feature">
+              <svg class="localizacao__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <span>Privacidade garantida</span>
+            </li>
+            <li class="localizacao__feature">
+              <svg class="localizacao__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              </svg>
+              <span>Ambiente acolhedor e tranquilo</span>
+            </li>
+            <li class="localizacao__feature">
+              <svg class="localizacao__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
+              <span>Estacionamento disponível</span>
+            </li>
+          </ul>
 
-        <button class="localizacao__nav localizacao__nav--next" aria-label="Próxima foto">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </button>
-
-        <div class="localizacao__indicators">
-          <button class="localizacao__dot" data-index="0" aria-label="Ver foto 1"></button>
-          <button class="localizacao__dot" data-index="1" aria-label="Ver foto 2"></button>
-          <button class="localizacao__dot" data-index="2" aria-label="Ver foto 3"></button>
+          <a
+            href="https://maps.app.goo.gl/PjL26I3kNspkRtuLk"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="localizacao__cta"
+          >
+            <span>Ver rotas no Google Maps</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </a>
         </div>
       </div>
     </div>
-
-    <footer class="localizacao__footer" data-animate="fade-up">
-      <a
-        href="https://maps.app.goo.gl/PjL26I3kNspkRtuLk"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="localizacao__link"
-      >
-        Ver no Google Meu Negócio
-      </a>
-    </footer>
   </div>
 </section>
 
 <script>
-  const carousel = document.querySelector('.localizacao__carousel');
+  // Parallax scroll effect for images
+  function initParallax() {
+    const section = document.querySelector('.localizacao');
+    const images = section?.querySelectorAll('[data-parallax]');
 
-  if (carousel && window.matchMedia('(min-width: 768px)').matches) {
-    const photos = Array.from(carousel.querySelectorAll('.localizacao__photo'));
-    const dots = Array.from(carousel.querySelectorAll('.localizacao__dot'));
-    const prevBtn = carousel.querySelector('.localizacao__nav--prev');
-    const nextBtn = carousel.querySelector('.localizacao__nav--next');
+    if (!section || !images?.length) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    let currentIndex = 0;
-    let autoplayInterval: number;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            window.addEventListener('scroll', updateParallax);
+          } else {
+            window.removeEventListener('scroll', updateParallax);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
 
-    function showPhoto(index: number) {
-      photos.forEach((photo, i) => {
-        if (i === index) {
-          photo.setAttribute('data-active', 'true');
-        } else {
-          photo.removeAttribute('data-active');
-        }
+    function updateParallax() {
+      if (!section || !images) return;
+
+      const rect = section.getBoundingClientRect();
+      const scrollProgress = -rect.top / (rect.height + window.innerHeight);
+
+      images.forEach((img: Element) => {
+        const speed = img.getAttribute('data-parallax');
+        let multiplier = 1;
+
+        if (speed === 'slow') multiplier = 0.3;
+        else if (speed === 'medium') multiplier = 0.5;
+        else if (speed === 'fast') multiplier = 0.7;
+
+        const offset = scrollProgress * 100 * multiplier;
+        (img as HTMLElement).style.transform = `translateY(${offset}px)`;
       });
-
-      dots.forEach((dot, i) => {
-        if (i === index) {
-          dot.setAttribute('data-active', 'true');
-        } else {
-          dot.removeAttribute('data-active');
-        }
-      });
-
-      currentIndex = index;
     }
 
-    function nextPhoto() {
-      const next = (currentIndex + 1) % photos.length;
-      showPhoto(next);
+    observer.observe(section);
+  }
+
+  // Initialize on load
+  if (typeof window !== 'undefined') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initParallax);
+    } else {
+      initParallax();
     }
-
-    function prevPhoto() {
-      const prev = (currentIndex - 1 + photos.length) % photos.length;
-      showPhoto(prev);
-    }
-
-    function startAutoplay() {
-      autoplayInterval = window.setInterval(nextPhoto, 5000);
-    }
-
-    function stopAutoplay() {
-      clearInterval(autoplayInterval);
-    }
-
-    prevBtn?.addEventListener('click', () => {
-      prevPhoto();
-      stopAutoplay();
-      startAutoplay();
-    });
-
-    nextBtn?.addEventListener('click', () => {
-      nextPhoto();
-      stopAutoplay();
-      startAutoplay();
-    });
-
-    dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => {
-        showPhoto(index);
-        stopAutoplay();
-        startAutoplay();
-      });
-    });
-
-    dots[0]?.setAttribute('data-active', 'true');
-    startAutoplay();
   }
 </script>

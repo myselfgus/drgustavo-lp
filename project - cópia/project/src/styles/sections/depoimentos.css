@@ -1,0 +1,96 @@
+.depoimentos {
+  position: relative;
+  background: linear-gradient(160deg, #eef2ed 0%, #ffffff 54%, #f4f7f5 100%);
+}
+
+.depoimentos__content {
+  display: grid;
+  gap: clamp(24px, 5vh, 40px);
+  align-content: center;
+  min-height: 100%;
+  padding-block: clamp(56px, 16vh, 96px);
+}
+
+.depoimentos__eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.depoimentos__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: var(--text-title-lg);
+  line-height: 1.2;
+}
+
+.depoimentos__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(20px, 4vw, 32px);
+  width: 100%;
+}
+
+.depoimentos__card {
+  margin: 0;
+  padding: clamp(20px, 4vw, 28px);
+  border-radius: var(--radius-xl);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(31, 62, 70, 0.08);
+  box-shadow: 0 26px 44px rgba(18, 19, 16, 0.08);
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity var(--duration-slow) var(--ease-smooth),
+    transform var(--duration-slow) var(--ease-smooth),
+    box-shadow var(--transition-fast);
+  transition-delay: var(--stagger-delay, 0ms);
+}
+
+.depoimentos__card blockquote {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+  line-height: 1.45;
+  color: var(--text-primary);
+  text-wrap: balance;
+}
+
+.depoimentos__card figcaption {
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.depoimentos__card.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.depoimentos__next {
+  border: none;
+  background: transparent;
+  color: var(--brand-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: transform var(--transition-fast), color var(--transition-fast);
+}
+
+.depoimentos__next:hover {
+  transform: translateY(-2px);
+  color: var(--text-primary);
+}
+
+@media (max-width: 767px) {
+  .depoimentos__content {
+    align-content: stretch;
+  }
+}

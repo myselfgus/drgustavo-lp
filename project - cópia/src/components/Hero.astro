@@ -1,0 +1,65 @@
+---
+import '../styles/sections/hero.css';
+---
+
+<section id="hero" class="hero" aria-labelledby="hero-title">
+  <div class="hero__background" aria-hidden="true"></div>
+
+  <div class="hero__content container">
+    <div class="hero__copy">
+      <h1 id="hero-title" class="hero__title">
+        <span class="hero__line hero__line--light">Você não precisa de mais diagnósticos.</span>
+        <span class="hero__line hero__line--bold">Você precisa se entender.</span>
+      </h1>
+
+      <div class="hero__identity">
+        <span class="hero__name">Dr. Gustavo Mendes</span>
+        <span class="hero__context">Psiquiatria · São José do Rio Preto</span>
+      </div>
+
+      <button class="hero__cta" data-open-cal aria-label="Agendar consulta">
+        Agendar consulta
+      </button>
+    </div>
+  </div>
+
+  <button class="hero__scroll" type="button" data-scroll-target="manifesto" aria-label="Ir para o manifesto">
+    <span class="hero__scroll-icon" aria-hidden="true">⌄</span>
+    <span class="hero__scroll-text">ver manifesto</span>
+  </button>
+</section>
+
+<script>
+  const heroSection = document.getElementById('hero');
+
+  if (heroSection) {
+    const scrollButton = heroSection.querySelector<HTMLButtonElement>('[data-scroll-target]');
+    const calButton = heroSection.querySelector<HTMLButtonElement>('[data-open-cal]');
+
+    if (calButton) {
+      calButton.addEventListener('click', () => {
+        window.dispatchEvent(new CustomEvent('open-cal-modal'));
+      });
+    }
+
+    if (scrollButton) {
+      const targetId = scrollButton.dataset.scrollTarget;
+      scrollButton.addEventListener('click', () => {
+        if (!targetId) return;
+        const nextSection = document.getElementById(targetId);
+        if (nextSection) {
+          nextSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+
+      let hasHidden = false;
+      window.addEventListener('scroll', () => {
+        if (hasHidden) return;
+        if (window.scrollY > 80) {
+          hasHidden = true;
+          scrollButton.classList.add('hero__scroll--hidden');
+        }
+      });
+    }
+  }
+</script>

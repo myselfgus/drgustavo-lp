@@ -1,6 +1,8 @@
 ---
 import SEO from '../components/SEO.astro';
 import StructuredData from '../components/StructuredData.astro';
+import MetaPixel from '../components/MetaPixel.astro';
+import CalEmbed from '../components/CalEmbed.astro';
 import Header from '../components/Header.astro';
 import SideDots from '../components/SideDots.astro';
 import '../styles/global.css';
@@ -35,10 +37,13 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
     
     <!-- SEO Meta Tags -->
     <SEO title={title} description={description} ogImage={ogImage} />
-    
+
     <!-- Structured Data -->
     <StructuredData />
-    
+
+    <!-- Meta Pixel -->
+    <MetaPixel />
+
     <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -59,6 +64,12 @@ const cfBeaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
       <slot />
     </main>
 
+    <!-- Smart Analytics - Agente IA -->
+    <script src="/src/scripts/smart-analytics.js"></script>
+
+    <elevenlabs-convai agent-id="agent_4301k53hd1fke37983rze0nvdct4"></elevenlabs-convai>
+    <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+    <CalEmbed />
     <script is:inline>
       const observers = [];
 

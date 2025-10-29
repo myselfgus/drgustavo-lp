@@ -1,0 +1,61 @@
+---
+import '../styles/sections/metodo.css';
+
+const steps = [
+  {
+    title: 'Primeira consulta expandida',
+    description: '2 horas para mapear história, rotina e contextos sem pressa.',
+    badge: '120 min'
+  },
+  {
+    title: 'Tecnologia para ampliar a escuta',
+    description: 'Uso IA para organizar dados enquanto dedico presença total à consulta.',
+    badge: 'IA como apoio'
+  },
+  {
+    title: 'Hipóteses construídas a quatro mãos',
+    description: 'Seu insight e repertório entram no centro das decisões terapêuticas.'
+  },
+  {
+    title: 'Tratamento modular',
+    description: 'Medicação, canabidiol e estratégias comportamentais combinadas de forma personalizada.',
+    badge: 'Plano vivo'
+  },
+  {
+    title: 'Relatórios transparentes',
+    description: 'Cada encontro resulta em registros claros e aplicáveis ao seu dia a dia.'
+  },
+  {
+    title: 'Reavaliações contínuas',
+    description: 'Seguimos com ajustes finos, sem retornos automáticos ou receitas prontas.',
+    badge: 'Seguimento real'
+  }
+];
+---
+
+<section id="metodo" class="metodo" aria-labelledby="metodo-title">
+  <div class="metodo__content container">
+    <div class="metodo__header">
+      <span class="metodo__eyebrow" data-animate="fade-right">Método</span>
+      <h2 id="metodo-title" class="metodo__title" data-animate="fade-right">Como conduzimos cada etapa</h2>
+      <p class="metodo__lead" data-animate="fade-right">
+        Uma jornada contínua que alterna análise, co-criação e ajustes frequentes — sempre com transparência sobre o que está funcionando e o que precisa mudar.
+      </p>
+    </div>
+
+    <ol class="metodo__timeline" data-stagger>
+      {steps.map((step, index) => (
+        <li class="metodo__step">
+          <div class="metodo__marker" aria-hidden="true">
+            <span>{String(index + 1).padStart(2, '0')}</span>
+          </div>
+          <div class="metodo__body">
+            <h3>{step.title}</h3>
+            <p>{step.description}</p>
+            {step.badge && <span class="metodo__badge">{step.badge}</span>}
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

@@ -16,6 +16,31 @@ const programs = [
 ---
 
 <section id="programas" class="programas" aria-labelledby="programas-title">
+  <div class="programas__backdrop" aria-hidden="true">
+    <div class="programas__glow"></div>
+    <svg class="programas__grid" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="programas-stroke" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="rgba(18,19,16,0.25)" />
+          <stop offset="100%" stop-color="rgba(31,62,70,0.18)" />
+        </linearGradient>
+      </defs>
+      <g class="programas__grid-lines" stroke="url(#programas-stroke)" stroke-width="1">
+        <path d="M40 160 H560" />
+        <path d="M40 320 H560" />
+        <path d="M40 480 H560" />
+        <path d="M160 40 V560" />
+        <path d="M320 40 V560" />
+        <path d="M480 40 V560" />
+      </g>
+      <g class="programas__grid-nodes" fill="rgba(210,168,87,0.35)">
+        <circle cx="160" cy="320" r="6" />
+        <circle cx="480" cy="160" r="4" />
+        <circle cx="320" cy="480" r="5" />
+      </g>
+    </svg>
+  </div>
+
   <div class="programas__content container">
     <header class="programas__header">
       <span class="programas__eyebrow" data-animate="fade-right">Programas dedicados</span>
