@@ -1,0 +1,26 @@
+---
+interface Props {
+  variant?: 'sage' | 'petrol' | 'gold' | 'neutral';
+  class?: string;
+}
+
+const { variant = 'neutral', class: className = '' } = Astro.props;
+
+const variantClasses = {
+  sage: 'bg-gradient-to-br from-accent-sage/10 to-accent-sage/5 hover:from-accent-sage/15 hover:to-accent-sage/8 border-accent-sage/20',
+  petrol: 'bg-gradient-to-br from-accent-petrol/10 to-accent-petrol/5 hover:from-accent-petrol/15 hover:to-accent-petrol/8 border-accent-petrol/20',
+  gold: 'bg-gradient-to-br from-accent-gold/10 to-accent-gold/5 hover:from-accent-gold/15 hover:to-accent-gold/8 border-accent-gold/20',
+  neutral: 'bg-gradient-to-br from-gray-50 to-white hover:from-gray-100 hover:to-gray-50 border-gray-200',
+};
+---
+
+<div 
+  class:list={[
+    'rounded-xl border backdrop-blur-sm transition-all duration-normal',
+    'shadow-sm hover:shadow-md transform hover:-translate-y-1',
+    variantClasses[variant],
+    className
+  ]}
+>
+  <slot />
+</div>

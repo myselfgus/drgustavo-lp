@@ -63,6 +63,9 @@ export default {
 				sm: '0 6px 18px rgba(18, 19, 16, 0.06)',
 				md: '0 16px 32px rgba(18, 19, 16, 0.08)',
 				lg: '0 28px 48px rgba(18, 19, 16, 0.12)',
+				'glow-sage': '0 0 40px rgba(125, 168, 123, 0.3)',
+				'glow-petrol': '0 0 40px rgba(31, 62, 70, 0.3)',
+				'glow-gold': '0 0 40px rgba(210, 168, 87, 0.3)',
 			},
 			borderRadius: {
 				sm: '6px',
@@ -70,6 +73,49 @@ export default {
 				lg: '18px',
 				xl: '24px',
 				full: '9999px',
+			},
+			backgroundImage: {
+				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+				'gradient-sage': 'linear-gradient(135deg, #7da87b 0%, #a8c7a6 100%)',
+				'gradient-petrol': 'linear-gradient(135deg, #1f3e46 0%, #2d5861 100%)',
+				'gradient-gold': 'linear-gradient(135deg, #d2a857 0%, #e4c07a 100%)',
+				'gradient-hero': 'linear-gradient(180deg, #f5f2eb 0%, #eef5f3 58%, #ffffff 100%)',
+				'gradient-soft': 'linear-gradient(to bottom, rgba(250,250,248,0) 0%, rgba(250,250,248,1) 100%)',
+			},
+			animation: {
+				'float': 'float 6s ease-in-out infinite',
+				'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+				'slide-up': 'slideUp 0.6s ease-out',
+				'slide-down': 'slideDown 0.6s ease-out',
+				'fade-in': 'fadeIn 0.8s ease-out',
+				'scale-in': 'scaleIn 0.5s ease-out',
+				'shimmer': 'shimmer 2s linear infinite',
+			},
+			keyframes: {
+				float: {
+					'0%, 100%': { transform: 'translateY(0px)' },
+					'50%': { transform: 'translateY(-20px)' },
+				},
+				slideUp: {
+					'0%': { transform: 'translateY(20px)', opacity: '0' },
+					'100%': { transform: 'translateY(0)', opacity: '1' },
+				},
+				slideDown: {
+					'0%': { transform: 'translateY(-20px)', opacity: '0' },
+					'100%': { transform: 'translateY(0)', opacity: '1' },
+				},
+				fadeIn: {
+					'0%': { opacity: '0' },
+					'100%': { opacity: '1' },
+				},
+				scaleIn: {
+					'0%': { transform: 'scale(0.9)', opacity: '0' },
+					'100%': { transform: 'scale(1)', opacity: '1' },
+				},
+				shimmer: {
+					'0%': { backgroundPosition: '-1000px 0' },
+					'100%': { backgroundPosition: '1000px 0' },
+				},
 			},
 		},
 	},

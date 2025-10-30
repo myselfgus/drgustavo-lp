@@ -1,10 +1,11 @@
 ---
 import '../styles/sections/hero.css';
+import CTAButton from './ui/CTAButton.astro';
 
 const heroHighlights = [
-  'Narrativa da sua história em formato literário',
-  'Manual personalizado do seu tratamento',
-  'Metas concretas de alta'
+  { icon: '📖', text: 'Narrativa da sua história em formato literário' },
+  { icon: '📋', text: 'Manual personalizado do seu tratamento' },
+  { icon: '🎯', text: 'Metas concretas de alta' }
 ];
 
 const heroQuotesData = [
@@ -36,7 +37,7 @@ const heroPortraitSizes = '(min-width: 1024px) 320px, 60vw';
 const heroPortraitFallback = `${heroPortraitBase}-640.jpg`;
 ---
 
-<section id="hero" class="hero" aria-labelledby="hero-title">
+<section id="hero" class="hero relative overflow-hidden" aria-labelledby="hero-title">
   <div class="hero__background" aria-hidden="true">
     <div class="hero__photo-ambient hero__photo-ambient--1"></div>
     <div class="hero__photo-ambient hero__photo-ambient--2"></div>
@@ -45,48 +46,64 @@ const heroPortraitFallback = `${heroPortraitBase}-640.jpg`;
     <span class="hero__mesh"></span>
   </div>
 
-  <div class="hero__content container">
+  <div class="hero__content container relative z-10">
     <div class="hero__grid">
-      <div class="hero__copy">
-        <span class="hero__eyebrow" data-animate="fade-right">Psiquiatria com desfecho planejado · São José do Rio Preto</span>
+      <div class="hero__copy space-y-6">
+        <span class="hero__eyebrow inline-block px-4 py-2 rounded-full bg-accent-sage/10 text-accent-sage text-sm font-medium backdrop-blur-sm border border-accent-sage/20" data-animate="fade-right">
+          Psiquiatria com desfecho planejado · São José do Rio Preto
+        </span>
 
         <h1 id="hero-title" class="hero__title" data-animate="fade-right">
-          <span class="hero__line">Você não precisa de mais diagnósticos.</span>
-          <span class="hero__line hero__line--bold">Você precisa se entender.</span>
+          <span class="hero__line block">Você não precisa de mais diagnósticos.</span>
+          <span class="hero__line hero__line--bold block bg-gradient-to-r from-accent-petrol to-accent-sage bg-clip-text text-transparent">
+            Você precisa se entender.
+          </span>
         </h1>
 
-        <div class="hero__identity" data-animate="fade-right">
-          <span class="hero__name">Dr. Gustavo Mendes e Silva</span>
-          <span class="hero__context">Psiquiatra · Psicoterapeuta ACT · TEA</span>
+        <div class="hero__identity space-y-1" data-animate="fade-right">
+          <span class="hero__name block text-xl font-semibold">Dr. Gustavo Mendes e Silva</span>
+          <span class="hero__context block text-sm text-gray-600">Psiquiatra · Psicoterapeuta ACT · TEA</span>
         </div>
 
-        <p class="hero__lead" data-animate="fade-right">
+        <p class="hero__lead text-lg leading-relaxed text-gray-700" data-animate="fade-right">
           Consultas de 2 horas onde eu escuto de verdade. Você leva pra casa a narrativa da sua história, um manual personalizado do tratamento e metas concretas para não precisar mais de mim.
         </p>
 
-        <div class="hero__highlights" data-stagger>
+        <div class="hero__highlights grid gap-3 mt-6" data-stagger>
           {heroHighlights.map(item => (
-            <span class="hero__highlight">{item}</span>
+            <div class="flex items-start gap-3 p-3 rounded-lg bg-white/60 backdrop-blur-sm border border-gray-200/50 hover:border-accent-sage/30 transition-all duration-normal hover:shadow-sm">
+              <span class="text-2xl flex-shrink-0">{item.icon}</span>
+              <span class="text-sm text-gray-700 leading-relaxed">{item.text}</span>
+            </div>
           ))}
         </div>
 
-        <div class="hero__actions">
-          <a
-            class="hero__cta"
+        <div class="hero__actions flex flex-wrap gap-4 pt-4" data-animate="fade-right">
+          <CTAButton
             href="https://wa.me/551721101228?text=Olá,%20vim%20do%20site%20e%20gostaria%20de%20agendar%20uma%20consulta"
+            variant="primary"
+            size="lg"
             target="_blank"
             rel="noopener noreferrer"
-            data-animate="fade-right"
             aria-label="Agendar consulta pelo WhatsApp"
+            class="hero__cta-modern"
           >
             Agendar consulta
-          </a>
+          </CTAButton>
+          
+          <button 
+            type="button"
+            data-scroll-target="manifesto"
+            class="px-6 py-3 rounded-lg border-2 border-gray-300 text-gray-700 font-semibold hover:border-accent-petrol hover:text-accent-petrol transition-all duration-normal"
+          >
+            Saiba mais
+          </button>
         </div>
       </div>
 
       <aside class="hero__media" aria-hidden="true">
-        <div class="hero__frame" data-animate="fade-left">
-          <div class="hero__portrait">
+        <div class="hero__frame relative" data-animate="fade-left">
+          <div class="hero__portrait relative rounded-2xl overflow-hidden shadow-xl">
             <img
               src={heroPortraitFallback}
               srcset={heroPortraitSrcset}
@@ -94,29 +111,35 @@ const heroPortraitFallback = `${heroPortraitBase}-640.jpg`;
               alt="Retrato do Dr. Gustavo Mendes e Silva"
               loading="eager"
               decoding="async"
+              class="w-full h-full object-cover"
             />
+            <div class="absolute inset-0 bg-gradient-to-t from-accent-petrol/20 to-transparent"></div>
           </div>
-          <span class="hero__ring hero__ring--outer"></span>
-          <span class="hero__ring hero__ring--inner"></span>
+          <span class="hero__ring hero__ring--outer absolute inset-0 rounded-2xl border-2 border-accent-sage/30 transform scale-105 animate-pulse-slow"></span>
+          <span class="hero__ring hero__ring--inner absolute inset-0 rounded-2xl border border-accent-petrol/20"></span>
         </div>
 
-        <figure class="hero__quote" data-animate="fade-left" aria-live="polite">
-          <blockquote data-hero-quote>{initialHeroQuote.text}</blockquote>
-          <figcaption data-hero-author>{initialHeroQuote.author}</figcaption>
+        <figure class="hero__quote mt-6 p-5 rounded-xl bg-white/80 backdrop-blur-sm border border-gray-200 shadow-md" data-animate="fade-left" aria-live="polite">
+          <blockquote data-hero-quote class="text-sm italic text-gray-700 mb-3 leading-relaxed">
+            {initialHeroQuote.text}
+          </blockquote>
+          <figcaption data-hero-author class="text-xs text-gray-500 font-medium">
+            {initialHeroQuote.author}
+          </figcaption>
         </figure>
       </aside>
     </div>
   </div>
 
   <button
-    class="hero__scroll"
+    class="hero__scroll absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-600 hover:text-accent-petrol transition-colors duration-normal group"
     type="button"
     data-scroll-target="manifesto"
     aria-label="Ir para o manifesto"
     data-animate="fade-up"
   >
-    <span class="hero__scroll-icon" aria-hidden="true">⌄</span>
-    <span class="hero__scroll-text">ver manifesto</span>
+    <span class="hero__scroll-icon text-3xl animate-bounce" aria-hidden="true">⌄</span>
+    <span class="hero__scroll-text text-xs uppercase tracking-wider font-medium">ver manifesto</span>
   </button>
 </section>
 

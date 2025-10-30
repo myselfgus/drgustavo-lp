@@ -1,0 +1,49 @@
+---
+interface Props {
+  icon: string;
+  title: string;
+  description: string;
+  variant?: 'sage' | 'petrol' | 'gold';
+  class?: string;
+}
+
+const { icon, title, description, variant = 'sage', class: className = '' } = Astro.props;
+
+const iconColors = {
+  sage: 'text-accent-sage',
+  petrol: 'text-accent-petrol',
+  gold: 'text-accent-gold',
+};
+---
+
+<div 
+  class:list={[
+    'group relative p-6 rounded-xl transition-all duration-normal',
+    'bg-white/80 backdrop-blur-sm border border-gray-200',
+    'hover:shadow-lg hover:-translate-y-1',
+    className
+  ]}
+>
+  <div class:list={[
+    'w-12 h-12 mb-4 rounded-lg flex items-center justify-center',
+    'bg-gradient-to-br transition-all duration-normal',
+    variant === 'sage' && 'from-accent-sage/20 to-accent-sage/10 group-hover:from-accent-sage/30 group-hover:to-accent-sage/15',
+    variant === 'petrol' && 'from-accent-petrol/20 to-accent-petrol/10 group-hover:from-accent-petrol/30 group-hover:to-accent-petrol/15',
+    variant === 'gold' && 'from-accent-gold/20 to-accent-gold/10 group-hover:from-accent-gold/30 group-hover:to-accent-gold/15',
+  ]}>
+    <span class:list={['text-2xl', iconColors[variant]]}>{icon}</span>
+  </div>
+  
+  <h3 class="text-lg font-semibold text-gray-900 mb-2 group-hover:text-gray-700 transition-colors">
+    {title}
+  </h3>
+  
+  <p class="text-sm text-gray-600 leading-relaxed">
+    {description}
+  </p>
+  
+  <!-- Hover effect gradient -->
+  <div class="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-normal pointer-events-none"
+       style={`background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(125, 168, 123, 0.06), transparent 40%);`}>
+  </div>
+</div>
