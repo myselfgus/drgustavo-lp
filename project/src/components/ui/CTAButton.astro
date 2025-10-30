@@ -1,0 +1,94 @@
+---
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary' | 'outline';
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+  target?: string;
+  rel?: string;
+  'aria-label'?: string;
+}
+
+const { 
+  href, 
+  variant = 'primary', 
+  size = 'md', 
+  class: className = '',
+  target,
+  rel,
+  'aria-label': ariaLabel,
+} = Astro.props;
+
+const variantClasses = {
+  primary: 'bg-gradient-to-r from-accent-petrol to-accent-petrol/90 text-white hover:from-accent-petrol/90 hover:to-accent-petrol shadow-md hover:shadow-lg',
+  secondary: 'bg-gradient-to-r from-accent-sage to-accent-sage/90 text-white hover:from-accent-sage/90 hover:to-accent-sage shadow-md hover:shadow-lg',
+  outline: 'bg-transparent border-2 border-accent-petrol text-accent-petrol hover:bg-accent-petrol hover:text-white',
+};
+
+const sizeClasses = {
+  sm: 'px-4 py-2 text-sm',
+  md: 'px-6 py-3 text-base',
+  lg: 'px-8 py-4 text-lg',
+};
+---
+
+<a
+  href={href}
+  target={target}
+  rel={rel}
+  aria-label={ariaLabel}
+  class:list={[
+    'inline-flex items-center justify-center group',
+    'rounded-lg font-semibold',
+    'transition-all duration-normal',
+    'transform hover:-translate-y-0.5 active:translate-y-0',
+    'focus:outline-none focus:ring-2 focus:ring-accent-petrol focus:ring-offset-2',
+    variantClasses[variant],
+    sizeClasses[size],
+    className
+  ]}
+>
+  <slot />
+  
+  <!-- Arrow icon for primary buttons -->
+  {variant === 'primary' && (
+    <svg 
+      class="ml-2 w-5 h-5 transform group-hover:translate-x-1 transition-transform" 
+      fill="none" 
+      stroke="currentColor" 
+      viewBox="0 0 24 24"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+    </svg>
+  )}
+</a>
+
+<style>
+  a {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  a::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+  
+  a:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+  
+  a > * {
+    position: relative;
+    z-index: 1;
+  }
+</style>

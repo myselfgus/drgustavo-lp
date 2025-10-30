@@ -1,69 +1,95 @@
 ---
 import '../styles/sections/para-quem.css';
+import IconCard from './ui/IconCard.astro';
 
 const valores = [
   {
+    icon: '🎯',
     titulo: 'Autonomia',
-    descricao: 'Para quem busca se entender e ganhar ferramentas próprias, não depender de consultas vitalícias. Construímos metas concretas de alta desde o primeiro encontro.'
+    descricao: 'Para quem busca se entender e ganhar ferramentas próprias, não depender de consultas vitalícias. Construímos metas concretas de alta desde o primeiro encontro.',
+    variant: 'sage' as const
   },
   {
+    icon: '📖',
     titulo: 'Compreensão',
-    descricao: 'Para quem colecionou diagnósticos mas nunca recebeu uma narrativa clara da própria história. Você leva sua história traduzida em texto literário que produz insights acelerados.'
+    descricao: 'Para quem colecionou diagnósticos mas nunca recebeu uma narrativa clara da própria história. Você leva sua história traduzida em texto literário que produz insights acelerados.',
+    variant: 'petrol' as const
   },
   {
+    icon: '👁️',
     titulo: 'Presença',
-    descricao: 'Para quem precisa ser visto e ouvido de verdade, não apenas ter sintomas catalogados. Tecnologia cuida das anotações, eu fico 100% presente para conhecer a pessoa à minha frente.'
+    descricao: 'Para quem precisa ser visto e ouvido de verdade, não apenas ter sintomas catalogados. Tecnologia cuida das anotações, eu fico 100% presente para conhecer a pessoa à minha frente.',
+    variant: 'gold' as const
   },
   {
+    icon: '✨',
     titulo: 'Plenitude',
-    descricao: 'Para quem quer construir vida de significado, não apenas acabar com sofrimento. Praticamos ACT com foco nos seus sonhos, paixões e valores — não só em eliminar sintomas.'
+    descricao: 'Para quem quer construir vida de significado, não apenas acabar com sofrimento. Praticamos ACT com foco nos seus sonhos, paixões e valores — não só em eliminar sintomas.',
+    variant: 'sage' as const
   }
 ];
 
 const publicosEspecificos = [
-  'Famílias de crianças neurodivergentes (ofereço atendimento domiciliar)',
-  'Pessoas interessadas em canabinoides conduzidos com ciência, não modismo',
-  'Vítimas de violência (atendimento com valor social)',
-  'Quem quer acompanhamento intensivo com retornos frequentes nos primeiros meses'
+  { icon: '👨‍👩‍👧', text: 'Famílias de crianças neurodivergentes (ofereço atendimento domiciliar)' },
+  { icon: '🌿', text: 'Pessoas interessadas em canabinoides conduzidos com ciência, não modismo' },
+  { icon: '💚', text: 'Vítimas de violência (atendimento com valor social)' },
+  { icon: '📅', text: 'Quem quer acompanhamento intensivo com retornos frequentes nos primeiros meses' }
 ];
 ---
 
-<section id="para-quem" class="para-quem" aria-labelledby="para-quem-title">
+<section id="para-quem" class="para-quem relative py-20 lg:py-32" aria-labelledby="para-quem-title">
   <div class="para-quem__backdrop" aria-hidden="true"></div>
   <div class="para-quem__photo-layer" aria-hidden="true"></div>
   <div class="para-quem__overlay" aria-hidden="true"></div>
 
-  <div class="para-quem__content container">
-    <div class="para-quem__header">
-      <span class="para-quem__eyebrow" data-animate="fade-right">Para quem é</span>
-      <h2 id="para-quem-title" class="para-quem__title" data-animate="fade-right">Se você reconhece algum desses valores, este espaço é seu.</h2>
-      <p class="para-quem__lead" data-animate="fade-right">
+  <div class="para-quem__content container relative z-10">
+    <div class="para-quem__header max-w-3xl mx-auto text-center mb-16">
+      <span class="para-quem__eyebrow inline-block px-4 py-2 rounded-full bg-accent-petrol/10 text-accent-petrol text-sm font-medium backdrop-blur-sm border border-accent-petrol/20 mb-4" data-animate="fade-right">
+        Para quem é
+      </span>
+      <h2 id="para-quem-title" class="para-quem__title text-4xl lg:text-5xl font-bold text-gray-900 mb-6" data-animate="fade-right">
+        Se você reconhece algum desses valores, este espaço é seu.
+      </h2>
+      <p class="para-quem__lead text-lg text-gray-600 leading-relaxed" data-animate="fade-right">
         Este não é um consultório para quem busca prescrições rápidas ou diagnósticos vitalícios. É para quem quer construir autonomia, entender padrões e encerrar o ciclo de dependência do sistema de saúde mental.
       </p>
     </div>
 
-    <div class="para-quem__list" data-stagger>
+    <div class="para-quem__list grid gap-6 md:grid-cols-2 lg:gap-8 mb-12" data-stagger>
       {valores.map((valor, index) => (
-        <article class="para-quem__item">
-          <span class="para-quem__index">{String(index + 1).padStart(2, '0')}</span>
-          <h3 class="para-quem__valor-titulo">{valor.titulo}</h3>
-          <p class="para-quem__phrase">{valor.descricao}</p>
-        </article>
+        <IconCard
+          icon={valor.icon}
+          title={valor.titulo}
+          description={valor.descricao}
+          variant={valor.variant}
+        />
       ))}
     </div>
 
-    <div class="para-quem__especificos" data-animate="fade-up">
-      <h3>Especialmente preparado para:</h3>
-      <ul>
+    <div class="para-quem__especificos max-w-4xl mx-auto p-8 rounded-2xl bg-gradient-to-br from-white/90 to-gray-50/90 backdrop-blur-sm border border-gray-200 shadow-lg" data-animate="fade-up">
+      <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3">
+        <span class="text-3xl">🎯</span>
+        Especialmente preparado para:
+      </h3>
+      <ul class="grid gap-4 md:grid-cols-2">
         {publicosEspecificos.map(item => (
-          <li>{item}</li>
+          <li class="flex items-start gap-3 p-4 rounded-lg bg-white/80 hover:bg-white transition-all duration-normal hover:shadow-md border border-gray-100">
+            <span class="text-2xl flex-shrink-0">{item.icon}</span>
+            <span class="text-sm text-gray-700 leading-relaxed">{item.text}</span>
+          </li>
         ))}
       </ul>
     </div>
 
-    <div class="para-quem__footnote" data-animate="fade-up">
-      <span>Atendimento presencial em São José do Rio Preto e online em todo o Brasil</span>
-      <span>Acompanhamento com alta planejada: objetivo é você não precisar mais de mim</span>
+    <div class="para-quem__footnote mt-12 flex flex-col md:flex-row gap-6 justify-center items-center text-center" data-animate="fade-up">
+      <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-accent-sage/10 text-accent-sage text-sm font-medium">
+        <span class="text-lg">📍</span>
+        <span>Atendimento presencial em São José do Rio Preto e online em todo o Brasil</span>
+      </div>
+      <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-accent-petrol/10 text-accent-petrol text-sm font-medium">
+        <span class="text-lg">🎯</span>
+        <span>Acompanhamento com alta planejada: objetivo é você não precisar mais de mim</span>
+      </div>
     </div>
   </div>
 </section>
