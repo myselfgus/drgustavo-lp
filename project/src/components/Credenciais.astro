@@ -1,100 +1,147 @@
 ---
 import '../styles/sections/credenciais.css';
+import GradientCard from './ui/GradientCard.astro';
+import CTAButton from './ui/CTAButton.astro';
 ---
 
-<section id="credenciais" class="credenciais" aria-labelledby="credenciais-title">
+<section id="credenciais" class="credenciais relative py-20 lg:py-32 bg-gradient-to-b from-white to-gray-50" aria-labelledby="credenciais-title">
   <div class="credenciais__backdrop" aria-hidden="true">
     <span class="credenciais__halo credenciais__halo--one"></span>
     <span class="credenciais__halo credenciais__halo--two"></span>
     <div class="credenciais__portrait" role="presentation"></div>
   </div>
 
-  <div class="credenciais__content container">
-    <header class="credenciais__header" data-animate="fade-up">
-      <span class="credenciais__eyebrow">Quem conduz</span>
-      <h2 id="credenciais-title" class="credenciais__title">Dr. Gustavo Mendes e Silva</h2>
-      <p class="credenciais__crm">CRM-SP 218133 · Psiquiatra · Psicoterapeuta ACT · TEA</p>
-      <p class="credenciais__subtitle">
+  <div class="credenciais__content container relative z-10">
+    <header class="credenciais__header max-w-3xl mx-auto text-center mb-16" data-animate="fade-up">
+      <span class="credenciais__eyebrow inline-block px-4 py-2 rounded-full bg-accent-petrol/10 text-accent-petrol text-sm font-medium backdrop-blur-sm border border-accent-petrol/20 mb-4">
+        Quem conduz
+      </span>
+      <h2 id="credenciais-title" class="credenciais__title text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+        Dr. Gustavo Mendes e Silva
+      </h2>
+      <p class="credenciais__crm text-sm text-gray-600 mb-4">
+        CRM-SP 218133 · Psiquiatra · Psicoterapeuta ACT · TEA
+      </p>
+      <p class="credenciais__subtitle text-lg text-gray-700 leading-relaxed">
         São José do Rio Preto · Atuo entre CAPS, emergências e consultório, usando inteligência artificial e medicina canabinoide para transformar o que você fala em planos aplicáveis.
       </p>
     </header>
 
-    <div class="credenciais__bio" data-animate="fade-up">
-      <p>
-        Sou autista. Isso me ensinou que padrões cognitivos diferentes não são doenças a serem corrigidas — são modos de processar o mundo que precisam ser compreendidos, não rotulados.
-      </p>
-      <p>
+    <div class="credenciais__bio max-w-4xl mx-auto mb-16 space-y-6" data-animate="fade-up">
+      <div class="p-6 rounded-2xl bg-gradient-to-br from-accent-sage/5 to-white border border-accent-sage/20 backdrop-blur-sm">
+        <p class="text-lg text-gray-700 leading-relaxed">
+          Sou autista. Isso me ensinou que padrões cognitivos diferentes não são doenças a serem corrigidas — são modos de processar o mundo que precisam ser compreendidos, não rotulados.
+        </p>
+      </div>
+      <p class="text-base text-gray-700 leading-relaxed">
         Trabalhei anos em CAPS (saúde pública) e vi como o sistema perpetua dependência ao invés de construir autonomia. Por isso criei um modelo onde você entende seu padrão, recebe ferramentas concretas e ganha alta planejada. Uso IA para estar 100% presente nas consultas, não para substituir conexão humana.
       </p>
-      <p>
+      <p class="text-lg font-semibold text-accent-petrol">
         Meu objetivo não é te manter como paciente. É te libertar para viver sem precisar de mim.
       </p>
     </div>
 
-    <div class="credenciais__grid">
-      <div class="credenciais__card" data-animate="fade-up">
-        <div class="credenciais__card-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div class="credenciais__grid grid gap-6 md:grid-cols-3 mb-12">
+      <GradientCard variant="sage" class="p-6" data-animate="fade-up">
+        <div class="w-12 h-12 mb-4 rounded-lg bg-gradient-to-br from-accent-sage/20 to-accent-sage/10 flex items-center justify-center">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-accent-sage">
             <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <h3 class="credenciais__card-title">Trajetória</h3>
-        <p>
+        <h3 class="text-xl font-bold text-gray-900 mb-3">Trajetória</h3>
+        <p class="text-sm text-gray-700 leading-relaxed">
           CAPS (adulto, infantojuvenil e álcool/drogas), plantões 24h de urgência e enfermaria. Consultas de 120 minutos documentadas com IA clínica.
         </p>
-      </div>
+      </GradientCard>
 
-      <div class="credenciais__card" data-animate="fade-up" data-delay="100ms">
-        <div class="credenciais__card-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <GradientCard variant="petrol" class="p-6" data-animate="fade-up" data-delay="100ms">
+        <div class="w-12 h-12 mb-4 rounded-lg bg-gradient-to-br from-accent-petrol/20 to-accent-petrol/10 flex items-center justify-center">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-accent-petrol">
             <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/>
             <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
           </svg>
         </div>
-        <h3 class="credenciais__card-title">Como atuo hoje</h3>
-        <ul class="credenciais__list">
-          <li>Consultório em SJRP + teleconsulta para todo o Brasil</li>
-          <li>Supervisão de equipes em CAPS e redes públicas</li>
-          <li>Plantões em urgência e retaguarda hospitalar</li>
+        <h3 class="text-xl font-bold text-gray-900 mb-3">Como atuo hoje</h3>
+        <ul class="space-y-2 text-sm text-gray-700">
+          <li class="flex items-start gap-2">
+            <span class="text-accent-petrol mt-1">✓</span>
+            <span>Consultório em SJRP + teleconsulta para todo o Brasil</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-accent-petrol mt-1">✓</span>
+            <span>Supervisão de equipes em CAPS e redes públicas</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-accent-petrol mt-1">✓</span>
+            <span>Plantões em urgência e retaguarda hospitalar</span>
+          </li>
         </ul>
-      </div>
+      </GradientCard>
 
-      <div class="credenciais__card" data-animate="fade-up" data-delay="200ms">
-        <div class="credenciais__card-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <GradientCard variant="gold" class="p-6" data-animate="fade-up" data-delay="200ms">
+        <div class="w-12 h-12 mb-4 rounded-lg bg-gradient-to-br from-accent-gold/20 to-accent-gold/10 flex items-center justify-center">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-accent-gold">
             <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="1.5"/>
             <path d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89318 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <h3 class="credenciais__card-title">Focos principais</h3>
-        <ul class="credenciais__list">
-          <li>Neurodivergentes (TDAH, TEA) reorganizando rotina</li>
-          <li>Ansiedade resistente e depressão recorrente</li>
-          <li>Profissionais da saúde com agenda crítica</li>
+        <h3 class="text-xl font-bold text-gray-900 mb-3">Focos principais</h3>
+        <ul class="space-y-2 text-sm text-gray-700">
+          <li class="flex items-start gap-2">
+            <span class="text-accent-gold mt-1">✓</span>
+            <span>Neurodivergentes (TDAH, TEA) reorganizando rotina</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-accent-gold mt-1">✓</span>
+            <span>Ansiedade resistente e depressão recorrente</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-accent-gold mt-1">✓</span>
+            <span>Profissionais da saúde com agenda crítica</span>
+          </li>
         </ul>
-      </div>
+      </GradientCard>
     </div>
 
-    <div class="credenciais__badges" data-animate="fade-up">
-      <span class="credenciais__badge">Consultas 120 min</span>
-      <span class="credenciais__badge">Certificação SCC Cannabis</span>
-      <span class="credenciais__badge">CAPS + Emergência</span>
-      <span class="credenciais__badge">IA Clínica</span>
+    <div class="credenciais__badges flex flex-wrap justify-center gap-3 mb-12" data-animate="fade-up">
+      <span class="px-4 py-2 rounded-full bg-gradient-to-r from-accent-sage/20 to-accent-sage/10 text-accent-sage text-sm font-medium border border-accent-sage/30">
+        Consultas 120 min
+      </span>
+      <span class="px-4 py-2 rounded-full bg-gradient-to-r from-accent-petrol/20 to-accent-petrol/10 text-accent-petrol text-sm font-medium border border-accent-petrol/30">
+        Certificação SCC Cannabis
+      </span>
+      <span class="px-4 py-2 rounded-full bg-gradient-to-r from-accent-gold/20 to-accent-gold/10 text-accent-gold text-sm font-medium border border-accent-gold/30">
+        CAPS + Emergência
+      </span>
+      <span class="px-4 py-2 rounded-full bg-gradient-to-r from-gray-700/20 to-gray-600/10 text-gray-700 text-sm font-medium border border-gray-300">
+        IA Clínica
+      </span>
     </div>
 
-    <div class="credenciais__footer" data-animate="fade-up">
-      <div class="credenciais__links">
-        <a href="https://www.cremesp.org.br/?siteAcao=BuscaMedicos&crm=218133" target="_blank" rel="noopener">Validar CRM</a>
-        <a href="/curriculo">Currículo completo</a>
-        <a href="/blog">Blog</a>
+    <div class="credenciais__footer flex flex-col md:flex-row items-center justify-between gap-6 max-w-4xl mx-auto p-8 rounded-2xl bg-white border border-gray-200 shadow-lg" data-animate="fade-up">
+      <div class="credenciais__links flex flex-wrap gap-4 justify-center">
+        <a href="https://www.cremesp.org.br/?siteAcao=BuscaMedicos&crm=218133" target="_blank" rel="noopener" class="text-sm text-accent-petrol hover:text-accent-sage transition-colors underline">
+          Validar CRM
+        </a>
+        <a href="/curriculo" class="text-sm text-accent-petrol hover:text-accent-sage transition-colors underline">
+          Currículo completo
+        </a>
+        <a href="/blog" class="text-sm text-accent-petrol hover:text-accent-sage transition-colors underline">
+          Blog
+        </a>
       </div>
-      <button class="credenciais__cta" type="button" data-scroll-target="contato" aria-label="Ir para contato">
+      <CTAButton
+        href="#contato"
+        variant="primary"
+        size="md"
+        aria-label="Ir para contato"
+      >
         Agendar consulta
-      </button>
+      </CTAButton>
     </div>
   </div>
 </section>
@@ -102,12 +149,11 @@ import '../styles/sections/credenciais.css';
 <script>
   const credenciaisSection = document.getElementById('credenciais');
   if (credenciaisSection) {
-    const nextButton = credenciaisSection.querySelector<HTMLButtonElement>('[data-scroll-target]');
-    if (nextButton) {
-      const targetId = nextButton.dataset.scrollTarget;
-      nextButton.addEventListener('click', () => {
-        if (!targetId) return;
-        document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const ctaButton = credenciaisSection.querySelector<HTMLAnchorElement>('a[href="#contato"]');
+    if (ctaButton) {
+      ctaButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('contato')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     }
   }
