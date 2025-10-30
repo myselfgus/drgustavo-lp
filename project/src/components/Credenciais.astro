@@ -147,14 +147,21 @@ import CTAButton from './ui/CTAButton.astro';
 </section>
 
 <script>
-  const credenciaisSection = document.getElementById('credenciais');
-  if (credenciaisSection) {
-    const ctaButton = credenciaisSection.querySelector<HTMLAnchorElement>('a[href="#contato"]');
-    if (ctaButton) {
-      ctaButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        document.getElementById('contato')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Handle smooth scroll for CTA button
+  document.addEventListener('DOMContentLoaded', () => {
+    const credenciaisSection = document.getElementById('credenciais');
+    if (credenciaisSection) {
+      // Find the CTA button by its href attribute
+      const ctaLinks = credenciaisSection.querySelectorAll<HTMLAnchorElement>('a[href="#contato"]');
+      ctaLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const contatoSection = document.getElementById('contato');
+          if (contatoSection) {
+            contatoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
       });
     }
-  }
+  });
 </script>

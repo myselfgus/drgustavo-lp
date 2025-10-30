@@ -2,15 +2,16 @@
 import '../styles/sections/manifesto.css';
 ---
 
-<section id="manifesto" class="manifesto" aria-labelledby="manifesto-title">
+<section id="manifesto" class="manifesto relative py-20 lg:py-32 bg-gradient-to-b from-gray-50 to-white overflow-hidden" aria-labelledby="manifesto-title">
   <!-- Hero Image -->
-  <figure class="manifesto__hero-image" data-animate="fade-in">
+  <figure class="manifesto__hero-image absolute inset-0 opacity-10" data-animate="fade-in">
     <img
       src="/images/bg-manifesto.jpg"
       alt="Ambiente de consulta humanizada"
       loading="eager"
+      class="w-full h-full object-cover"
     />
-    <div class="manifesto__hero-overlay"></div>
+    <div class="manifesto__hero-overlay absolute inset-0 bg-gradient-to-b from-white/80 to-white/60"></div>
   </figure>
 
   <div class="manifesto__backdrop" aria-hidden="true">
@@ -46,53 +47,81 @@ import '../styles/sections/manifesto.css';
       </g>
     </svg>
 
-    <!-- Opção 2: Vídeo (comentado - descomente para usar) -->
-    <!--
-    <video class="manifesto__video" autoplay loop muted playsinline>
-      <source src="/videos/manifesto-background.mp4" type="video/mp4">
-    </video>
-    <div class="manifesto__video-overlay"></div>
-    -->
-
     <span class="manifesto__grain"></span>
   </div>
 
-  <div class="manifesto__content container">
-    <div class="manifesto__intro">
-      <h2 id="manifesto-title" class="manifesto__title">Quando o cuidado deixa de ser automático.</h2>
-      <p class="manifesto__lead">
+  <div class="manifesto__content container relative z-10">
+    <div class="manifesto__intro max-w-4xl mx-auto text-center mb-16">
+      <h2 id="manifesto-title" class="manifesto__title text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+        Quando o cuidado deixa de ser automático.
+      </h2>
+      <p class="manifesto__lead text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">
         Sustento consultas longas, olho para padrões e reescrevo o plano junto com você. Abaixo, um resumo de como isso acontece na prática.
       </p>
     </div>
 
-    <div class="manifesto__matrix">
-      <header class="manifesto__matrix-header" aria-hidden="true">
-        <span>Quando é automático</span>
-        <span>Quando fazemos juntos</span>
+    <div class="manifesto__matrix max-w-6xl mx-auto">
+      <header class="manifesto__matrix-header grid grid-cols-2 gap-8 mb-8 text-center" aria-hidden="true">
+        <span class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Quando é automático</span>
+        <span class="text-sm font-semibold text-accent-petrol uppercase tracking-wider">Quando fazemos juntos</span>
       </header>
 
-      <div class="manifesto__row" data-row>
-        <span class="manifesto__index">01</span>
-        <p class="manifesto__col manifesto__col--soft">Protocolos prontos, pouca escuta.</p>
-        <p class="manifesto__col manifesto__col--bold">Escuta longa e leitura de padrões antes de qualquer decisão.</p>
-      </div>
+      <div class="space-y-6">
+        <div class="manifesto__row group p-6 rounded-xl bg-white/80 backdrop-blur-sm border border-gray-200 hover:border-accent-sage/30 hover:shadow-lg transition-all duration-normal" data-row>
+          <div class="flex items-start gap-6">
+            <span class="manifesto__index flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-accent-sage/20 to-accent-sage/10 flex items-center justify-center text-accent-sage font-bold text-sm">01</span>
+            <div class="grid md:grid-cols-2 gap-6 flex-1">
+              <p class="manifesto__col manifesto__col--soft text-gray-500 leading-relaxed">
+                Protocolos prontos, pouca escuta.
+              </p>
+              <p class="manifesto__col manifesto__col--bold text-gray-900 font-semibold leading-relaxed">
+                Escuta longa e leitura de padrões antes de qualquer decisão.
+              </p>
+            </div>
+          </div>
+        </div>
 
-      <div class="manifesto__row" data-row>
-        <span class="manifesto__index">02</span>
-        <p class="manifesto__col manifesto__col--soft">Consulta curta, foco na prescrição.</p>
-        <p class="manifesto__col manifesto__col--bold">Sessões de 120 minutos para cruzar história, dados e rotina.</p>
-      </div>
+        <div class="manifesto__row group p-6 rounded-xl bg-white/80 backdrop-blur-sm border border-gray-200 hover:border-accent-petrol/30 hover:shadow-lg transition-all duration-normal" data-row>
+          <div class="flex items-start gap-6">
+            <span class="manifesto__index flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-accent-petrol/20 to-accent-petrol/10 flex items-center justify-center text-accent-petrol font-bold text-sm">02</span>
+            <div class="grid md:grid-cols-2 gap-6 flex-1">
+              <p class="manifesto__col manifesto__col--soft text-gray-500 leading-relaxed">
+                Consulta curta, foco na prescrição.
+              </p>
+              <p class="manifesto__col manifesto__col--bold text-gray-900 font-semibold leading-relaxed">
+                Sessões de 120 minutos para cruzar história, dados e rotina.
+              </p>
+            </div>
+          </div>
+        </div>
 
-      <div class="manifesto__row" data-row>
-        <span class="manifesto__index">03</span>
-        <p class="manifesto__col manifesto__col--soft">Tecnologia afasta o médico.</p>
-        <p class="manifesto__col manifesto__col--bold">Uso IA apenas para organizar informação e dedicar presença total.</p>
-      </div>
+        <div class="manifesto__row group p-6 rounded-xl bg-white/80 backdrop-blur-sm border border-gray-200 hover:border-accent-gold/30 hover:shadow-lg transition-all duration-normal" data-row>
+          <div class="flex items-start gap-6">
+            <span class="manifesto__index flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-accent-gold/20 to-accent-gold/10 flex items-center justify-center text-accent-gold font-bold text-sm">03</span>
+            <div class="grid md:grid-cols-2 gap-6 flex-1">
+              <p class="manifesto__col manifesto__col--soft text-gray-500 leading-relaxed">
+                Tecnologia afasta o médico.
+              </p>
+              <p class="manifesto__col manifesto__col--bold text-gray-900 font-semibold leading-relaxed">
+                Uso IA apenas para organizar informação e dedicar presença total.
+              </p>
+            </div>
+          </div>
+        </div>
 
-      <div class="manifesto__row" data-row>
-        <span class="manifesto__index">04</span>
-        <p class="manifesto__col manifesto__col--soft">Plano rígido, sem ajustes.</p>
-        <p class="manifesto__col manifesto__col--bold">Mapa vivo com ajustes contínuos e acordos compartilhados.</p>
+        <div class="manifesto__row group p-6 rounded-xl bg-white/80 backdrop-blur-sm border border-gray-200 hover:border-accent-sage/30 hover:shadow-lg transition-all duration-normal" data-row>
+          <div class="flex items-start gap-6">
+            <span class="manifesto__index flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-accent-sage/20 to-accent-sage/10 flex items-center justify-center text-accent-sage font-bold text-sm">04</span>
+            <div class="grid md:grid-cols-2 gap-6 flex-1">
+              <p class="manifesto__col manifesto__col--soft text-gray-500 leading-relaxed">
+                Plano rígido, sem ajustes.
+              </p>
+              <p class="manifesto__col manifesto__col--bold text-gray-900 font-semibold leading-relaxed">
+                Mapa vivo com ajustes contínuos e acordos compartilhados.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

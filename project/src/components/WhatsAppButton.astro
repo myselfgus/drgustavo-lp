@@ -101,12 +101,12 @@ const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(mes
     width: 64px;
     height: 64px;
     background: white;
-    border: 2px solid theme('colors.gray.200');
+    border: 2px solid #e0e3dc;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: theme('colors.gray.900');
+    color: #2a2c27;
     box-shadow: 0 8px 24px rgba(0,0,0,0.12);
     z-index: 999;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -128,7 +128,7 @@ const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(mes
     right: 0;
     transform: translate(calc(100% + 16px), -50%);
     background: white;
-    color: theme('colors.gray.900');
+    color: #2a2c27;
     padding: 10px 16px;
     font-size: 14px;
     font-weight: 600;
@@ -138,13 +138,13 @@ const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(mes
     pointer-events: none;
     transition: opacity 0.3s ease;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-    border: 1px solid theme('colors.gray.200');
+    border: 1px solid #e0e3dc;
   }
   
   .whatsapp-button:hover {
     transform: translateY(-6px) scale(1.08);
     box-shadow: 0 12px 32px rgba(125, 168, 123, 0.25), 0 0 0 4px rgba(125, 168, 123, 0.1);
-    border-color: theme('colors.accent.sage');
+    border-color: #7da87b;
   }
 
   .whatsapp-button:hover .tooltip {
